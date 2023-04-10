@@ -2,6 +2,29 @@
   "name": "react-scroll-snap-anime-slider",
   "version": "1.0.0",
   "private": true,
+  "description": "A simple slider using css style scroll-snap.",
+  "main": "dist/index.js",
+  "module": "dist/module.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "react",
+    "carousel",
+    "scroll snapping",
+    "scroll snap",
+    "scroll",
+    "slider",
+    "react slider",
+    "animejs",
+    "mobile slider",
+    "desktop slider",
+    "anime slider"
+  ],
+  "author": "karanokara <karawakara@gmail.com> (https://github.com/karanokara)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karanokara/react-scroll-snap-anime-slider.git"
+  },
   "dependencies": {
     "animejs": "^3.2.1"
   },
@@ -23,23 +46,5 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }
