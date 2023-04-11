@@ -1,11 +1,12 @@
 {
   "name": "react-scroll-snap-anime-slider",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "description": "A simple slider using css style scroll-snap.",
+  "source": "src/lib/index.ts",
   "main": "dist/index.js",
-  "module": "dist/module.js",
-  "types": "dist/index.d.ts",
+  "module": "dist/index.module.js",
+  "types": "dist/types.d.ts",
   "keywords": [
     "react",
     "carousel",
@@ -29,6 +30,8 @@
     "animejs": "^3.2.1"
   },
   "devDependencies": {
+    "@parcel/packager-raw-url": "^2.8.3",
+    "@parcel/transformer-webmanifest": "^2.8.3",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -36,6 +39,8 @@
     "@types/node": "^16.18.23",
     "@types/react": "^18.0.34",
     "@types/react-dom": "^18.0.11",
+    "parcel": "^2.8.3",
+    "process": "^0.11.10",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-scripts": "5.0.1",
@@ -45,6 +50,20 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "parcel-build": "parcel build",
+    "dev": "parcel demo/src/index.html --dist-dir demo/dist --port 5001 --open"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

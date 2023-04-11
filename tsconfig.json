@@ -21,7 +21,7 @@
     "noEmit": true,
     "declaration": true,
     "sourceMap": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "strictNullChecks": true,
     "removeComments": true,
     "jsx": "react-jsx"
@@ -31,6 +31,7 @@
   ],
   "include": [
     "src",
+    "demo/src",
     "index.d.ts"
   ]
 }

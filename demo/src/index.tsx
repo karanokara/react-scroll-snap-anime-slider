@@ -1,10 +1,14 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import "./style/App.css";
+import logo from "./asset/logo.svg";
+import './style/index.css';
 
-export default function Basic() {
+function App() {
     return (
         <div className="App">
             <header className="App-header">
-                {/* <img src={logo} className="App-logo" alt="logo" /> */}
+                <img src={logo} className="App-logo" alt="logo" />
                 <p>
                     Edit <code>src/App.tsx</code> and save to reload.
                 </p>
@@ -14,10 +18,18 @@ export default function Basic() {
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Learn React
+                    Learn Reactffffffffff
                 </a>
             </header>
         </div>
     );
 }
+
+
+ReactDOM.render(
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>,
+    document.getElementById('root')
+);
 
