@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { SliderProps as IProps } from "../types";
+import anime from "animejs";
 
 interface IState {
 }
@@ -12,6 +13,11 @@ export default class Slider extends Component<IProps, IState> {
         this.state = {
 
         };
+    }
+
+    setAnime() {
+        console.log(anime.version);
+
     }
 
     render() {

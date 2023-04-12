@@ -24,15 +24,17 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "removeComments": true,
-    "jsx": "react-jsx"
+    "jsx": "react"
+    // "react", this will use React.createElement()
+    // "react-jsx", this will use _jsx("div", { children: "text..." })
   },
   "exclude": [
     "node_modules"
   ],
   "include": [
-    "src",
-    "demo/src",
-    "index.d.ts",
-    "tests/App.test.tsx"
+    "./src/**/*",
+    "./demo/src/**/*",
+    "./index.d.ts",
+    "./tests/**/*"
   ]
 }
