@@ -3,6 +3,13 @@ import ReactDOM from 'react-dom';
 import "./style/App.css";
 import logo from "./asset/logo.svg";
 import './style/index.css';
+import { Slider, } from "../../src";
+
+function CustomizedSlider() {
+    return (
+        <Slider />
+    );
+}
 
 function App() {
     return (
@@ -20,6 +27,7 @@ function App() {
                 >
                     Learn Reactffffffffff
                 </a>
+                <CustomizedSlider />
             </header>
         </div>
     );

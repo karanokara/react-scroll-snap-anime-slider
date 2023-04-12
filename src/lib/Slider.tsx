@@ -15,6 +15,6 @@ export default class Slider extends Component<IProps, IState> {
     }
 
     render() {
-        return <div></div>;
+        return <div>slider</div>;
     }
 }

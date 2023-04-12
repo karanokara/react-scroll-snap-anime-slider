@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": false,
   "description": "A simple slider using css style scroll-snap.",
-  "source": "src/lib/index.ts",
+  "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/index.module.js",
   "types": "dist/types.d.ts",
@@ -45,6 +45,10 @@
     "react-dom": "^16.14.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5"
+  },
+  "peerDependencies": {
+    "react": ">=16.8",
+    "react-dom": ">=16.8"
   },
   "scripts": {
     "start": "react-scripts start",
