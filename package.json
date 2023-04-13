@@ -30,7 +30,9 @@
     "animejs": "^3.2.1"
   },
   "devDependencies": {
+    "@parcel/packager-raw-url": "^2.8.3",
     "@parcel/transformer-typescript-types": "^2.8.3",
+    "@parcel/transformer-webmanifest": "^2.8.3",
     "@rollup/plugin-commonjs": "^24.1.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
     "@rollup/plugin-typescript": "^11.1.0",
@@ -46,7 +48,6 @@
     "process": "^0.11.10",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-scripts": "5.0.1",
     "rollup": "^3.20.2",
     "typescript": "^4.9.5"
   },
@@ -55,13 +56,8 @@
     "react-dom": ">=16.8"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "parcel-build": "rm -rf ./dist && parcel build",
-    "rollup-build": "rm -rf ./dist && rollup -c",
-    "dev": "parcel demo/src/index.html --dist-dir demo/dist --port 5001 --open"
+    "build": "rm -rf ./dist && rollup -c",
+    "start": "parcel demo/src/index.html --dist-dir demo/dist --port 5001 --open"
   },
   "browserslist": {
     "production": [
