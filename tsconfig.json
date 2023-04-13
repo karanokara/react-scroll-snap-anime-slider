@@ -20,6 +20,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "declaration": true,
+    // "declarationDir": "types",
+    // Where to place the .d.ts files
     "sourceMap": true,
     "noImplicitAny": true,
     "strictNullChecks": true,

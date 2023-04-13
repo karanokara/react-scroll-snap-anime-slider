@@ -1,5 +1,5 @@
-export { default as Slider } from "./lib/Slider";
-export { default as Slide } from "./lib/Slide";
+export { Slider } from "./lib/Slider";
+export { Slide } from "./lib/Slide";
 
 // utility
 export * from "./lib/Utility";

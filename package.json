@@ -6,12 +6,7 @@
   "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/index.module.js",
-  "types": "dist/types.d.ts",
-  "targets": {
-    "main": {
-      "includeNodeModules": false
-    }
-  },
+  "types": "dist/index.d.ts",
   "keywords": [
     "react",
     "carousel",
@@ -35,9 +30,10 @@
     "animejs": "^3.2.1"
   },
   "devDependencies": {
-    "@parcel/packager-raw-url": "^2.8.3",
     "@parcel/transformer-typescript-types": "^2.8.3",
-    "@parcel/transformer-webmanifest": "^2.8.3",
+    "@rollup/plugin-commonjs": "^24.1.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-typescript": "^11.1.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -51,6 +47,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-scripts": "5.0.1",
+    "rollup": "^3.20.2",
     "typescript": "^4.9.5"
   },
   "peerDependencies": {
@@ -62,8 +59,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "parcel-build": "parcel build",
-    "rollup-build": "rollup -c",
+    "parcel-build": "rm -rf ./dist && parcel build",
+    "rollup-build": "rm -rf ./dist && rollup -c",
     "dev": "parcel demo/src/index.html --dist-dir demo/dist --port 5001 --open"
   },
   "browserslist": {

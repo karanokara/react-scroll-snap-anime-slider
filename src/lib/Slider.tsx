@@ -5,7 +5,7 @@ import anime from "animejs";
 interface IState {
 }
 
-export default class Slider extends Component<IProps, IState> {
+export class Slider extends Component<IProps, IState> {
 
     constructor(prop: IProps) {
         super(prop);

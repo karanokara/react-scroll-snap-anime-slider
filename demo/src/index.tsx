@@ -5,6 +5,9 @@ import logo from "./asset/logo.svg";
 import './style/index.css';
 import { Slider, } from "../../src";
 
+import { add } from "../../dist";
+
+
 function CustomizedSlider() {
     return (
         <Slider />
