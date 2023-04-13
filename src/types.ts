@@ -1,9 +1,8 @@
 
-export interface SlideProps {
 
-}
 
-export interface SliderProps {
+export interface IProps {
     className?: string,
     children?: React.ReactNode;
+
 }

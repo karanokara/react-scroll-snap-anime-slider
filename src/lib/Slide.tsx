@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { SlideProps as IProps } from "../types";
+import { IProps as P } from "../types";
+
+export interface IProps extends P {
+
+}
 
 interface IState {
 }

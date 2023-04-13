@@ -7,6 +7,7 @@
   "main": "dist/index.js",
   "module": "dist/index.module.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "keywords": [
     "react",
     "carousel",
@@ -35,6 +36,7 @@
     "@parcel/transformer-webmanifest": "^2.8.3",
     "@rollup/plugin-commonjs": "^24.1.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-terser": "^0.4.1",
     "@rollup/plugin-typescript": "^11.1.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^9.5.0",
@@ -49,6 +51,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "rollup": "^3.20.2",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
     "typescript": "^4.9.5"
   },
   "peerDependencies": {
