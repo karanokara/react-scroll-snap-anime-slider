@@ -9,11 +9,12 @@ import packageJson from "./package.json" assert { type: 'json' };
 
 /**
  * Using rollup: ES module bundler
- * run with -config: rollup -c
+ * - add "type": "module" to package.json for this file to work in ES style
+ * - run with -config: rollup -c
  */
 export default [
     {
-        input: "src/index.ts",
+        input: packageJson.source,
         output: [
             // compile to those file formats
             {

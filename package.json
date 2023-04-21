@@ -16,19 +16,16 @@
     "scroll",
     "slider",
     "react slider",
-    "animejs",
-    "mobile slider",
-    "desktop slider",
-    "anime slider"
+    "popmotion",
+    "inertia slider",
+    "anime slider",
+    "animate slider"
   ],
   "author": "karanokara <karawakara@gmail.com> (https://github.com/karanokara)",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/karanokara/react-scroll-snap-anime-slider.git"
-  },
-  "dependencies": {
-    "animejs": "^3.2.1"
   },
   "devDependencies": {
     "@parcel/packager-raw-url": "^2.8.3",
@@ -73,5 +70,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "popmotion": "^8.7.1"
   }
 }
