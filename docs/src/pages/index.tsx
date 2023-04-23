@@ -9,16 +9,18 @@ import styles from './index.module.css';
 function HomepageHeader() {
     const { siteConfig } = useDocusaurusContext();
     return (
-        <header className={clsx('hero hero--primary', styles.heroBanner)}>
+        <header className={clsx('hero', styles.heroBanner)}>
             <div className="container">
                 <h1 className="hero__title">{siteConfig.title}</h1>
-                <p className="hero__subtitle">{siteConfig.tagline}</p>
+                <h5 className="hero__subtitle">
+                    A simple slider with some animate effects using <a className="" style={{ color: "#FA196C", fontStyle: "italic" }} href="https://popmotion.io/">Popmotion</a>
+                </h5>
                 <div className={styles.buttons}>
-                    <Link
+                    {/* <Link
                         className="button button--secondary button--lg"
                         to="/docs/intro">
                         Docusaurus Tutorial - 5minfffffff ⏱️
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
         </header>

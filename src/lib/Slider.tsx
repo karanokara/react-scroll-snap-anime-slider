@@ -52,22 +52,25 @@ export class Slider extends Component<IProps, IState> {
 
     render() {
         return (
-            <div className="slider" >
-                <div
-                    className="slider-tray css-only"
-                    onScroll={this.onScroll}
-                    ref={this.sliderTrayRef}
-                >
-                    {this.props.children}
+            <div className="react-scroll-snap-anime-slider">
+
+                <div className="slider" >
+                    <div
+                        className="slider-tray css-only"
+                        onScroll={this.onScroll}
+                        ref={this.sliderTrayRef}
+                    >
+                        {this.props.children}
+
+                    </div>
+                    <button className="slider-button slider-left-button" onClick={this.onLeftArrowClick}>
+                        &lt;
+                    </button>
+                    <button className="slider-button slider-right-button" onClick={this.onRightArrowClick}>
+                        &gt;
+                    </button>
 
                 </div>
-                <button className="slider-button slider-left-button" onClick={this.onLeftArrowClick}>
-                    &lt;
-                </button>
-                <button className="slider-button slider-right-button" onClick={this.onRightArrowClick}>
-                    &gt;
-                </button>
-
             </div>
         );
     }

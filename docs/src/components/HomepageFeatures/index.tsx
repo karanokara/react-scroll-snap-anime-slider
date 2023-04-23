@@ -6,67 +6,52 @@ import { Slide, Slider } from "../../../../src";
 type FeatureItem = {
     title: string;
     Svg: React.ComponentType<React.ComponentProps<'svg'>>;
-    description: JSX.Element;
 };
 
 const FeatureList: FeatureItem[] = [
     {
         title: '111111111',
         Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-        description: (
-            <>
-                111
-            </>
-        ),
+
     },
     {
         title: '22222222',
         Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
-        description: (
-            <>
-                222
-            </>
-        ),
+
     },
     {
         title: '333333333',
         Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-        description: (
-            <>
-                333
-            </>
-        ),
+
     },
     {
         title: '444444444',
-        Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
-        description: (
-            <>
-                444
-            </>
-        ),
+        Svg: require('@site/static/img/undraw_algolia.svg').default,
+
     },
     {
         title: '555555555',
-        Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-        description: (
-            <>
-                555
-            </>
-        ),
+        Svg: require('@site/static/img/undraw_react.svg').default,
+
     },
     {
         title: '66666666',
-        Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
-        description: (
-            <>
-                666
-            </>
-        ),
+        Svg: require('@site/static/img/undraw_version_control.svg').default,
+
+    },
+    {
+        title: '77777777',
+        Svg: require('@site/static/img/undraw_typewriter.svg').default,
+
+    },
+    {
+        title: '8888888888',
+        Svg: require('@site/static/img/undraw_world.svg').default,
+
     },
 ];
 
-function Feature({ title, Svg, description }: FeatureItem) {
+function Feature({ title, Svg, }: FeatureItem) {
     return (
         <div
         // className={clsx('col col--4')}
@@ -76,7 +61,6 @@ function Feature({ title, Svg, description }: FeatureItem) {
             </div>
             <div className="text--center padding-horiz--md">
                 <h3>{title}</h3>
-                <p>{description}</p>
             </div>
         </div>
     );

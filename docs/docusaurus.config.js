@@ -10,7 +10,6 @@ const githubRepo = "https://github.com/" + project;
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "React Scroll Snap Anime Slider",
-  tagline: "Dinosaurs are cool",
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
@@ -99,14 +98,14 @@ const config = {
                 label: "Blog",
                 href: "https://blog.karanokara.cc",
               },
-              {
-                label: "GitHub",
-                href: "https://github.com/karanokara",
-              },
+              // {
+              //   label: "GitHub",
+              //   href: "https://github.com/karanokara",
+              // },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} React Scroll Snap Anime Slider, By KaraNoKara`,
+        copyright: `Copyright © ${new Date().getFullYear()} KaraNoKara, Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
