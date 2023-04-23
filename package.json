@@ -7,7 +7,6 @@
   "main": "dist/index.js",
   "module": "dist/index.module.js",
   "types": "dist/index.d.ts",
-  "type": "module",
   "keywords": [
     "react",
     "carousel",
@@ -72,6 +71,7 @@
     ]
   },
   "dependencies": {
-    "popmotion": "^8.7.1"
+    "popmotion": "^8.7.1",
+    "rollup-plugin-import-css": "^3.2.1"
   }
 }

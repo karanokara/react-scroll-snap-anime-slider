@@ -1,7 +1,7 @@
 import React, { Component, useRef } from 'react';
 import { IProps as P, TweenStartedAction } from "../types";
 import { tween, inertia, ColdSubscription } from "popmotion";
-import './Slider.css';
+import '../css/Slider.css';
 
 
 

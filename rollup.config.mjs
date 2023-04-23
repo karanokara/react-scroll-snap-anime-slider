@@ -3,6 +3,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import terser from '@rollup/plugin-terser';
 import external from "rollup-plugin-peer-deps-external";
+import css from "rollup-plugin-import-css";
 // import json from '@rollup/plugin-json';
 // import dts from "rollup-plugin-dts";
 import packageJson from "./package.json" assert { type: 'json' };
@@ -10,6 +11,7 @@ import packageJson from "./package.json" assert { type: 'json' };
 /**
  * Using rollup: ES module bundler
  * - add "type": "module" to package.json for this file to work in ES style
+ *      - or change extension to .mjs
  * - run with -config: rollup -c
  */
 export default [
@@ -49,7 +51,7 @@ export default [
         ],
 
         // indicate which modules should be treated as external
-        external: ['animejs'],
+        external: ['popmotion'],
 
         plugins: [
             // bring external modules source code to the output, not necessary for this library 
@@ -62,6 +64,7 @@ export default [
 
             terser(),       // minify output
 
+            css(),
             // automatically add a library's peerDependencies to its bundle's external config
             external(),
 
