@@ -19,6 +19,10 @@ export class Slide extends Component<IProps, IState> {
     }
 
     render() {
-        return <div>slide</div>;
+        return (
+            <div className="slide">
+                {this.props.children}
+            </div>
+        );
     }
 }

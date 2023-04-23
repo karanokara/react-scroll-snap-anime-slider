@@ -1,0 +1,43 @@
+.slider {
+    position: relative;
+}
+
+.slider-tray.css-only {
+    display: flex;
+    overflow-x: auto;
+
+    // scrolling behavior for a scrolling box
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+
+    // prevents scroll chaining (not scroll the parent container when hit boundary)
+    // but preserve overscroll affordances like "bounce" effects when scrolling past the end of the container in operating systems that support it.
+    // useful on vertical slider, not for horizontal slider
+    // overscroll-behavior: [ contain | none | auto ]{1,2};
+    // overscroll-behavior: contain; // default is auto
+
+    // proximity tells the browser to go to a snap position if a scrolling action gets pretty close to a snap position
+    // scroll-snap-type: none | [ x | y | block | inline | both ] [ mandatory | proximity ]
+    scroll-snap-type: x mandatory;
+
+    // set padding on container for elements have the same spacing requirements
+    // scroll-padding: 2rem;
+    // padding: 2rem;   // set padding to the same as scroll-padding to align up
+}
+
+.slider-tray.css-only .slide {
+    flex-shrink: 0;
+
+    // tells the browser which part of an element should be aligned when a snap point is encountered
+    // scroll-snap-align: [ none | start | end | center ]{1,2}
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+
+    // used to adjust an element’s snap area
+    // scroll-margin: 20px;
+}
+
+.slider-tray.css-only .slide.snap-stop {
+    // tell the browser that it must stop on a particular element
+    scroll-snap-stop: always;
+}
