@@ -36,6 +36,9 @@ export default function Home(): JSX.Element {
             // Description will go into a meta tag in <head />
             description="A Simple React Anime Slider">
             <HomepageHeader />
+
+            <hr />
+
             <main>
                 <HomepageFeatures />
             </main>
