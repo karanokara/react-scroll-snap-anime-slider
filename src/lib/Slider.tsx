@@ -1,8 +1,8 @@
 import React, { Component, useRef } from 'react';
 import { ISliderShareProps as P, TweenStartedAction } from "./Types";
 import { tween, inertia, ColdSubscription } from "popmotion";
+import { SliderContext, DefaultSliderShareProps } from "./SliderContext";
 import "../css/style.scss";
-
 
 export interface IProps extends P {
 
@@ -10,11 +10,6 @@ export interface IProps extends P {
      * Total slides in this slider
      */
     totalSlides: number;
-
-    /**
-     * How many visible slides 
-     */
-    visibleSlides: number;
 
     /**
      * How mange slides per step (when click next button) 
@@ -32,11 +27,11 @@ interface IState {
 
 export class Slider extends Component<IProps, IState> {
 
-    public static defaultProps: Pick<IProps, "slideHeight" | "slideWidth" | "currentSlide">
+    public static defaultProps: Pick<IProps,
+        keyof (typeof DefaultSliderShareProps) | "currentSlide">
         = {
+            ...DefaultSliderShareProps,
             currentSlide: 0,
-            slideHeight: 1,
-            slideWidth: 1,
         };
 
     public sliderTrayRef = React.createRef<HTMLDivElement>();
@@ -77,6 +72,13 @@ export class Slider extends Component<IProps, IState> {
     }
 
     render() {
+        const {
+            slideHeight,
+            slideWidth,
+            visibleSlides,
+        } = this.props;
+
+
         return (
             <div className="react-scroll-snap-anime-slider">
 
@@ -86,15 +88,14 @@ export class Slider extends Component<IProps, IState> {
                         onScroll={this.onScroll}
                         ref={this.sliderTrayRef}
                     >
-                        {this.props.children}
-
+                        <SliderContext.Provider value={{ visibleSlides, slideHeight, slideWidth }}>
+                            {this.props.children}
+                        </SliderContext.Provider>
                     </div>
-                    <button className="slider-button slider-left-button" onClick={this.onLeftArrowClick}>
-                        &lt;
-                    </button>
-                    <button className="slider-button slider-right-button" onClick={this.onRightArrowClick}>
-                        &gt;
-                    </button>
+
+                    <button className="slider-button slider-left-button" onClick={this.onLeftArrowClick}>&lt;</button>
+
+                    <button className="slider-button slider-right-button" onClick={this.onRightArrowClick}>&gt;</button>
 
                 </div>
             </div>
