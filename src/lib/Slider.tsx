@@ -1,5 +1,5 @@
 import React, { Component, useRef } from 'react';
-import { ISliderShareProps as P, TweenStartedAction } from "./TTT";
+import { ISliderShareProps as P, TweenStartedAction } from "./Types";
 import { tween, inertia, ColdSubscription } from "popmotion";
 import "../css/style.scss";
 

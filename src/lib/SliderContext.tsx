@@ -1,5 +1,5 @@
 import React from 'react';
-import { ISliderShareProps } from "./TTT";
+import { ISliderShareProps } from "./Types";
 
 export const DefaultSliderShareProps: ISliderShareProps = {
     slideHeight: 1,

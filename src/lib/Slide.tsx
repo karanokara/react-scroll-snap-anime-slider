@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ISliderShareProps as P } from "./TTT";
+import { ISliderShareProps as P } from "./Types";
 
 export interface IProps extends P {
 

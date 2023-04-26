@@ -29,3 +29,4 @@ export interface TweenStartedAction extends ColdSubscription {
     seek: (progress: number) => TweenStartedAction;
     reverse: () => TweenStartedAction;
 };
+

@@ -7,4 +7,4 @@ export type { IProps as SlideProps } from "./lib/Slide";
 export * from "./lib/Utility";
 
 // types
-export * from "./lib/TTT";
+export * from "./lib/Types";
