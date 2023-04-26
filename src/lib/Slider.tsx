@@ -1,7 +1,7 @@
 import React, { Component, useRef } from 'react';
-import { ISliderShareProps as P, TweenStartedAction } from "./Types";
+import { ISliderDefaultProps as P, TweenStartedAction } from "./Types";
 import { tween, inertia, ColdSubscription } from "popmotion";
-import { SliderContext, DefaultSliderShareProps } from "./SliderContext";
+import { SliderContext, DefaultSliderProps } from "./SliderContext";
 import "../css/style.scss";
 
 export interface IProps extends P {
@@ -20,6 +20,8 @@ export interface IProps extends P {
      * Current slide index (from 0)
      */
     currentSlide: number;
+
+
 }
 
 interface IState {
@@ -28,9 +30,9 @@ interface IState {
 export class Slider extends Component<IProps, IState> {
 
     public static defaultProps: Pick<IProps,
-        keyof (typeof DefaultSliderShareProps) | "currentSlide">
+        keyof (typeof DefaultSliderProps) | "currentSlide">
         = {
-            ...DefaultSliderShareProps,
+            ...DefaultSliderProps,
             currentSlide: 0,
         };
 

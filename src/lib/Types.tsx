@@ -5,21 +5,29 @@ export interface IProps {
     children?: React.ReactNode;
 }
 
-export interface ISliderShareProps extends IProps {
+// props of slider with default value
+export interface ISliderDefaultProps extends IProps {
     /**
-    * Slide dimension by comparing width and height,
-    *  such as width:height = 16:9 
-    */
+     * Slide dimension by comparing width and height,
+     *  such as width:height = 16:9 
+     * -----------------------
+     * Default: 1
+     */
     slideWidth: number | "auto";
 
     /**
      * Slide dimension by comparing width and height,
      *  such as width:height = 16:9 
+     * -----------------------
+     * Default: 1
      */
     slideHeight: number | "auto";
 
     /**
      * How many visible slides 
+     * 
+     * -----------------------
+     * Default: 1
      */
     visibleSlides: number;
 }
@@ -34,3 +42,4 @@ export interface TweenStartedAction extends ColdSubscription {
     seek: (progress: number) => TweenStartedAction;
     reverse: () => TweenStartedAction;
 }
+

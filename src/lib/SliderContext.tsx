@@ -1,11 +1,11 @@
 import React from 'react';
-import { ISliderShareProps } from "./Types";
+import { ISliderDefaultProps } from "./Types";
 
-export const DefaultSliderShareProps: ISliderShareProps = {
+export const DefaultSliderProps: ISliderDefaultProps = {
     slideHeight: 1,
     slideWidth: 1,
     visibleSlides: 1,
 };
 
-export const SliderContext = React.createContext<ISliderShareProps>(DefaultSliderShareProps);
+export const SliderContext = React.createContext<ISliderDefaultProps>(DefaultSliderProps);
 

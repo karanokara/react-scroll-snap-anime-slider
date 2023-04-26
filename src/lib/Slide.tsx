@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ISliderShareProps as P } from "./Types";
-import { SliderContext, DefaultSliderShareProps } from "./SliderContext";
+import { ISliderDefaultProps as P } from "./Types";
+import { SliderContext, DefaultSliderProps } from "./SliderContext";
 
 export interface IProps extends P {
 
@@ -12,9 +12,9 @@ interface IState {
 export class Slide extends Component<IProps, IState> {
 
     public static defaultProps: Pick<IProps,
-        keyof (typeof DefaultSliderShareProps)>
+        keyof (typeof DefaultSliderProps)>
         = {
-            ...DefaultSliderShareProps,
+            ...DefaultSliderProps,
         };
 
     // passing props from slider to each slide
