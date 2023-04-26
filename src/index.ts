@@ -1,5 +1,5 @@
 export { Slider } from "./lib/Slider";
-export type { IProps as SliderProps } from "./lib/Slider";
+export type { IProps as ISliderProps } from "./lib/Slider";
 export { Slide } from "./lib/Slide";
 export type { IProps as SlideProps } from "./lib/Slide";
 
@@ -7,4 +7,4 @@ export type { IProps as SlideProps } from "./lib/Slide";
 export * from "./lib/Utility";
 
 // types
-export * from "./types";
+export * from "./lib/TTT";

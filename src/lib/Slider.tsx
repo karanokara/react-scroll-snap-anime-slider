@@ -1,12 +1,30 @@
 import React, { Component, useRef } from 'react';
-import { IProps as P, TweenStartedAction } from "../types";
+import { ISliderShareProps as P, TweenStartedAction } from "./TTT";
 import { tween, inertia, ColdSubscription } from "popmotion";
 import "../css/style.scss";
 
 
 export interface IProps extends P {
-    className?: string,
-    children?: React.ReactNode;
+
+    /**
+     * Total slides in this slider
+     */
+    totalSlides: number;
+
+    /**
+     * How many visible slides 
+     */
+    visibleSlides: number;
+
+    /**
+     * How mange slides per step (when click next button) 
+     */
+    slidesPerStep: number;
+
+    /**
+     * Current slide index (from 0)
+     */
+    currentSlide: number;
 }
 
 interface IState {
@@ -14,7 +32,15 @@ interface IState {
 
 export class Slider extends Component<IProps, IState> {
 
+    public static defaultProps: Pick<IProps, "slideHeight" | "slideWidth" | "currentSlide">
+        = {
+            currentSlide: 0,
+            slideHeight: 1,
+            slideWidth: 1,
+        };
+
     public sliderTrayRef = React.createRef<HTMLDivElement>();
+
 
     constructor(prop: IProps) {
         super(prop);

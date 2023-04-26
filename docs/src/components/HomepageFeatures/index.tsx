@@ -97,7 +97,11 @@ export default function HomepageFeatures(): JSX.Element {
         <section className={styles.features}>
             <div className="container">
 
-                <Slider >
+                <Slider
+                    totalSlides={slides.length}
+                    visibleSlides={3}
+                    slidesPerStep={3}
+                >
                     {slides.map((props, idx) => (
                         <Slide key={idx}>
                             <Feature  {...props} />
