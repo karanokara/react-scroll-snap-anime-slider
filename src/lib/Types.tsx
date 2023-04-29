@@ -8,23 +8,23 @@ export interface IProps {
 // props of slider with default value
 export interface ISliderDefaultProps extends IProps {
     /**
-     * Slide dimension by comparing width and height,
+     * Use to calculate slide's height in dimension,
      *  such as width:height = 16:9 
      * -----------------------
-     * Default: 1
+     * Default: 0, auto height
      */
-    slideWidth: number | "auto";
+    slideWidth: number;
 
     /**
-     * Slide dimension by comparing width and height,
+     * Use to calculate slide's height in dimension,
      *  such as width:height = 16:9 
      * -----------------------
-     * Default: 1
+     * Default: 0, auto height
      */
-    slideHeight: number | "auto";
+    slideHeight: number;
 
     /**
-     * How many visible slides 
+     * How many visible slides (N), slide width = 100% / N
      * 
      * -----------------------
      * Default: 1
@@ -42,4 +42,8 @@ export interface TweenStartedAction extends ColdSubscription {
     seek: (progress: number) => TweenStartedAction;
     reverse: () => TweenStartedAction;
 }
+
+
+
+
 

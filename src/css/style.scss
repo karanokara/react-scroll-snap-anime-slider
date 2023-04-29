@@ -37,6 +37,18 @@
 
                 // used to adjust an element’s snap area
                 // scroll-margin: 20px;
+
+                .slide-inner {
+                    position: relative;
+
+                    .slide-inner-inner {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        left: 0;
+                        top: 0;
+                    }
+                }
             }
 
             .slide.snap-stop {

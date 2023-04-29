@@ -90,6 +90,7 @@ export class Slider extends Component<IProps, IState> {
                         onScroll={this.onScroll}
                         ref={this.sliderTrayRef}
                     >
+                        {/* Context uses reference identity to determine when to re-render, this will cause consumer to re-render every time */}
                         <SliderContext.Provider value={{ visibleSlides, slideHeight, slideWidth }}>
                             {this.props.children}
                         </SliderContext.Provider>

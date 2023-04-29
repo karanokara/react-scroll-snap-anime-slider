@@ -55,7 +55,7 @@ export default function HomepageFeatures(): JSX.Element {
                     visibleSlides={3}
                     slidesPerStep={3}
                     slideHeight={1}
-                    slideWidth={0.6}
+                    slideWidth={0.8}
                 >
                     {slides.map((props, idx) => (
                         <Slide

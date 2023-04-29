@@ -2,8 +2,8 @@ import React from 'react';
 import { ISliderDefaultProps } from "./Types";
 
 export const DefaultSliderProps: ISliderDefaultProps = {
-    slideHeight: 1,
-    slideWidth: 1,
+    slideHeight: 0,
+    slideWidth: 0,
     visibleSlides: 1,
 };
 
