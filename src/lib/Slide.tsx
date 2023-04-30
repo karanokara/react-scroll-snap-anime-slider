@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ISliderDefaultProps as P } from "./Types";
+import { cn } from "./Utility";
 import { SliderContext, DefaultSliderProps } from "./SliderContext";
 
 export interface IProps extends P {
@@ -48,6 +49,7 @@ export class Slide extends Component<IProps, IState> {
         let innerSlideStyle: React.CSSProperties = {
             paddingBottom: paddingBottomPercent > 0 ? paddingBottomPercent + "%" : "",
         };
+        let innerInnerClass = paddingBottomPercent > 0 ? "fixed-size" : "";
 
         return (
             <div
@@ -58,7 +60,7 @@ export class Slide extends Component<IProps, IState> {
                     className="slide-inner"
                     style={innerSlideStyle}
                 >
-                    <div className="slide-inner-inner">
+                    <div className={cn("slide-inner-inner", innerInnerClass)}>
 
                         {/* <div>Context: {JSON.stringify(this.context)}</div> */}
                         {this.props.children}

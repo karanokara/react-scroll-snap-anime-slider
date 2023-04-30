@@ -31,30 +31,34 @@ const config = {
   // to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: "en",
-    locales: ["en", "jp"],
+    locales: [
+      "en",
+      //  "jp"
+    ],
   },
 
   plugins: ['docusaurus-plugin-sass'],
 
   presets: [
     [
-      "classic",
+      "@docusaurus/preset-classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
+          // sidebarCollapsible: true,
+
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+          // editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
-        },
+        // blog: {
+        //   showReadingTime: true,
+        //   // Please change this to your repo.
+        //   // Remove this to remove the "edit this page" links.
+        //   editUrl:
+        //     "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+        // },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
@@ -68,6 +72,7 @@ const config = {
       // Replace with your project's social card
       image: "img/docusaurus-social-card.jpg",
       navbar: {
+        hideOnScroll: true,
         title: "React Scroll Snap Anime Slider",
         logo: {
           alt: "My Site Logo",
@@ -75,6 +80,8 @@ const config = {
         },
         items: [
           {
+            // type: 'doc',
+            // docId: "doc",
             type: "docSidebar",
             sidebarId: "tutorialSidebar",
             position: "left",
@@ -82,9 +89,26 @@ const config = {
           },
           // { to: "/blog", label: "Blog", position: "left" },
           {
+            type: 'localeDropdown',
+            position: 'right',
+            // dropdownItemsAfter: [
+            //   {
+            //     type: 'html',
+            //     value: '<hr style="margin: 0.3rem 0;">',
+            //   },
+            //   {
+            //     href: 'https://github.com/facebook/docusaurus/issues/3526',
+            //     label: 'Help Us Translate',
+            //   },
+            // ],
+          },
+          {
             href: githubRepo,
-            label: "GitHub",
+            // label: "GitHub",
             position: "right",
+            className: 'header-github-link',
+            'aria-label': 'GitHub repository',
+
           },
         ],
       },

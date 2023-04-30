@@ -8,20 +8,7 @@
         .slider-tray.css-only {
             display: flex;
             overflow-x: auto;
-
-            // scrolling behavior for a scrolling box
-            scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
-
-            // prevents scroll chaining (not scroll the parent container when hit boundary)
-            // but preserve overscroll affordances like "bounce" effects when scrolling past the end of the container in operating systems that support it.
-            // useful on vertical slider, not for horizontal slider
-            // overscroll-behavior: [ contain | none | auto ]{1,2};
-            // overscroll-behavior: contain; // default is auto
-
-            // proximity tells the browser to go to a snap position if a scrolling action gets pretty close to a snap position
-            // scroll-snap-type: none | [ x | y | block | inline | both ] [ mandatory | proximity ]
-            scroll-snap-type: x mandatory;
 
             // set padding on container for elements have the same spacing requirements
             // scroll-padding: 2rem;
@@ -41,7 +28,7 @@
                 .slide-inner {
                     position: relative;
 
-                    .slide-inner-inner {
+                    .slide-inner-inner.fixed-size {
                         position: absolute;
                         width: 100%;
                         height: 100%;
@@ -55,6 +42,21 @@
                 // tell the browser that it must stop on a particular element
                 scroll-snap-stop: always;
             }
+        }
+
+        .slider-tray.css-only.scroll-snap {
+            // scrolling behavior for a scrolling box
+            // scroll-behavior: smooth;
+
+            // prevents scroll chaining (not scroll the parent container when hit boundary)
+            // but preserve overscroll affordances like "bounce" effects when scrolling past the end of the container in operating systems that support it.
+            // useful on vertical slider, not for horizontal slider
+            // overscroll-behavior: [ contain | none | auto ]{1,2};
+            // overscroll-behavior: contain; // default is auto
+
+            // proximity tells the browser to go to a snap position if a scrolling action gets pretty close to a snap position
+            // scroll-snap-type: none | [ x | y | block | inline | both ] [ mandatory | proximity ]
+            // scroll-snap-type: x mandatory;
         }
     }
 }

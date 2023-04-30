@@ -44,6 +44,6 @@ export interface TweenStartedAction extends ColdSubscription {
 }
 
 
-
+export type PointerValue = { x: number, y: number; };
 
 

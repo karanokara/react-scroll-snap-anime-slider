@@ -1,7 +1,9 @@
 import React, { Component, useRef } from 'react';
-import { ISliderDefaultProps as P, TweenStartedAction } from "./Types";
-import { tween, inertia, ColdSubscription } from "popmotion";
+import { ISliderDefaultProps as P, PointerValue, TweenStartedAction } from "./Types";
+import { tween, inertia, ColdSubscription, listen, pointer, value, calc, ValueReaction } from "popmotion";
 import { SliderContext, DefaultSliderProps } from "./SliderContext";
+import styler, { Styler } from "stylefire";
+import sync, { cancelSync } from "framesync";
 import "../css/style.scss";
 
 export interface IProps extends P {
@@ -37,7 +39,11 @@ export class Slider extends Component<IProps, IState> {
         };
 
     public sliderTrayRef = React.createRef<HTMLDivElement>();
-
+    public sliderTraystyler!: Styler;
+    public pointerTracker: ColdSubscription | undefined;
+    public listenActions: (ColdSubscription | undefined)[] = [];
+    public inertiaAction: ColdSubscription | undefined;
+    public valueXY!: ValueReaction;
 
     constructor(prop: IProps) {
         super(prop);
@@ -64,13 +70,108 @@ export class Slider extends Component<IProps, IState> {
 
     };
 
-    setAnime() {
-        // console.log(anime.version);
-        var tweenAction = tween({
+    applyOverdrag(x: number, max: number) {
+        // const max = 300;
+        const tug = 0.1;
+        let rx = x;
 
-        }).start() as TweenStartedAction;
+        if (x < 0) rx = calc.getValueFromProgress(0, x, tug);
+        if (x > max) rx = calc.getValueFromProgress(max, x, tug);
+        // console.log("original", v, "result", r);
+
+        return rx;
+    };
+
+    startTracking = (evt: Event) => {
+        console.log(evt);
+        if (this.sliderTrayRef.current) {
+            const trayElement = this.sliderTrayRef.current;
+            let startPoint = trayElement.scrollLeft;
+            let offset = 0;
+            this.valueXY = value({ x: 0, y: 0 }, (a: PointerValue) => {
+                // value got updated, and then
+                // update style
+                // console.log(a);
+                console.log(a, startPoint);
+                let targetScrollX = startPoint + offset - a.x;
+
+                if (targetScrollX < 0) {
+                    offset = a.x;
+                }
+                else {
+                    trayElement.scrollTo(targetScrollX, 0);
+                }
+            });
+
+            // need remove scroll-snap
+            trayElement.classList.remove("scroll-snap");
+
+            // pointer already tracking mouse movement
+            this.pointerTracker = pointer({
+                x: 0,
+                y: 0
+            }).start(this.valueXY); // update ball value
+        }
+    };
+
+    stopTracking = () => {
+        if (this.pointerTracker && this.sliderTrayRef.current) {
+            const trayElement = this.sliderTrayRef.current;
+
+            this.pointerTracker.stop();
+            this.pointerTracker = undefined; // avoid mouseup on document
+
+            // trayElement.classList.add("scroll-snap");
 
 
+            this.inertiaAction = inertia({
+                from: this.valueXY.get(),
+                velocity: this.valueXY.getVelocity(),
+
+                bounceStiffness: 500,
+
+                // spring oscillation lv
+                bounceDamping: 30,
+
+                // how heavy: hard 0 - 1 light
+                power: 0.4,
+                // set min and/or max boundaries:
+                // When the animated value breaches max, it’ll snap to max using a spring animation.
+                min: 0,
+                max: 300,
+
+                restDelta: 0.5,
+
+                timeConstant: 500
+                // This can be used, for instance, to snap the target to a grid:
+                // modifyTarget: (target:any) => Math.ceil(target.x / 100) * 100
+            }).start({
+                update: (a: any) => {
+                    // console.log("inertia update");
+                    this.valueXY.update(a);
+                },
+                complete: () => {
+                    trayElement.classList.add("scroll-snap");
+
+                }
+            });
+        }
+    };
+
+    componentDidMount(): void {
+        // window.addEventListener("scroll", startTracking, false);
+        if (this.sliderTrayRef.current) {
+            this.sliderTraystyler = styler(this.sliderTrayRef.current);
+
+            this.listenActions.push(listen(this.sliderTrayRef.current, "mousedown").start(this.startTracking));
+            this.listenActions.push(listen(window.document, "mouseup").start(this.stopTracking));
+        }
+    }
+
+    componentWillUnmount(): void {
+        for (let i of this.listenActions) {
+            if (i) i.stop();
+        }
     }
 
     render() {

@@ -11,6 +11,7 @@ type SlideItem = {
 };
 
 function Feature(props: SlideItem) {
+    const [count, setCount] = useState(0);
     return (
         <div
             style={{
@@ -18,13 +19,14 @@ function Feature(props: SlideItem) {
                 width: "100%",
                 height: "100%",
                 backgroundColor: props.background,
-                color: props.color
+                color: props.color,
+                alignItems: "center",
             }}
         >
-            <div className="text--center">
-                <div className="text--center padding-horiz--md">
-                    <h3>{props.title}</h3>
-                </div>
+            <div className="text--center" style={{ width: "100%" }}>
+                <h3>{props.title}</h3>
+                <div><button type="button" onClick={() => setCount(count + 1)} >Add Count</button></div>
+                <div>{count}</div>
             </div>
         </div>
     );
@@ -50,17 +52,37 @@ export default function HomepageFeatures(): JSX.Element {
         <section className={styles.features}>
             <div className="container">
 
+                <div className="padding-vert--md" style={{ display: "flex" }}>
+
+                    <div>
+                        <div className="">
+                            slideHeight: <input className="site-input" placeholder="" />
+                        </div>
+                        <div className="padding-top--xs">
+                            slideWeight: <input className="site-input" placeholder="" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className="">
+                            slideHeight: <input className="site-input" placeholder="" />
+                        </div>
+                        <div className="padding-top--xs">
+                            slideWeight: <input className="site-input" placeholder="" />
+                        </div>
+                    </div>
+                </div>
+
                 <Slider
                     totalSlides={slides.length}
                     visibleSlides={3}
                     slidesPerStep={3}
                     slideHeight={1}
-                    slideWidth={0.8}
+                    slideWidth={0.9}
                 >
                     {slides.map((props, idx) => (
                         <Slide
                             key={idx}
-
                         >
                             <Feature  {...props} />
                         </Slide>
