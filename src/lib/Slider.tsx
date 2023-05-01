@@ -1,6 +1,6 @@
 import React, { Component, useRef } from 'react';
 import { ISliderDefaultProps as P, PointerValue, TweenStartedAction } from "./Types";
-import { tween, inertia, ColdSubscription, listen, pointer, value, calc, ValueReaction } from "popmotion";
+import { tween, inertia, ColdSubscription, listen, pointer, value, calc, ValueReaction, easing } from "popmotion";
 import { SliderContext, DefaultSliderProps } from "./SliderContext";
 import styler, { Styler } from "stylefire";
 import sync, { cancelSync } from "framesync";
@@ -100,6 +100,36 @@ export class Slider extends Component<IProps, IState> {
         return 0;
     }
 
+    /**
+     * Get a snap point when the free scrolling is done
+     * @param currentScrollValue 
+     * @param isDown is scrolling down? 
+     */
+    getTargetScrollValue(currentScrollValue: number, isDown: boolean) {
+        let targetScrollValue = currentScrollValue;
+
+        if (this.sliderTrayRef.current) {
+            let trayElement = this.sliderTrayRef.current;
+            let trayWidth = trayElement.offsetWidth;
+            let slideWidth = trayWidth / this.props.visibleSlides;
+            let slideCount = trayElement.childElementCount;
+            let targetSlideNo = 0;
+
+            if (isDown) {
+                targetSlideNo = Math.ceil(currentScrollValue / slideWidth);
+            }
+            else {
+                targetSlideNo = Math.floor(currentScrollValue / slideWidth);
+            }
+
+            if (targetSlideNo <= slideCount) {
+                targetScrollValue = targetSlideNo * slideWidth;
+            }
+        }
+
+        return targetScrollValue;
+    }
+
     startTracking = (evt: Event) => {
         console.log("start tracking", evt);
         let scrollMax = this.getScrollMax();
@@ -117,7 +147,7 @@ export class Slider extends Component<IProps, IState> {
                 // value got updated, and then
                 // update style
                 // console.log(a);
-                console.log("update", newValue, startPoint);
+                console.log("update:", newValue, "start point:", startPoint);
 
                 trayElement.scrollTo(newValue, 0);
             });
@@ -144,7 +174,7 @@ export class Slider extends Component<IProps, IState> {
                 return { x: x, y: latest.y };
             }).start({
                 update: (a: PointerValue) => {
-                    console.log("pointer", a);
+                    // console.log("pointer", a);
                     this.scrollValue.update(a.x);
                 }
             });
@@ -159,6 +189,15 @@ export class Slider extends Component<IProps, IState> {
                 console.log("complete!!");
                 trayElement.classList.add("scroll-snap");
             };
+            let toSnap = (from: number, to: number) => tween({
+                from: from,
+                to: to,
+                duration: 300,
+                ease: easing.easeOut,
+            }).start({
+                update: (a: number) => this.scrollValue.update(a),
+                complete: onComplete
+            });
 
             this.pointerTracker.stop();
             this.pointerTracker = undefined; // avoid mouseup on document
@@ -168,13 +207,14 @@ export class Slider extends Component<IProps, IState> {
             let fromValue = this.scrollValue.get();
             let velocity = this.scrollValue.getVelocity();
             let toStop = false;
-            console.log("stop tracking: ", fromValue, velocity);
+            console.log("stop tracking, scroll:", fromValue, "vel:", velocity);
 
             if (velocity === 0) {
                 return onComplete();
             }
 
-            this.inertiaAction = inertia({
+            let startToUpdateInertia = false;
+            let inertiaAction = inertia({
                 from: fromValue,
                 velocity: velocity,
 
@@ -210,12 +250,30 @@ export class Slider extends Component<IProps, IState> {
                     return v;
                 })
                 .start({
-                    update: (a: number) => {
-                        // console.log("inertia update");
-                        this.scrollValue.update(a);
+                    update: (scrollValue: number) => {
+                        // filter out first time update that make vel to be 0 
+                        if (!startToUpdateInertia) {
+                            startToUpdateInertia = true;
+                            return;
+                        }
+
+                        let vel = this.scrollValue.getVelocity();
+
+                        console.log("inertia update, vel", vel);
+
+                        this.scrollValue.update(scrollValue);
+
+                        if (Math.abs(vel) < 50) {
+                            console.log("stop inertia, vel:", vel);
+                            inertiaAction.stop();
+                            let targetScrollValue = this.getTargetScrollValue(scrollValue, vel > 0);
+                            toSnap(scrollValue, targetScrollValue);
+                        }
                     },
                     complete: onComplete
                 });
+            this.inertiaAction = inertiaAction;
+
         }
     };
 
