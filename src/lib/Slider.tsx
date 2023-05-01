@@ -43,7 +43,7 @@ export class Slider extends Component<IProps, IState> {
     public pointerTracker: ColdSubscription | undefined;
     public listenActions: (ColdSubscription | undefined)[] = [];
     public inertiaAction: ColdSubscription | undefined;
-    public valueXY!: ValueReaction;
+    public scrollValue!: ValueReaction;
 
     constructor(prop: IProps) {
         super(prop);
@@ -72,7 +72,7 @@ export class Slider extends Component<IProps, IState> {
 
     applyOverdrag(x: number, max: number) {
         // const max = 300;
-        const tug = 0.1;
+        let tug = 0.1;
         let rx = x;
 
         if (x < 0) rx = calc.getValueFromProgress(0, x, tug);
@@ -82,25 +82,44 @@ export class Slider extends Component<IProps, IState> {
         return rx;
     };
 
-    startTracking = (evt: Event) => {
-        console.log(evt);
+    /**
+     * Get max scroll x, y
+     * 
+     * @returns if >0 has a max scroll, if <0 not able to scroll
+     */
+    getScrollMax() {
         if (this.sliderTrayRef.current) {
-            const trayElement = this.sliderTrayRef.current;
+            let trayElement = this.sliderTrayRef.current;
+            let trayWidth = trayElement.offsetWidth;
+            let slideWidth = trayWidth / this.props.visibleSlides;
+            let slideCount = trayElement.childElementCount;
+            let max = slideWidth * (slideCount - this.props.visibleSlides);
+
+            return max;
+        }
+        return 0;
+    }
+
+    startTracking = (evt: Event) => {
+        console.log("start tracking", evt);
+        let scrollMax = this.getScrollMax();
+
+        if (this.inertiaAction) {
+            this.inertiaAction.stop();
+        }
+
+        if (this.sliderTrayRef.current && scrollMax > 0) {
+            let trayElement = this.sliderTrayRef.current;
             let startPoint = trayElement.scrollLeft;
-            let offset = 0;
-            this.valueXY = value({ x: 0, y: 0 }, (a: PointerValue) => {
+            let newStartPoint = startPoint;
+
+            this.scrollValue = value(startPoint, (newValue: number) => {
                 // value got updated, and then
                 // update style
                 // console.log(a);
-                console.log(a, startPoint);
-                let targetScrollX = startPoint + offset - a.x;
+                console.log("update", newValue, startPoint);
 
-                if (targetScrollX < 0) {
-                    offset = a.x;
-                }
-                else {
-                    trayElement.scrollTo(targetScrollX, 0);
-                }
+                trayElement.scrollTo(newValue, 0);
             });
 
             // need remove scroll-snap
@@ -110,23 +129,54 @@ export class Slider extends Component<IProps, IState> {
             this.pointerTracker = pointer({
                 x: 0,
                 y: 0
-            }).start(this.valueXY); // update ball value
+            }).pipe((latest: PointerValue) => {
+                let x = newStartPoint - latest.x;
+
+                if (x < 0) {
+                    newStartPoint = latest.x;
+                    return { x: 0, y: latest.y };
+                }
+                else if (x > scrollMax) {
+                    newStartPoint = startPoint + latest.x;
+                    return { x: scrollMax, y: latest.y };
+                }
+
+                return { x: x, y: latest.y };
+            }).start({
+                update: (a: PointerValue) => {
+                    console.log("pointer", a);
+                    this.scrollValue.update(a.x);
+                }
+            });
         }
     };
 
     stopTracking = () => {
         if (this.pointerTracker && this.sliderTrayRef.current) {
-            const trayElement = this.sliderTrayRef.current;
+            let trayElement = this.sliderTrayRef.current;
+            let scrollMax = this.getScrollMax();
+            let onComplete = () => {
+                console.log("complete!!");
+                trayElement.classList.add("scroll-snap");
+            };
 
             this.pointerTracker.stop();
             this.pointerTracker = undefined; // avoid mouseup on document
 
             // trayElement.classList.add("scroll-snap");
 
+            let fromValue = this.scrollValue.get();
+            let velocity = this.scrollValue.getVelocity();
+            let toStop = false;
+            console.log("stop tracking: ", fromValue, velocity);
+
+            if (velocity === 0) {
+                return onComplete();
+            }
 
             this.inertiaAction = inertia({
-                from: this.valueXY.get(),
-                velocity: this.valueXY.getVelocity(),
+                from: fromValue,
+                velocity: velocity,
 
                 bounceStiffness: 500,
 
@@ -135,26 +185,37 @@ export class Slider extends Component<IProps, IState> {
 
                 // how heavy: hard 0 - 1 light
                 power: 0.4,
+
                 // set min and/or max boundaries:
                 // When the animated value breaches max, it’ll snap to max using a spring animation.
-                min: 0,
-                max: 300,
+                // min: 0,
+                // max: scrollMax,
 
-                restDelta: 0.5,
+                restDelta: 0.4,
 
                 timeConstant: 500
                 // This can be used, for instance, to snap the target to a grid:
                 // modifyTarget: (target:any) => Math.ceil(target.x / 100) * 100
-            }).start({
-                update: (a: any) => {
-                    // console.log("inertia update");
-                    this.valueXY.update(a);
-                },
-                complete: () => {
-                    trayElement.classList.add("scroll-snap");
-
-                }
-            });
+            })
+                .while(v => !toStop)
+                .pipe((v: number) => {
+                    if (v < 0) {
+                        toStop = true;
+                        return 0;
+                    }
+                    else if (v > scrollMax) {
+                        toStop = true;
+                        return scrollMax;
+                    }
+                    return v;
+                })
+                .start({
+                    update: (a: number) => {
+                        // console.log("inertia update");
+                        this.scrollValue.update(a);
+                    },
+                    complete: onComplete
+                });
         }
     };
 
