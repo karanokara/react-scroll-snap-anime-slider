@@ -46,7 +46,7 @@
 
         .slider-tray.css-only.scroll-snap {
             // scrolling behavior for a scrolling box
-            // scroll-behavior: smooth;
+            scroll-behavior: smooth;
 
             // prevents scroll chaining (not scroll the parent container when hit boundary)
             // but preserve overscroll affordances like "bounce" effects when scrolling past the end of the container in operating systems that support it.
@@ -56,7 +56,7 @@
 
             // proximity tells the browser to go to a snap position if a scrolling action gets pretty close to a snap position
             // scroll-snap-type: none | [ x | y | block | inline | both ] [ mandatory | proximity ]
-            // scroll-snap-type: x mandatory;
+            scroll-snap-type: x mandatory;
         }
     }
 }

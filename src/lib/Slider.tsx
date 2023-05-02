@@ -40,10 +40,12 @@ export class Slider extends Component<IProps, IState> {
 
     public sliderTrayRef = React.createRef<HTMLDivElement>();
     public sliderTraystyler!: Styler;
-    public pointerTracker: ColdSubscription | undefined;
-    public listenActions: (ColdSubscription | undefined)[] = [];
-    public inertiaAction: ColdSubscription | undefined;
     public scrollValue!: ValueReaction;
+    public mouseDownAction: ColdSubscription | undefined;
+    public mouseUpAction: ColdSubscription | undefined;
+    public pointerAction: ColdSubscription | undefined;
+    public inertiaAction: ColdSubscription | undefined;
+    public snapAction: ColdSubscription | undefined;
 
     constructor(prop: IProps) {
         super(prop);
@@ -66,8 +68,174 @@ export class Slider extends Component<IProps, IState> {
         });
     };
 
-    onScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    onScroll = (evt: Event) => {
+        if (this.sliderTrayRef.current) {
+            let trayElement = this.sliderTrayRef.current;
+            console.log("scroll", trayElement.scrollLeft);
+        }
+    };
 
+    /**
+     * When start tracking mouse action
+     * @param evt 
+     */
+    startTracking = (evt: MouseEvent) => {
+        console.log("start tracking", evt);
+        let scrollMax = this.getScrollMax();
+
+        if (this.inertiaAction) {
+            this.inertiaAction.stop();
+            this.inertiaAction = undefined;
+        }
+
+        if (this.snapAction) {
+            this.snapAction.stop();
+            this.snapAction = undefined;
+        }
+
+        if (this.sliderTrayRef.current && scrollMax > 0) {
+            let trayElement = this.sliderTrayRef.current;
+            let startPoint = trayElement.scrollLeft;
+            let newStartPoint = startPoint;
+
+            this.scrollValue = value(startPoint, (newValue: number) => {
+                // value got updated, and then
+                // update style
+                // console.log(a);
+                // console.log("update:", newValue, "start point:", startPoint);
+
+                trayElement.scrollTo(newValue, 0);
+            });
+
+            // need to remove scroll-snap so can use mouse to move slide
+            trayElement.classList.remove("scroll-snap");
+
+            // pointer already tracking mouse movement
+            this.pointerAction = pointer({
+                x: 0,
+                y: 0
+            }).pipe((next: PointerValue) => {
+                let x = newStartPoint - next.x;
+
+                if (x < 0) {
+                    newStartPoint = next.x;
+                    return { x: 0, y: next.y };
+                }
+                else if (x > scrollMax) {
+                    newStartPoint = startPoint + next.x;
+                    return { x: scrollMax, y: next.y };
+                }
+
+                return { x: x, y: next.y };
+            }).start({
+                update: (a: PointerValue) => {
+                    // console.log("pointer", a);
+                    this.scrollValue.update(a.x);
+                }
+            });
+
+            // listen for mouse up
+            this.mouseUpAction = listen(window.document, "mouseup").start(this.stopTracking);
+        }
+    };
+
+    /**
+     * When stop tracking mouse action
+     * 
+     * @param evt 
+     * @returns 
+     */
+    stopTracking = (evt: MouseEvent) => {
+        if (this.pointerAction && this.sliderTrayRef.current) {
+            let trayElement = this.sliderTrayRef.current;
+            let scrollMax = this.getScrollMax();
+            let fromValue = this.scrollValue.get();
+            let velocity = this.scrollValue.getVelocity();
+            let toStop = false;
+            let onComplete = () => {
+                console.log("complete!!");
+                trayElement.classList.add("scroll-snap");
+                this.mouseUpAction?.stop();
+            };
+            let snap = (from: number, to: number) => tween({
+                from: from,
+                to: to,
+                duration: 300,
+                ease: easing.easeOut,
+            }).start({
+                update: (a: number) => this.scrollValue.update(a),
+                complete: onComplete
+            });
+
+            this.pointerAction.stop();
+            this.pointerAction = undefined;
+
+            console.log("stop tracking, scroll:", fromValue, "vel:", velocity);
+
+            if (velocity === 0) {
+                return onComplete();
+            }
+
+            let startToUpdateInertia = false;
+            let inertiaAction = inertia({
+                from: fromValue,
+                velocity: velocity,
+
+                bounceStiffness: 500,
+
+                // spring oscillation lv
+                bounceDamping: 30,
+
+                // how heavy: hard 0 - 1 light
+                power: 0.4,
+
+                // set min and/or max boundaries:
+                // When the animated value breaches max, it’ll snap to max using a spring animation.
+                // min: 0,
+                // max: scrollMax,
+
+                restDelta: 0.4,
+
+                timeConstant: 500
+            })
+                .while(v => !toStop)
+                .pipe((v: number) => {
+                    if (v < 0) {
+                        toStop = true;
+                        return 0;
+                    }
+                    else if (v > scrollMax) {
+                        toStop = true;
+                        return scrollMax;
+                    }
+                    return v;
+                })
+                .start({
+                    update: (scrollValue: number) => {
+                        // filter out first time update that make vel to be 0 
+                        if (!startToUpdateInertia) {
+                            startToUpdateInertia = true;
+                            return;
+                        }
+
+                        let vel = this.scrollValue.getVelocity();
+
+                        // console.log("inertia update, vel", vel);
+
+                        this.scrollValue.update(scrollValue);
+
+                        if (Math.abs(vel) < 150) {
+                            console.log("stop inertia, vel:", vel);
+                            inertiaAction.stop();
+                            let targetScrollValue = this.getTargetScrollValue(scrollValue, vel > 0);
+                            this.snapAction = snap(scrollValue, targetScrollValue);
+                        }
+                    },
+                    complete: onComplete
+                });
+            this.inertiaAction = inertiaAction;
+
+        }
     };
 
     applyOverdrag(x: number, max: number) {
@@ -80,7 +248,7 @@ export class Slider extends Component<IProps, IState> {
         // console.log("original", v, "result", r);
 
         return rx;
-    };
+    }
 
     /**
      * Get max scroll x, y
@@ -130,167 +298,25 @@ export class Slider extends Component<IProps, IState> {
         return targetScrollValue;
     }
 
-    startTracking = (evt: Event) => {
-        console.log("start tracking", evt);
-        let scrollMax = this.getScrollMax();
-
-        if (this.inertiaAction) {
-            this.inertiaAction.stop();
-        }
-
-        if (this.sliderTrayRef.current && scrollMax > 0) {
-            let trayElement = this.sliderTrayRef.current;
-            let startPoint = trayElement.scrollLeft;
-            let newStartPoint = startPoint;
-
-            this.scrollValue = value(startPoint, (newValue: number) => {
-                // value got updated, and then
-                // update style
-                // console.log(a);
-                console.log("update:", newValue, "start point:", startPoint);
-
-                trayElement.scrollTo(newValue, 0);
-            });
-
-            // need remove scroll-snap
-            trayElement.classList.remove("scroll-snap");
-
-            // pointer already tracking mouse movement
-            this.pointerTracker = pointer({
-                x: 0,
-                y: 0
-            }).pipe((latest: PointerValue) => {
-                let x = newStartPoint - latest.x;
-
-                if (x < 0) {
-                    newStartPoint = latest.x;
-                    return { x: 0, y: latest.y };
-                }
-                else if (x > scrollMax) {
-                    newStartPoint = startPoint + latest.x;
-                    return { x: scrollMax, y: latest.y };
-                }
-
-                return { x: x, y: latest.y };
-            }).start({
-                update: (a: PointerValue) => {
-                    // console.log("pointer", a);
-                    this.scrollValue.update(a.x);
-                }
-            });
-        }
-    };
-
-    stopTracking = () => {
-        if (this.pointerTracker && this.sliderTrayRef.current) {
-            let trayElement = this.sliderTrayRef.current;
-            let scrollMax = this.getScrollMax();
-            let onComplete = () => {
-                console.log("complete!!");
-                trayElement.classList.add("scroll-snap");
-            };
-            let toSnap = (from: number, to: number) => tween({
-                from: from,
-                to: to,
-                duration: 300,
-                ease: easing.easeOut,
-            }).start({
-                update: (a: number) => this.scrollValue.update(a),
-                complete: onComplete
-            });
-
-            this.pointerTracker.stop();
-            this.pointerTracker = undefined; // avoid mouseup on document
-
-            // trayElement.classList.add("scroll-snap");
-
-            let fromValue = this.scrollValue.get();
-            let velocity = this.scrollValue.getVelocity();
-            let toStop = false;
-            console.log("stop tracking, scroll:", fromValue, "vel:", velocity);
-
-            if (velocity === 0) {
-                return onComplete();
-            }
-
-            let startToUpdateInertia = false;
-            let inertiaAction = inertia({
-                from: fromValue,
-                velocity: velocity,
-
-                bounceStiffness: 500,
-
-                // spring oscillation lv
-                bounceDamping: 30,
-
-                // how heavy: hard 0 - 1 light
-                power: 0.4,
-
-                // set min and/or max boundaries:
-                // When the animated value breaches max, it’ll snap to max using a spring animation.
-                // min: 0,
-                // max: scrollMax,
-
-                restDelta: 0.4,
-
-                timeConstant: 500
-                // This can be used, for instance, to snap the target to a grid:
-                // modifyTarget: (target:any) => Math.ceil(target.x / 100) * 100
-            })
-                .while(v => !toStop)
-                .pipe((v: number) => {
-                    if (v < 0) {
-                        toStop = true;
-                        return 0;
-                    }
-                    else if (v > scrollMax) {
-                        toStop = true;
-                        return scrollMax;
-                    }
-                    return v;
-                })
-                .start({
-                    update: (scrollValue: number) => {
-                        // filter out first time update that make vel to be 0 
-                        if (!startToUpdateInertia) {
-                            startToUpdateInertia = true;
-                            return;
-                        }
-
-                        let vel = this.scrollValue.getVelocity();
-
-                        console.log("inertia update, vel", vel);
-
-                        this.scrollValue.update(scrollValue);
-
-                        if (Math.abs(vel) < 50) {
-                            console.log("stop inertia, vel:", vel);
-                            inertiaAction.stop();
-                            let targetScrollValue = this.getTargetScrollValue(scrollValue, vel > 0);
-                            toSnap(scrollValue, targetScrollValue);
-                        }
-                    },
-                    complete: onComplete
-                });
-            this.inertiaAction = inertiaAction;
-
-        }
-    };
-
     componentDidMount(): void {
         // window.addEventListener("scroll", startTracking, false);
-        if (this.sliderTrayRef.current) {
-            this.sliderTraystyler = styler(this.sliderTrayRef.current);
 
-            this.listenActions.push(listen(this.sliderTrayRef.current, "mousedown").start(this.startTracking));
-            this.listenActions.push(listen(window.document, "mouseup").start(this.stopTracking));
+        if (this.sliderTrayRef.current) {
+            let trayElement = this.sliderTrayRef.current;
+
+            this.sliderTraystyler = styler(trayElement);
+
+            // listen mouse down
+            this.mouseDownAction = listen(trayElement, "mousedown").start(this.startTracking);
+
+            // listen scroll
+            trayElement.addEventListener("scroll", this.onScroll, false);
+
         }
     }
 
     componentWillUnmount(): void {
-        for (let i of this.listenActions) {
-            if (i) i.stop();
-        }
+        this.mouseDownAction?.stop();
     }
 
     render() {
@@ -307,7 +333,6 @@ export class Slider extends Component<IProps, IState> {
                 <div className="slider" >
                     <div
                         className="slider-tray css-only"
-                        onScroll={this.onScroll}
                         ref={this.sliderTrayRef}
                     >
                         {/* Context uses reference identity to determine when to re-render, this will cause consumer to re-render every time */}
