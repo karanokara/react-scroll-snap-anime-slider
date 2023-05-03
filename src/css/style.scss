@@ -58,5 +58,20 @@
             // scroll-snap-type: none | [ x | y | block | inline | both ] [ mandatory | proximity ]
             scroll-snap-type: x mandatory;
         }
+
+        .slider-bar {
+            .slider-bar-track {
+                background-color: #ccc;
+                position: relative;
+
+                .slider-bar-thumb {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    background-color: #000;
+                }
+            }
+        }
     }
 }

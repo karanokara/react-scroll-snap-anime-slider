@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import { ISliderDefaultProps as P } from "./Types";
 import { cn } from "./Utility";
-import { SliderContext, DefaultSliderProps } from "./SliderContext";
+import { SliderContext, DefaultSliderContextProps } from "./SliderContext";
 
 export interface IProps extends P {
 
 }
 
-interface IState {
+export interface IState {
 }
 
 export class Slide extends Component<IProps, IState> {
-    // passing props from slider to each slide
 
+    // passing props from slider to each slide
     public static defaultProps: Pick<IProps,
-        keyof (typeof DefaultSliderProps)>
+        keyof (P)>
         = {
-            ...DefaultSliderProps,
+            ...DefaultSliderContextProps,
         };
 
     public context!: React.ContextType<typeof SliderContext>;
@@ -61,8 +61,6 @@ export class Slide extends Component<IProps, IState> {
                     style={innerSlideStyle}
                 >
                     <div className={cn("slide-inner-inner", innerInnerClass)}>
-
-                        {/* <div>Context: {JSON.stringify(this.context)}</div> */}
                         {this.props.children}
                     </div>
                 </div>

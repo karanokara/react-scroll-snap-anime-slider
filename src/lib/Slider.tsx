@@ -1,7 +1,7 @@
 import React, { Component, useRef } from 'react';
-import { ISliderDefaultProps as P, PointerValue, TweenStartedAction } from "./Types";
+import { ISliderDefaultProps as P, PointerValue, TweenStartedAction, } from "./Types";
 import { tween, inertia, ColdSubscription, listen, pointer, value, calc, ValueReaction, easing } from "popmotion";
-import { SliderContext, DefaultSliderProps } from "./SliderContext";
+import { SliderContext, DefaultSliderContextProps } from "./SliderContext";
 import styler, { Styler } from "stylefire";
 import sync, { cancelSync } from "framesync";
 import "../css/style.scss";
@@ -26,15 +26,15 @@ export interface IProps extends P {
 
 }
 
-interface IState {
+export interface IState {
 }
 
 export class Slider extends Component<IProps, IState> {
 
     public static defaultProps: Pick<IProps,
-        keyof (typeof DefaultSliderProps) | "currentSlide">
+        keyof (P) | "currentSlide">
         = {
-            ...DefaultSliderProps,
+            ...DefaultSliderContextProps,
             currentSlide: 0,
         };
 
@@ -54,6 +54,7 @@ export class Slider extends Component<IProps, IState> {
 
         };
     }
+
     onLeftArrowClick = () => {
         this.sliderTrayRef.current?.scrollBy({
             left: -this.sliderTrayRef.current.offsetWidth,
@@ -170,10 +171,14 @@ export class Slider extends Component<IProps, IState> {
             this.pointerAction.stop();
             this.pointerAction = undefined;
 
-            console.log("stop tracking, scroll:", fromValue, "vel:", velocity);
+            console.log("stop tracking, scroll from:", fromValue, "vel:", velocity);
 
             if (velocity === 0) {
-                return onComplete();
+                // not scrolling fast enough
+                // snap to target
+                let targetScrollValue = this.getTargetScrollValue(fromValue as number, velocity);
+                this.snapAction = snap(fromValue as number, targetScrollValue);
+                return;
             }
 
             let startToUpdateInertia = false;
@@ -224,13 +229,15 @@ export class Slider extends Component<IProps, IState> {
 
                         this.scrollValue.update(scrollValue);
 
-                        if (Math.abs(vel) < 150) {
-                            console.log("stop inertia, vel:", vel);
+                        if (Math.abs(vel) < 200) {
                             inertiaAction.stop();
-                            let targetScrollValue = this.getTargetScrollValue(scrollValue, vel > 0);
+                            let targetScrollValue = this.getTargetScrollValue(scrollValue, vel);
+                            console.log("stop inertia, vel:", vel, "scroll to", targetScrollValue);
                             this.snapAction = snap(scrollValue, targetScrollValue);
                         }
                     },
+
+                    // this may not be called, keep it here for safe
                     complete: onComplete
                 });
             this.inertiaAction = inertiaAction;
@@ -271,9 +278,9 @@ export class Slider extends Component<IProps, IState> {
     /**
      * Get a snap point when the free scrolling is done
      * @param currentScrollValue 
-     * @param isDown is scrolling down? 
+     * @param isDown >0 is scrolling down, <0 is up, =0 unknown 
      */
-    getTargetScrollValue(currentScrollValue: number, isDown: boolean) {
+    getTargetScrollValue(currentScrollValue: number, isDown: number) {
         let targetScrollValue = currentScrollValue;
 
         if (this.sliderTrayRef.current) {
@@ -283,11 +290,14 @@ export class Slider extends Component<IProps, IState> {
             let slideCount = trayElement.childElementCount;
             let targetSlideNo = 0;
 
-            if (isDown) {
+            if (isDown > 0) {
                 targetSlideNo = Math.ceil(currentScrollValue / slideWidth);
             }
-            else {
+            else if (isDown < 0) {
                 targetSlideNo = Math.floor(currentScrollValue / slideWidth);
+            }
+            else {
+                targetSlideNo = Math.round(currentScrollValue / slideWidth);
             }
 
             if (targetSlideNo <= slideCount) {
@@ -326,6 +336,13 @@ export class Slider extends Component<IProps, IState> {
             visibleSlides,
         } = this.props;
 
+        let slideCount = 0;
+        if (this.props.children) {
+            if (Array.isArray(this.props.children))
+                slideCount = this.props.children.length;
+            else
+                slideCount = 1;
+        }
 
         return (
             <div className="react-scroll-snap-anime-slider">
@@ -336,7 +353,9 @@ export class Slider extends Component<IProps, IState> {
                         ref={this.sliderTrayRef}
                     >
                         {/* Context uses reference identity to determine when to re-render, this will cause consumer to re-render every time */}
-                        <SliderContext.Provider value={{ visibleSlides, slideHeight, slideWidth }}>
+                        <SliderContext.Provider
+                            value={{ visibleSlides, slideHeight, slideWidth, slideCount }}
+                        >
                             {this.props.children}
                         </SliderContext.Provider>
                     </div>
