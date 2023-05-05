@@ -1,9 +1,9 @@
-import React, { Component, useRef } from 'react';
-import { ISliderDefaultProps as P, PointerValue, TweenStartedAction, } from "./Types";
+import React, { Component } from 'react';
+import { ISliderDefaultProps as P, PointerValue, } from "./Types";
 import { tween, inertia, ColdSubscription, listen, pointer, value, calc, ValueReaction, easing } from "popmotion";
 import { SliderContext, DefaultSliderContextProps } from "./SliderContext";
 import styler, { Styler } from "stylefire";
-import sync, { cancelSync } from "framesync";
+// import sync, { cancelSync } from "framesync";
 import "../css/style.scss";
 
 export interface IProps extends P {
@@ -12,11 +12,6 @@ export interface IProps extends P {
      * Total slides in this slider
      */
     totalSlides: number;
-
-    /**
-     * How mange slides per step (when click next button) 
-     */
-    slidesPerStep: number;
 
     /**
      * Current slide index (from 0)
@@ -239,6 +234,7 @@ export class Slider extends Component<IProps, IState> {
     /**
      * Slide from current point to next of previous point
      * 
+     * TODO: be able to keep speed and then accelerate to next, next target 
      * @param isNext
      */
     slideTo(isNext: boolean) {
@@ -251,6 +247,11 @@ export class Slider extends Component<IProps, IState> {
             let slideCount = trayElement.childElementCount;
             let currentSlide = Math.round(currentScrollValue / slideWidth);
             let maxSlide = slideCount - this.props.visibleSlides;
+            let step = this.props.slidesPerStep > 0
+                ? (this.props.slidesPerStep < this.props.visibleSlides
+                    ? this.props.slidesPerStep
+                    : this.props.visibleSlides)
+                : 1;
             let onComplete = () => {
                 console.log("complete!!");
                 this.snapAction = undefined;
@@ -258,7 +259,9 @@ export class Slider extends Component<IProps, IState> {
 
                 // update current slide index
             };
-            let nextSlide = isNext ? this.tempCurrentSlide + 1 : this.tempCurrentSlide - 1;
+            let nextSlide = isNext
+                ? this.tempCurrentSlide + step
+                : this.tempCurrentSlide - step;
 
             if (nextSlide > maxSlide) {
                 this.tempCurrentSlide = maxSlide;
@@ -410,6 +413,7 @@ export class Slider extends Component<IProps, IState> {
             slideHeight,
             slideWidth,
             visibleSlides,
+            slidesPerStep,
         } = this.props;
 
         let slideCount = 0;
@@ -430,7 +434,13 @@ export class Slider extends Component<IProps, IState> {
                     >
                         {/* Context uses reference identity to determine when to re-render, this will cause consumer to re-render every time */}
                         <SliderContext.Provider
-                            value={{ visibleSlides, slideHeight, slideWidth, slideCount }}
+                            value={{
+                                visibleSlides,
+                                slideHeight,
+                                slideWidth,
+                                slideCount,
+                                slidesPerStep,
+                            }}
                         >
                             {this.props.children}
                         </SliderContext.Provider>

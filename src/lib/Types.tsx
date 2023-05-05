@@ -30,6 +30,14 @@ export interface ISliderDefaultProps extends IProps {
      * Default: 1
      */
     visibleSlides: number;
+
+    /**
+     * How mange slides per step (when click next button) 
+     * 
+     * -----------------------
+     * Default: 1 (1 <= n <= visibleSlides)
+     */
+    slidesPerStep: number;
 }
 
 export interface TweenStartedAction extends ColdSubscription {
