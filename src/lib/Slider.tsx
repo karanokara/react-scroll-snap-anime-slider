@@ -440,6 +440,8 @@ export class Slider extends Component<IProps, IState> {
                                 slideWidth,
                                 slideCount,
                                 slidesPerStep,
+                                onNext: this.onClickNext,
+                                onBack: this.onClickBack,
                             }}
                         >
                             {this.props.children}
