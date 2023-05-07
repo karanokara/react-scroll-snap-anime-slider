@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ISliderDefaultProps as P } from "./Types";
+import { ICarouselDefaultProps as P } from "./Types";
 import { cn } from "./Utility";
 import { SliderContext, DefaultSliderContextProps } from "./SliderContext";
 
@@ -45,6 +45,7 @@ export class Slide extends Component<IProps, IState> {
             : 0;
         let slideStyle: React.CSSProperties = {
             width: widthPercent + "%",
+            ...this.props.style,
         };
         let innerSlideStyle: React.CSSProperties = {
             paddingBottom: paddingBottomPercent > 0 ? paddingBottomPercent + "%" : "",

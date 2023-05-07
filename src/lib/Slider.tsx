@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ISliderDefaultProps as P, PointerValue, } from "./Types";
+import { IProps as P, PointerValue, } from "./Types";
 import { tween, inertia, ColdSubscription, listen, pointer, value, calc, ValueReaction, easing } from "popmotion";
 import { SliderContext, DefaultSliderContextProps } from "./SliderContext";
 import styler, { Styler } from "stylefire";
@@ -7,17 +7,10 @@ import styler, { Styler } from "stylefire";
 import "../css/style.scss";
 
 export interface IProps extends P {
-
     /**
-     * Total slides in this slider
+     * className to the slider tray
      */
-    totalSlides: number;
-
-    /**
-     * Current slide index (from 0)
-     */
-    currentSlide: number;
-
+    classNameTray?: string;
 
 }
 
@@ -27,12 +20,10 @@ export interface IState {
 
 export class Slider extends Component<IProps, IState> {
 
-    public static defaultProps: Pick<IProps,
-        keyof (P) | "currentSlide">
-        = {
-            ...DefaultSliderContextProps,
-            currentSlide: 0,
-        };
+
+
+    // context props from Carousel
+    public context!: React.ContextType<typeof SliderContext>;
 
     public sliderTrayRef = React.createRef<HTMLDivElement>();
     public sliderTraystyler!: Styler;
@@ -47,11 +38,15 @@ export class Slider extends Component<IProps, IState> {
     constructor(prop: IProps) {
         super(prop);
 
-        this.tempCurrentSlide = this.props.currentSlide;
+        this.tempCurrentSlide = this.context.currentSlide;
 
         this.state = {
-            currentSlide: this.props.currentSlide,
+            currentSlide: this.tempCurrentSlide,
         };
+
+        // fill next(), previous() to context
+        this.context.onNext.call = this.onClickNext;
+        this.context.onBack.call = this.onClickBack;
     }
 
     onClickNext = () => {
@@ -243,14 +238,14 @@ export class Slider extends Component<IProps, IState> {
             let startPoint = trayElement.scrollLeft;
             let currentScrollValue = trayElement.scrollLeft;
             let trayWidth = trayElement.offsetWidth;
-            let slideWidth = trayWidth / this.props.visibleSlides;
+            let slideWidth = trayWidth / this.context.visibleSlides;
             let slideCount = trayElement.childElementCount;
             let currentSlide = Math.round(currentScrollValue / slideWidth);
-            let maxSlide = slideCount - this.props.visibleSlides;
-            let step = this.props.slidesPerStep > 0
-                ? (this.props.slidesPerStep < this.props.visibleSlides
-                    ? this.props.slidesPerStep
-                    : this.props.visibleSlides)
+            let maxSlide = slideCount - this.context.visibleSlides;
+            let step = this.context.slidesPerStep > 0
+                ? (this.context.slidesPerStep < this.context.visibleSlides
+                    ? this.context.slidesPerStep
+                    : this.context.visibleSlides)
                 : 1;
             let onComplete = () => {
                 console.log("complete!!");
@@ -344,9 +339,9 @@ export class Slider extends Component<IProps, IState> {
         if (this.sliderTrayRef.current) {
             let trayElement = this.sliderTrayRef.current;
             let trayWidth = trayElement.offsetWidth;
-            let slideWidth = trayWidth / this.props.visibleSlides;
+            let slideWidth = trayWidth / this.context.visibleSlides;
             let slideCount = trayElement.childElementCount;
-            let max = slideWidth * (slideCount - this.props.visibleSlides);
+            let max = slideWidth * (slideCount - this.context.visibleSlides);
 
             return max;
         }
@@ -365,7 +360,7 @@ export class Slider extends Component<IProps, IState> {
         if (this.sliderTrayRef.current) {
             let trayElement = this.sliderTrayRef.current;
             let trayWidth = trayElement.offsetWidth;
-            let slideWidth = trayWidth / this.props.visibleSlides;
+            let slideWidth = trayWidth / this.context.visibleSlides;
             let slideCount = trayElement.childElementCount;
             let targetSlideNo = 0;
 
@@ -405,16 +400,17 @@ export class Slider extends Component<IProps, IState> {
     }
 
     componentWillUnmount(): void {
-        this.mouseDownAction?.stop();
+        if (this.sliderTrayRef.current) {
+            let trayElement = this.sliderTrayRef.current;
+
+            this.stopAnimeActions();
+            this.mouseDownAction?.stop();
+            this.pointerAction?.stop();
+            trayElement.removeEventListener("scroll", this.onScroll, false);
+        }
     }
 
     render() {
-        const {
-            slideHeight,
-            slideWidth,
-            visibleSlides,
-            slidesPerStep,
-        } = this.props;
 
         let slideCount = 0;
         if (this.props.children) {
@@ -425,37 +421,26 @@ export class Slider extends Component<IProps, IState> {
         }
 
         return (
-            <div className="react-scroll-snap-anime-slider">
 
-                <div className="slider" >
-                    <div
-                        className="slider-tray css-only"
-                        ref={this.sliderTrayRef}
+            <div className="slider" >
+                <div
+                    className="slider-tray css-only"
+                    ref={this.sliderTrayRef}
+                >
+                    {/* Context uses reference identity to determine when to re-render, this will cause consumer to re-render every time */}
+                    <SliderContext.Provider
+                        value={{
+                            ...this.context,
+                            slideCount,
+
+                        }}
                     >
-                        {/* Context uses reference identity to determine when to re-render, this will cause consumer to re-render every time */}
-                        <SliderContext.Provider
-                            value={{
-                                visibleSlides,
-                                slideHeight,
-                                slideWidth,
-                                slideCount,
-                                slidesPerStep,
-                                onNext: this.onClickNext,
-                                onBack: this.onClickBack,
-                            }}
-                        >
-                            {this.props.children}
-                        </SliderContext.Provider>
-                    </div>
-
-                    <button className="slider-button slider-left-button" onClick={this.onClickBack}>&lt;</button>
-
-                    <button className="slider-button slider-right-button" onClick={this.onClickNext}>&gt;</button>
-
+                        {this.props.children}
+                    </SliderContext.Provider>
                 </div>
             </div>
         );
     }
 }
 
-export default Slider;
+Slider.contextType = SliderContext;

@@ -1,10 +1,10 @@
 import React from 'react';
-import { ISliderDefaultProps } from "./Types";
+import { ICarouselDefaultProps } from "./Types";
 
-export interface ISliderContextProps extends ISliderDefaultProps {
+export interface ISliderContextProps extends ICarouselDefaultProps {
     slideCount: number;
-    onNext: () => void;
-    onBack: () => void;
+    onNext: { call: () => void; };
+    onBack: { call: () => void; };
 }
 
 export const DefaultSliderContextProps: ISliderContextProps = {
@@ -13,8 +13,9 @@ export const DefaultSliderContextProps: ISliderContextProps = {
     visibleSlides: 1,
     slideCount: 0,
     slidesPerStep: 1,
-    onNext: () => { },
-    onBack: () => { },
+    currentSlide: 0,
+    onNext: { call: () => { } },
+    onBack: { call: () => { } },
 };
 
 export const SliderContext = React.createContext<ISliderContextProps>(DefaultSliderContextProps);

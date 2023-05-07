@@ -3,10 +3,11 @@ import { ColdSubscription } from "popmotion";
 export interface IProps {
     className?: string,
     children?: React.ReactNode;
+    style?: React.CSSProperties;
 }
 
 // props of slider with default value
-export interface ISliderDefaultProps extends IProps {
+export interface ICarouselDefaultProps extends IProps {
     /**
      * Use to calculate slide's height in dimension,
      *  such as width:height = 16:9 
@@ -38,6 +39,11 @@ export interface ISliderDefaultProps extends IProps {
      * Default: 1 (1 <= n <= visibleSlides)
      */
     slidesPerStep: number;
+
+    /**
+     * Current slide index (from 0)
+     */
+    currentSlide: number;
 }
 
 export interface TweenStartedAction extends ColdSubscription {

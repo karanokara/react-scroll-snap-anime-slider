@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { clsx } from 'clsx';
 import styles from './styles.module.css';
 import { random, colord } from "colord";
-import { Slide, Slider } from "../../../../src";
+import { ButtonBack, ButtonNext, Carousel, Slide, Slider } from "../../../../src";
 
 type SlideItem = {
     title: string;
@@ -73,21 +73,28 @@ export default function HomepageFeatures(): JSX.Element {
                     </div>
                 </div>
 
-                <Slider
+                <Carousel
                     totalSlides={slides.length}
                     visibleSlides={3}
                     slidesPerStep={3}
                     slideHeight={1}
                     slideWidth={0.9}
                 >
-                    {slides.map((props, idx) => (
-                        <Slide
-                            key={idx}
-                        >
-                            <Feature  {...props} />
-                        </Slide>
-                    ))}
-                </Slider>
+                    <Slider
+                    >
+                        {slides.map((props, idx) => (
+                            <Slide
+                                key={idx}
+                            >
+                                <Feature  {...props} />
+                            </Slide>
+                        ))}
+                    </Slider>
+
+                    <ButtonBack>&lt;</ButtonBack>
+
+                    <ButtonNext>&gt;</ButtonNext>
+                </Carousel>
 
             </div>
         </section>

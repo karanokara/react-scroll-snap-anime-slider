@@ -1,19 +1,20 @@
-import SliderButton, { IProps as P, IState as S, ButtonParameter } from "./SliderButton";
+import SliderButton, { IProps as P, IState as S } from "./SliderButton";
+import { cn } from "./Utility";
 
 export interface IProps extends P {
 }
 
-export interface IState {
+export interface IState extends S {
 }
 
-export default class ButtonBack extends SliderButton<IProps, IState> {
+export class ButtonBack extends SliderButton<IProps, IState> {
 
-    getButtonProps(): ButtonParameter {
+    constructor(props: IProps) {
+        super(props);
 
-        return {
-            ariaLabel: "previous",
-            onClick: this.context.onBack,
-        };
+        this.className = cn(this.className, "slider-back-button");
+        this.ariaLabel = "previous";
+        this.onClick = this.context.onBack.call;
     }
 
 };

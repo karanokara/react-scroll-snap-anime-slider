@@ -3,11 +3,6 @@ import { IProps as P } from "./Types";
 import { cn } from "./Utility";
 import { SliderContext, } from "./SliderContext";
 
-export type ButtonParameter = {
-    ariaLabel: string;
-    onClick: () => void;
-};
-
 export interface IProps extends P {
     disabled?: boolean;
 }
@@ -19,17 +14,15 @@ export default class SliderButton<PP extends IProps, SS extends IState> extends 
 
     public context!: React.ContextType<typeof SliderContext>;
 
-    // to be inherited
-    getButtonProps(): ButtonParameter {
-        return {
-            ariaLabel: "",
-            onClick: () => { },
-        };
-    }
+    public className = "slider-button";
+    public ariaLabel = "";
+    public onClick = () => { };
 
     render() {
         const {
             visibleSlides,
+            slideCount,
+
         } = this.context;
         const {
             className,
@@ -37,15 +30,14 @@ export default class SliderButton<PP extends IProps, SS extends IState> extends 
             ...otherProps
         } = this.props;
 
-        const newClassName = cn(className);
-        const buttonProps = this.getButtonProps();
+        const newClassName = cn(this.className, className);
 
         return (
             <button
                 type="button"
-                aria-label={buttonProps.ariaLabel}
+                aria-label={this.ariaLabel}
                 className={newClassName}
-                onClick={buttonProps.onClick}
+                onClick={this.onClick}
                 disabled={disabled}
                 {...otherProps}
             >
