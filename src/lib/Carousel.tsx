@@ -1,9 +1,9 @@
 import React from "react";
-import { SliderContext, DefaultSliderContextProps } from "./SliderContext";
-import { ICarouselDefaultProps as P, } from "./Types";
+import { CarouselContext, DefaultCarouselContextProps } from "./CarouselContext";
+import { ICarouselDefaultProps as DP, IProps as P } from "./Types";
 import { cn } from "./Utility";
 
-export interface IProps extends P {
+export interface IProps extends P, DP {
     /**
      * Total slides in this slider
      */
@@ -17,12 +17,12 @@ export interface IState {
 
 export class Carousel extends React.Component<IProps, IState> {
 
-    // fill with default props
-    public static defaultProps: Pick<IProps,
-        keyof (P) | "currentSlide">
+    // pick only default props
+    // and fill with default props
+    // this static var is used to fill null props
+    public static defaultProps: DP // Pick<IProps, keyof (P)>
         = {
-            ...DefaultSliderContextProps,
-            currentSlide: 0,
+            ...DefaultCarouselContextProps,
         };
 
     constructor(props: IProps) {
@@ -30,35 +30,39 @@ export class Carousel extends React.Component<IProps, IState> {
 
     }
 
+    updateContext = () => {
+
+    };
+
     render() {
         const {
-            slideHeight,
-            slideWidth,
-            visibleSlides,
-            slidesPerStep,
             className,
-            currentSlide,
+            style,
+            children,
+            ...otherProps
         } = this.props;
+
+        // validate the step
+        otherProps.step = this.props.step > 0
+            ? (this.props.step < this.props.visibleSlides
+                ? this.props.step
+                : this.props.visibleSlides)
+            : 1;
 
         return (
             <div
                 className={cn("react-scroll-snap-anime-slider", className)}
                 style={this.props.style}
             >
-                <SliderContext.Provider
+                <CarouselContext.Provider
                     value={{
-                        ...DefaultSliderContextProps,
-                        slideHeight,
-                        slideWidth,
-                        visibleSlides,
-                        slidesPerStep,
-                        currentSlide,
+                        ...DefaultCarouselContextProps,
+                        ...otherProps,
                     }}
                 >
                     {this.props.children}
-                </SliderContext.Provider>
+                </CarouselContext.Provider>
             </div>
         );
-
     }
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { IProps as P } from "./Types";
 import { cn } from "./Utility";
-import { SliderContext, } from "./SliderContext";
+import { CarouselContext, } from "./CarouselContext";
 
 export interface IProps extends P {
     disabled?: boolean;
@@ -12,7 +12,7 @@ export interface IState {
 
 export default class SliderButton<PP extends IProps, SS extends IState> extends React.PureComponent<PP, SS> {
 
-    public context!: React.ContextType<typeof SliderContext>;
+    public context!: React.ContextType<typeof CarouselContext>;
 
     public className = "slider-button";
     public ariaLabel = "";
@@ -21,7 +21,7 @@ export default class SliderButton<PP extends IProps, SS extends IState> extends 
     render() {
         const {
             visibleSlides,
-            slideCount,
+            totalSlides: slideCount,
 
         } = this.context;
         const {
@@ -47,4 +47,4 @@ export default class SliderButton<PP extends IProps, SS extends IState> extends 
     }
 };
 
-SliderButton.contextType = SliderContext;
+SliderButton.contextType = CarouselContext;

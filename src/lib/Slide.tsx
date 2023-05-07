@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { ICarouselDefaultProps as P } from "./Types";
+import { ICarouselDefaultProps as DP, IProps as P } from "./Types";
 import { cn } from "./Utility";
-import { SliderContext, DefaultSliderContextProps } from "./SliderContext";
+import { CarouselContext, DefaultCarouselContextProps } from "./CarouselContext";
 
-export interface IProps extends P {
+export interface IProps extends DP, P {
 
 }
 
@@ -13,13 +13,12 @@ export interface IState {
 export class Slide extends Component<IProps, IState> {
 
     // passing props from slider to each slide
-    public static defaultProps: Pick<IProps,
-        keyof (P)>
+    public static defaultProps: DP // Pick<IProps,keyof (P)>
         = {
-            ...DefaultSliderContextProps,
+            ...DefaultCarouselContextProps,
         };
 
-    public context!: React.ContextType<typeof SliderContext>;
+    public context!: React.ContextType<typeof CarouselContext>;
 
     constructor(prop: IProps) {
         super(prop);
@@ -70,4 +69,4 @@ export class Slide extends Component<IProps, IState> {
     }
 }
 
-Slide.contextType = SliderContext;
+Slide.contextType = CarouselContext;

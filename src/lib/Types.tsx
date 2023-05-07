@@ -7,7 +7,7 @@ export interface IProps {
 }
 
 // props of slider with default value
-export interface ICarouselDefaultProps extends IProps {
+export interface ICarouselDefaultProps {
     /**
      * Use to calculate slide's height in dimension,
      *  such as width:height = 16:9 
@@ -38,7 +38,7 @@ export interface ICarouselDefaultProps extends IProps {
      * -----------------------
      * Default: 1 (1 <= n <= visibleSlides)
      */
-    slidesPerStep: number;
+    step: number;
 
     /**
      * Current slide index (from 0)

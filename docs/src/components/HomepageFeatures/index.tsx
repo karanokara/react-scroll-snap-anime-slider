@@ -76,7 +76,7 @@ export default function HomepageFeatures(): JSX.Element {
                 <Carousel
                     totalSlides={slides.length}
                     visibleSlides={3}
-                    slidesPerStep={3}
+                    step={3}
                     slideHeight={1}
                     slideWidth={0.9}
                 >

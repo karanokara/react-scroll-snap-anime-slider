@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { IProps as P } from "./Types";
 import { cn } from "./Utility";
-import { SliderContext, DefaultSliderContextProps } from "./SliderContext";
+import { CarouselContext, DefaultCarouselContextProps } from "./CarouselContext";
 
 export interface IProps extends P {
 
@@ -12,7 +12,7 @@ export interface IState {
 
 export class SlideBar extends Component<IProps, IState> {
 
-    public context!: React.ContextType<typeof SliderContext>;
+    public context!: React.ContextType<typeof CarouselContext>;
 
     constructor(prop: IProps) {
         super(prop);
@@ -49,4 +49,4 @@ export class SlideBar extends Component<IProps, IState> {
     }
 }
 
-SlideBar.contextType = SliderContext;
+SlideBar.contextType = CarouselContext;

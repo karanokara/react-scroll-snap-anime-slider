@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { IProps as P, PointerValue, } from "./Types";
 import { tween, inertia, ColdSubscription, listen, pointer, value, calc, ValueReaction, easing } from "popmotion";
-import { SliderContext, DefaultSliderContextProps } from "./SliderContext";
+import { CarouselContext, DefaultCarouselContextProps } from "./CarouselContext";
 import styler, { Styler } from "stylefire";
 // import sync, { cancelSync } from "framesync";
 import "../css/style.scss";
+import { cn } from "./Utility";
 
 export interface IProps extends P {
     /**
@@ -12,6 +13,7 @@ export interface IProps extends P {
      */
     classNameTray?: string;
 
+    onScroll?: (scrollLeft: number, barLength: number, trackLength: number) => void;
 }
 
 export interface IState {
@@ -23,7 +25,7 @@ export class Slider extends Component<IProps, IState> {
 
 
     // context props from Carousel
-    public context!: React.ContextType<typeof SliderContext>;
+    public context!: React.ContextType<typeof CarouselContext>;
 
     public sliderTrayRef = React.createRef<HTMLDivElement>();
     public sliderTraystyler!: Styler;
@@ -43,21 +45,10 @@ export class Slider extends Component<IProps, IState> {
         this.state = {
             currentSlide: this.tempCurrentSlide,
         };
-
-        // fill next(), previous() to context
-        this.context.onNext.call = this.onClickNext;
-        this.context.onBack.call = this.onClickBack;
     }
 
-    onClickNext = () => {
-        this.slideNext();
-    };
-
-    onClickBack = () => {
-        this.slideBack();
-    };
-
     onScroll = (evt: Event) => {
+        // this.setState({})
         if (this.sliderTrayRef.current) {
             let trayElement = this.sliderTrayRef.current;
             console.log("scroll", trayElement.scrollLeft);
@@ -227,45 +218,37 @@ export class Slider extends Component<IProps, IState> {
     };
 
     /**
-     * Slide from current point to next of previous point
+     * Slide from current point to next or previous point
      * 
      * TODO: be able to keep speed and then accelerate to next, next target 
-     * @param isNext
+     * @param slideIndex from 0 ~ (len-1), this slide will be the slide on the left side
      */
-    slideTo(isNext: boolean) {
+    slideTo(slideIndex: number) {
         if (this.sliderTrayRef.current) {
             let trayElement = this.sliderTrayRef.current;
             let startPoint = trayElement.scrollLeft;
             let currentScrollValue = trayElement.scrollLeft;
             let trayWidth = trayElement.offsetWidth;
             let slideWidth = trayWidth / this.context.visibleSlides;
-            let slideCount = trayElement.childElementCount;
             let currentSlide = Math.round(currentScrollValue / slideWidth);
-            let maxSlide = slideCount - this.context.visibleSlides;
-            let step = this.context.slidesPerStep > 0
-                ? (this.context.slidesPerStep < this.context.visibleSlides
-                    ? this.context.slidesPerStep
-                    : this.context.visibleSlides)
-                : 1;
+            let maxSlide = this.context.totalSlides - this.context.visibleSlides;
             let onComplete = () => {
                 console.log("complete!!");
                 this.snapAction = undefined;
                 trayElement.classList.add("scroll-snap");
-
-                // update current slide index
             };
-            let nextSlide = isNext
-                ? this.tempCurrentSlide + step
-                : this.tempCurrentSlide - step;
+            // let nextSlide = isNext
+            //     ? this.tempCurrentSlide + step
+            //     : this.tempCurrentSlide - step;
 
-            if (nextSlide > maxSlide) {
+            if (slideIndex > maxSlide) {
                 this.tempCurrentSlide = maxSlide;
             }
-            else if (nextSlide < 0) {
+            else if (slideIndex < 0) {
                 this.tempCurrentSlide = 0;
             }
             else {
-                this.tempCurrentSlide = nextSlide;
+                this.tempCurrentSlide = slideIndex;
             }
 
             if (currentSlide === this.tempCurrentSlide)
@@ -289,14 +272,6 @@ export class Slider extends Component<IProps, IState> {
                 complete: onComplete
             });
         }
-    }
-
-    slideNext() {
-        this.slideTo(true);
-    }
-
-    slideBack() {
-        this.slideTo(false);
     }
 
     stopAnimeActions() {
@@ -382,6 +357,12 @@ export class Slider extends Component<IProps, IState> {
         return targetScrollValue;
     }
 
+    componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>, snapshot?: any): void {
+        if (this.context.currentSlide !== this.tempCurrentSlide) {
+            this.slideTo(this.context.currentSlide);
+        }
+    }
+
     componentDidMount(): void {
         // window.addEventListener("scroll", startTracking, false);
 
@@ -411,36 +392,41 @@ export class Slider extends Component<IProps, IState> {
     }
 
     render() {
+        const {
+            className,
+            classNameTray,
+        } = this.props;
 
-        let slideCount = 0;
-        if (this.props.children) {
-            if (Array.isArray(this.props.children))
-                slideCount = this.props.children.length;
-            else
-                slideCount = 1;
-        }
+        // let slideCount = 0;
+        // if (this.props.children) {
+        //     if (Array.isArray(this.props.children))
+        //         slideCount = this.props.children.length;
+        //     else
+        //         slideCount = 1;
+        // }
 
         return (
 
-            <div className="slider" >
+            <div className={cn("slider", className)}>
                 <div
-                    className="slider-tray css-only"
+                    className={cn("slider-tray", "css-only", classNameTray)}
                     ref={this.sliderTrayRef}
                 >
                     {/* Context uses reference identity to determine when to re-render, this will cause consumer to re-render every time */}
-                    <SliderContext.Provider
+                    {/* <SliderContext.Provider
                         value={{
                             ...this.context,
                             slideCount,
 
                         }}
                     >
-                        {this.props.children}
-                    </SliderContext.Provider>
+                    </SliderContext.Provider> */}
+
+                    {this.props.children}
                 </div>
             </div>
         );
     }
 }
 
-Slider.contextType = SliderContext;
+Slider.contextType = CarouselContext;
