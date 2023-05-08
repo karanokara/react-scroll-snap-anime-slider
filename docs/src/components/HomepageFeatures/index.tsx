@@ -33,7 +33,7 @@ function Feature(props: SlideItem) {
 }
 
 export default function HomepageFeatures(): JSX.Element {
-    const [slideCount, setSlideCount] = useState(9);
+    const [slideCount, setSlideCount] = useState(20);
 
     let slides: SlideItem[] = [];
 
@@ -76,7 +76,7 @@ export default function HomepageFeatures(): JSX.Element {
                 <Carousel
                     totalSlides={slides.length}
                     visibleSlides={3}
-                    step={3}
+                    step={1}
                     slideHeight={1}
                     slideWidth={0.9}
                 >

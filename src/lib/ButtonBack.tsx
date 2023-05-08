@@ -14,7 +14,7 @@ export class ButtonBack extends SliderButton<IProps, IState> {
 
         this.className = cn(this.className, "slider-back-button");
         this.ariaLabel = "previous";
-        this.onClick = this.context.onBack.call;
+        this.onClick = () => this.handleOnClick(false);
     }
 
 };

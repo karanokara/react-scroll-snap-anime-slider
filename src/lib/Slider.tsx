@@ -17,7 +17,6 @@ export interface IProps extends P {
 }
 
 export interface IState {
-    currentSlide: number;
 }
 
 export class Slider extends Component<IProps, IState> {
@@ -35,23 +34,19 @@ export class Slider extends Component<IProps, IState> {
     public pointerAction: ColdSubscription | undefined;
     public inertiaAction: ColdSubscription | undefined;
     public snapAction: ColdSubscription | undefined;
-    public tempCurrentSlide: number;     // hold a temp slide index when in animation
+    public tempCurrentSlide: number = 0;     // hold a temp slide index when in animation
 
     constructor(prop: IProps) {
         super(prop);
 
-        this.tempCurrentSlide = this.context.currentSlide;
 
-        this.state = {
-            currentSlide: this.tempCurrentSlide,
-        };
     }
 
     onScroll = (evt: Event) => {
         // this.setState({})
         if (this.sliderTrayRef.current) {
             let trayElement = this.sliderTrayRef.current;
-            console.log("scroll", trayElement.scrollLeft);
+            // console.log("scroll", trayElement.scrollLeft);
         }
     };
 
@@ -217,44 +212,54 @@ export class Slider extends Component<IProps, IState> {
         }
     };
 
+    getCurrentSlideIndex() {
+        if (this.sliderTrayRef.current) {
+            let trayElement = this.sliderTrayRef.current;
+            let currentScrollValue = trayElement.scrollLeft;
+            let trayWidth = trayElement.offsetWidth;
+            let slideWidth = trayWidth / this.context.visibleSlides;
+            let currentSlide = Math.round(currentScrollValue / slideWidth);
+            return currentSlide;
+        }
+        return 0;
+    }
+
     /**
      * Slide from current point to next or previous point
      * 
      * TODO: be able to keep speed and then accelerate to next, next target 
      * @param slideIndex from 0 ~ (len-1), this slide will be the slide on the left side
      */
-    slideTo(slideIndex: number) {
+    slideTo(slideIndex: number, animated: boolean = true) {
         if (this.sliderTrayRef.current) {
             let trayElement = this.sliderTrayRef.current;
             let startPoint = trayElement.scrollLeft;
-            let currentScrollValue = trayElement.scrollLeft;
             let trayWidth = trayElement.offsetWidth;
             let slideWidth = trayWidth / this.context.visibleSlides;
-            let currentSlide = Math.round(currentScrollValue / slideWidth);
-            let maxSlide = this.context.totalSlides - this.context.visibleSlides;
+            // let maxSlide = this.context.totalSlides - this.context.visibleSlides;
+            // let tempCurrentSlide = 0;
             let onComplete = () => {
-                console.log("complete!!");
+                console.log("complete slide!!");
                 this.snapAction = undefined;
                 trayElement.classList.add("scroll-snap");
             };
-            // let nextSlide = isNext
-            //     ? this.tempCurrentSlide + step
-            //     : this.tempCurrentSlide - step;
 
-            if (slideIndex > maxSlide) {
-                this.tempCurrentSlide = maxSlide;
-            }
-            else if (slideIndex < 0) {
-                this.tempCurrentSlide = 0;
-            }
-            else {
-                this.tempCurrentSlide = slideIndex;
-            }
+            // if (slideIndex > maxSlide) {
+            //     tempCurrentSlide = maxSlide;
+            // }
+            // else if (slideIndex < 0) {
+            //     tempCurrentSlide = 0;
+            // }
+            // else {
+            //     tempCurrentSlide = slideIndex;
+            // }
 
-            if (currentSlide === this.tempCurrentSlide)
-                return;
+            // if (currentSlide === this.tempCurrentSlide)
+            //     return;
+            // let targetScrollValue = this.tempCurrentSlide * slideWidth;
+            let targetScrollValue = slideIndex * slideWidth;
 
-            let targetScrollValue = this.tempCurrentSlide * slideWidth;
+            this.tempCurrentSlide = slideIndex;
 
             this.stopAnimeActions();
 
@@ -263,7 +268,7 @@ export class Slider extends Component<IProps, IState> {
             this.snapAction = tween({
                 from: startPoint,
                 to: targetScrollValue,
-                duration: 300,
+                duration: animated ? 300 : 0,
                 ease: easing.easeOut,
             }).start({
                 update: (v: number) => {
@@ -358,7 +363,7 @@ export class Slider extends Component<IProps, IState> {
     }
 
     componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>, snapshot?: any): void {
-        if (this.context.currentSlide !== this.tempCurrentSlide) {
+        if (this.tempCurrentSlide !== this.context.currentSlide) {
             this.slideTo(this.context.currentSlide);
         }
     }
@@ -378,6 +383,12 @@ export class Slider extends Component<IProps, IState> {
             trayElement.addEventListener("scroll", this.onScroll, false);
 
         }
+
+        // check current slide
+        if (this.tempCurrentSlide !== this.context.currentSlide) {
+            this.slideTo(this.context.currentSlide, false);
+        }
+
     }
 
     componentWillUnmount(): void {

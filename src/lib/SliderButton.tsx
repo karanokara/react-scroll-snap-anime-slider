@@ -16,7 +16,28 @@ export default class SliderButton<PP extends IProps, SS extends IState> extends 
 
     public className = "slider-button";
     public ariaLabel = "";
-    public onClick = () => { };
+
+    onClick = () => { };
+
+    handleOnClick(isNext: boolean) {
+        let currentSlide = this.context.currentSlide;
+        let step = this.context.step;
+        let maxSlide = this.context.totalSlides - this.context.visibleSlides;
+        let nextSlide = currentSlide + (isNext ? step : - 1 * step);
+
+        if (nextSlide > maxSlide) {
+            nextSlide = maxSlide;
+        }
+        else if (nextSlide < 0) {
+            nextSlide = 0;
+        }
+
+        console.log("current", currentSlide, "next", nextSlide);
+        if (currentSlide === nextSlide)
+            return;
+
+        this.context.updateContext({ currentSlide: nextSlide });
+    };
 
     render() {
         const {
