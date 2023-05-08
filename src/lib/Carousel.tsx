@@ -1,7 +1,7 @@
 import React from "react";
-import { CarouselContext, DefaultCarouselContextProps, ICarouselContextProps } from "./CarouselContext";
+import { CarouselContext, DefaultCarouselProps, ICarouselContextProps } from "./CarouselContext";
 import { ICarouselDefaultProps as DP, IProps as P } from "./Types";
-import { cn } from "./Utility";
+import { cn, deepCompare } from "./Utility";
 
 export interface IProps extends P, DP {
     /**
@@ -23,7 +23,7 @@ export class Carousel extends React.Component<IProps, IState> {
     // this static var is used to fill undefined props
     public static defaultProps: DP // Pick<IProps, keyof (P)>
         = {
-            ...DefaultCarouselContextProps,
+            ...DefaultCarouselProps,
         };
 
     constructor(props: IProps) {
@@ -37,11 +37,7 @@ export class Carousel extends React.Component<IProps, IState> {
         } = this.props;
 
         // validate the step
-        contextProps.step = this.props.step > 0
-            ? (this.props.step < this.props.visibleSlides
-                ? this.props.step
-                : this.props.visibleSlides)
-            : 1;
+        contextProps.step = this.validateStep();
 
         this.state = {
             context: {
@@ -64,10 +60,44 @@ export class Carousel extends React.Component<IProps, IState> {
         });
     };
 
+    validateStep() {
+        return this.props.step > 0
+            ? (this.props.step < this.props.visibleSlides
+                ? this.props.step
+                : this.props.visibleSlides)
+            : 1;
+    }
+
+    componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>, snapshot?: any): void {
+        const {
+            className,
+            style,
+            children,
+            ...contextPrevProps
+        } = prevProps;
+
+        const {
+            className: a,
+            style: b,
+            children: c,
+            ...contextProps
+        } = this.props;
+
+        if (!deepCompare(contextPrevProps, contextProps)) {
+            this.setState({
+                context: {
+                    ...contextProps,
+                    updateContext: this.updateContext
+                }
+            });
+        }
+    }
+
     render() {
         const {
             className,
             style,
+            children,
         } = this.props;
 
 
@@ -81,7 +111,7 @@ export class Carousel extends React.Component<IProps, IState> {
                         ...this.state.context,
                     }}
                 >
-                    {this.props.children}
+                    {children}
                 </CarouselContext.Provider>
             </div>
         );

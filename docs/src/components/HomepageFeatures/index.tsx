@@ -34,6 +34,8 @@ function Feature(props: SlideItem) {
 
 export default function HomepageFeatures(): JSX.Element {
     const [slideCount, setSlideCount] = useState(20);
+    const [visibleSlides, setVisibleSlides] = useState(3);
+    const [step, setStep] = useState(1);
 
     let slides: SlideItem[] = [];
 
@@ -52,9 +54,27 @@ export default function HomepageFeatures(): JSX.Element {
         <section className={styles.features}>
             <div className="container">
 
-                <div className="padding-vert--md" style={{ display: "flex" }}>
+                <div className={"padding-vert--md " + styles.featureSettingContainer} >
 
                     <div>
+                        <div className="">
+                            Slide count: <input className="site-input" type="number" value={slideCount} onChange={(e) => setSlideCount(Number(e.target.value))} />
+                        </div>
+                        <div className="padding-top--xs">
+                            Visible Slides: <input className="site-input" type="number" value={visibleSlides} onChange={(e) => setVisibleSlides(Number(e.target.value))} />
+                        </div>
+                    </div>
+
+                    <div className="margin-left--md">
+                        <div className="">
+                            Steps: <input className="site-input" type="number" value={step} onChange={(e) => setStep(Number(e.target.value))} />
+                        </div>
+                        <div className="padding-top--xs">
+                            slideWeight: <input className="site-input" placeholder="" />
+                        </div>
+                    </div>
+
+                    <div className="margin-left--md">
                         <div className="">
                             slideHeight: <input className="site-input" placeholder="" />
                         </div>
@@ -63,7 +83,7 @@ export default function HomepageFeatures(): JSX.Element {
                         </div>
                     </div>
 
-                    <div>
+                    <div className="margin-left--md">
                         <div className="">
                             slideHeight: <input className="site-input" placeholder="" />
                         </div>
@@ -75,8 +95,8 @@ export default function HomepageFeatures(): JSX.Element {
 
                 <Carousel
                     totalSlides={slides.length}
-                    visibleSlides={3}
-                    step={1}
+                    visibleSlides={visibleSlides}
+                    step={step}
                     slideHeight={1}
                     slideWidth={0.9}
                 >

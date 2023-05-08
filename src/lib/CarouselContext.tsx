@@ -6,13 +6,17 @@ export interface ICarouselContextProps extends ICarouselDefaultProps {
     updateContext<K extends keyof ICarouselContextProps>(state: Pick<ICarouselContextProps, K> | ICarouselContextProps | null): void;
 }
 
-export const DefaultCarouselContextProps: ICarouselContextProps = {
+export const DefaultCarouselProps: ICarouselDefaultProps = {
     slideHeight: 0,
     slideWidth: 0,
     visibleSlides: 1,
-    totalSlides: 0,
     step: 1,
     currentSlide: 0,
+};
+
+export const DefaultCarouselContextProps: ICarouselContextProps = {
+    ...DefaultCarouselProps,
+    totalSlides: 0,
     updateContext: () => { },
 };
 
