@@ -120,9 +120,13 @@ export class Slider extends Component<IProps, IState> {
             let velocity = this.scrollValue.getVelocity();
             let toStop = false;
             let onComplete = () => {
-                console.log("complete!!");
+                console.log("complete tracking!!");
                 this.snapAction = undefined;
                 trayElement.classList.add("scroll-snap");
+
+                // update slide index
+                this.tempCurrentSlide = this.getCurrentSlideIndex();
+                this.context.updateContext({ currentSlide: this.tempCurrentSlide });
             };
             let snap = (from: number, to: number) => tween({
                 from: from,
