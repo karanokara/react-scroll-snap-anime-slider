@@ -43,15 +43,34 @@ export class Slider extends Component<IProps, IState> {
     }
 
     onScroll = (evt: Event) => {
-        // this.setState({})
+        // console.log("onScroll", evt);
+
         if (this.sliderTrayRef.current) {
             let trayElement = this.sliderTrayRef.current;
 
             // is using native scroll bar to scroll
             if (this.pointerAction == null && this.inertiaAction == null && this.snapAction == null) {
-                console.log("scroll", trayElement.scrollLeft);
+                // console.log("scroll", trayElement.scrollLeft);
+
+                // update slide index
+                let newSlideIndex = this.getCurrentSlideIndex();
+                if (this.tempCurrentSlide !== newSlideIndex) {
+                    this.tempCurrentSlide = newSlideIndex;
+                    // console.log("update context slide index:", this.tempCurrentSlide);
+                    this.context.updateContext({ currentSlide: this.tempCurrentSlide });
+                }
             }
         }
+    };
+
+    /**
+     * On using touchpad or mouse wheel to scroll
+     * @param evt 
+     */
+    onWheel = (evt: Event) => {
+        let ev = evt as WheelEvent;
+
+        console.log("onWheel", evt);
     };
 
     /**
@@ -246,6 +265,8 @@ export class Slider extends Component<IProps, IState> {
      */
     slideTo(slideIndex: number, animated: boolean = true) {
         if (this.sliderTrayRef.current) {
+            this.stopAnimeActions();
+
             let trayElement = this.sliderTrayRef.current;
             let startPoint = trayElement.scrollLeft;
             let trayWidth = trayElement.offsetWidth;
@@ -275,8 +296,6 @@ export class Slider extends Component<IProps, IState> {
             let targetScrollValue = slideIndex * slideWidth;
 
             this.tempCurrentSlide = slideIndex;
-
-            this.stopAnimeActions();
 
             !this.context.freeScroll && trayElement.classList.remove("scroll-snap");
 
@@ -397,6 +416,11 @@ export class Slider extends Component<IProps, IState> {
             // listen scroll
             trayElement.addEventListener("scroll", this.onScroll, false);
 
+            // listen touchpad or mouse wheel
+            // there will be only one event listener being used 
+            // 1st one is using
+            // trayElement.addEventListener("mousewheel", this.onWheel, false);
+            // trayElement.addEventListener("DOMMouseScroll", this.onWheel, false);
         }
 
         // check current slide
