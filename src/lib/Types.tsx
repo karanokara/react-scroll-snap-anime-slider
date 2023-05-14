@@ -42,8 +42,19 @@ export interface ICarouselDefaultProps {
 
     /**
      * Current slide index (from 0)
+     * 
+     * -----------------------
+     * Default: 0
      */
     currentSlide: number;
+
+    /**
+     * Is freely scrolling (not using snapping)?
+     * 
+     * -----------------------
+     * Default: false
+     */
+    freeScroll: boolean;
 }
 
 export interface TweenStartedAction extends ColdSubscription {

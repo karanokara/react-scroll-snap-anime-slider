@@ -12,6 +12,7 @@ export const DefaultCarouselProps: ICarouselDefaultProps = {
     visibleSlides: 1,
     step: 1,
     currentSlide: 0,
+    freeScroll: false,
 };
 
 export const DefaultCarouselContextProps: ICarouselContextProps = {

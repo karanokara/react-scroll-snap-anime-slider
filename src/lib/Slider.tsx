@@ -34,7 +34,7 @@ export class Slider extends Component<IProps, IState> {
     public pointerAction: ColdSubscription | undefined;
     public inertiaAction: ColdSubscription | undefined;
     public snapAction: ColdSubscription | undefined;
-    public tempCurrentSlide: number = 0;     // hold a temp slide index when in animation
+    public tempCurrentSlide: number = 0;     // hold a temp slide index when in animation (the slide on the left side)
 
     constructor(prop: IProps) {
         super(prop);
@@ -46,7 +46,11 @@ export class Slider extends Component<IProps, IState> {
         // this.setState({})
         if (this.sliderTrayRef.current) {
             let trayElement = this.sliderTrayRef.current;
-            // console.log("scroll", trayElement.scrollLeft);
+
+            // is using native scroll bar to scroll
+            if (this.pointerAction == null && this.inertiaAction == null && this.snapAction == null) {
+                console.log("scroll", trayElement.scrollLeft);
+            }
         }
     };
 
@@ -75,7 +79,7 @@ export class Slider extends Component<IProps, IState> {
             });
 
             // need to remove scroll-snap so can use mouse to move slide
-            trayElement.classList.remove("scroll-snap");
+            !this.context.freeScroll && trayElement.classList.remove("scroll-snap");
 
             // pointer already tracking mouse movement
             this.pointerAction = pointer({
@@ -122,7 +126,7 @@ export class Slider extends Component<IProps, IState> {
             let onComplete = () => {
                 console.log("complete tracking!!");
                 this.snapAction = undefined;
-                trayElement.classList.add("scroll-snap");
+                !this.context.freeScroll && trayElement.classList.add("scroll-snap");
 
                 // update slide index
                 this.tempCurrentSlide = this.getCurrentSlideIndex();
@@ -187,7 +191,7 @@ export class Slider extends Component<IProps, IState> {
                     return v;
                 })
                 .start({
-                    update: (scrollValue: number) => {
+                    update: (v: number) => {
                         // filter out first time update that make vel to be 0 
                         if (!startToUpdateInertia) {
                             startToUpdateInertia = true;
@@ -198,13 +202,15 @@ export class Slider extends Component<IProps, IState> {
 
                         // console.log("inertia update, vel", vel);
 
-                        this.scrollValue.update(scrollValue);
+                        this.scrollValue.update(v);
 
                         if (Math.abs(vel) < 250) {
                             inertiaAction.stop();
-                            let targetScrollValue = this.getSnapScrollValue(scrollValue, vel);
+                            this.inertiaAction = undefined;
+
+                            let targetScrollValue = this.getSnapScrollValue(v, vel);
                             console.log("stop inertia, vel:", vel, "scroll to", targetScrollValue);
-                            this.snapAction = snap(scrollValue, targetScrollValue);
+                            this.snapAction = snap(v, targetScrollValue);
                         }
                     },
 
@@ -216,6 +222,10 @@ export class Slider extends Component<IProps, IState> {
         }
     };
 
+    /**
+     * Get current slide index (the slide on the left side)
+     * @returns 
+     */
     getCurrentSlideIndex() {
         if (this.sliderTrayRef.current) {
             let trayElement = this.sliderTrayRef.current;
@@ -243,9 +253,10 @@ export class Slider extends Component<IProps, IState> {
             // let maxSlide = this.context.totalSlides - this.context.visibleSlides;
             // let tempCurrentSlide = 0;
             let onComplete = () => {
-                console.log("complete slide!!");
+                console.log("complete slide to!!");
                 this.snapAction = undefined;
-                trayElement.classList.add("scroll-snap");
+
+                !this.context.freeScroll && trayElement.classList.add("scroll-snap");
             };
 
             // if (slideIndex > maxSlide) {
@@ -267,7 +278,7 @@ export class Slider extends Component<IProps, IState> {
 
             this.stopAnimeActions();
 
-            trayElement.classList.remove("scroll-snap");
+            !this.context.freeScroll && trayElement.classList.remove("scroll-snap");
 
             this.snapAction = tween({
                 from: startPoint,
@@ -410,6 +421,7 @@ export class Slider extends Component<IProps, IState> {
         const {
             className,
             classNameTray,
+
         } = this.props;
 
         // let slideCount = 0;
@@ -424,7 +436,7 @@ export class Slider extends Component<IProps, IState> {
 
             <div className={cn("slider", className)}>
                 <div
-                    className={cn("slider-tray", "css-only", classNameTray)}
+                    className={cn("slider-tray", "css-only", (this.context.freeScroll ? "" : "scroll-snap"), classNameTray)}
                     ref={this.sliderTrayRef}
                 >
                     {/* Context uses reference identity to determine when to re-render, this will cause consumer to re-render every time */}
