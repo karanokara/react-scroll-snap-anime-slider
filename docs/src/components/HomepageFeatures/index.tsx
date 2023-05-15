@@ -36,6 +36,7 @@ export default function HomepageFeatures(): JSX.Element {
     const [slideCount, setSlideCount] = useState(20);
     const [visibleSlides, setVisibleSlides] = useState(3);
     const [step, setStep] = useState(1);
+    const [freeScroll, setFreeScroll] = useState(false);
 
     let slides: SlideItem[] = [];
 
@@ -85,7 +86,7 @@ export default function HomepageFeatures(): JSX.Element {
 
                     <div className="margin-left--md">
                         <div className="">
-                            slideHeight: <input className="site-input" placeholder="" />
+                            Free Scroll?: <input className="" type="checkbox" checked={freeScroll} onChange={() => setFreeScroll(!freeScroll)} />
                         </div>
                         <div className="padding-top--xs">
                             slideWeight: <input className="site-input" placeholder="" />
@@ -99,6 +100,7 @@ export default function HomepageFeatures(): JSX.Element {
                     step={step}
                     slideHeight={1}
                     slideWidth={0.9}
+                    freeScroll={freeScroll}
                 >
                     <Slider
                     >

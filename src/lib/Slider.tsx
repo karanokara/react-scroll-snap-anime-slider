@@ -42,6 +42,10 @@ export class Slider extends Component<IProps, IState> {
 
     }
 
+    /**
+     * On scrolling from any action (touchpad, mouse drag, button)
+     * @param evt 
+     */
     onScroll = (evt: Event) => {
         // console.log("onScroll", evt);
 
@@ -51,14 +55,7 @@ export class Slider extends Component<IProps, IState> {
             // is using native scroll bar to scroll
             if (this.pointerAction == null && this.inertiaAction == null && this.snapAction == null) {
                 // console.log("scroll", trayElement.scrollLeft);
-
-                // update slide index
-                let newSlideIndex = this.getCurrentSlideIndex();
-                if (this.tempCurrentSlide !== newSlideIndex) {
-                    this.tempCurrentSlide = newSlideIndex;
-                    // console.log("update context slide index:", this.tempCurrentSlide);
-                    this.context.updateContext({ currentSlide: this.tempCurrentSlide });
-                }
+                this.updateSlideIndex();
             }
         }
     };
@@ -224,16 +221,21 @@ export class Slider extends Component<IProps, IState> {
                         this.scrollValue.update(v);
 
                         if (Math.abs(vel) < 250) {
-                            inertiaAction.stop();
-                            this.inertiaAction = undefined;
+                            if (!this.context.freeScroll) {
+                                inertiaAction.stop();
+                                this.inertiaAction = undefined;
 
-                            let targetScrollValue = this.getSnapScrollValue(v, vel);
-                            console.log("stop inertia, vel:", vel, "scroll to", targetScrollValue);
-                            this.snapAction = snap(v, targetScrollValue);
+                                let targetScrollValue = this.getSnapScrollValue(v, vel);
+                                console.log("stop inertia, vel:", vel, "scroll to", targetScrollValue);
+                                this.snapAction = snap(v, targetScrollValue);
+                            }
+                            else {
+                                this.updateSlideIndex();
+                            }
                         }
                     },
 
-                    // this may not be called, keep it here for safe
+                    // this will be called when not using snapping (free scrolling)
                     complete: onComplete
                 });
             this.inertiaAction = inertiaAction;
@@ -255,6 +257,16 @@ export class Slider extends Component<IProps, IState> {
             return currentSlide;
         }
         return 0;
+    }
+
+    updateSlideIndex() {
+        // update slide index
+        let newSlideIndex = this.getCurrentSlideIndex();
+        if (this.tempCurrentSlide !== newSlideIndex) {
+            this.tempCurrentSlide = newSlideIndex;
+            // console.log("update context slide index:", this.tempCurrentSlide);
+            this.context.updateContext({ currentSlide: this.tempCurrentSlide });
+        }
     }
 
     /**
@@ -313,6 +325,11 @@ export class Slider extends Component<IProps, IState> {
         }
     }
 
+    /**
+     * Stop current active anime actions
+     * 
+     * @returns current slide index if there is anime action which is not finished
+     */
     stopAnimeActions() {
         if (this.inertiaAction) {
             this.inertiaAction.stop();

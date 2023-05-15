@@ -33,7 +33,7 @@ export interface ICarouselDefaultProps {
     visibleSlides: number;
 
     /**
-     * How mange slides per step (when click next button) 
+     * How mange slides per step (when click previous and next button) 
      * 
      * -----------------------
      * Default: 1 (1 <= n <= visibleSlides)
