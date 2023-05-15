@@ -4,13 +4,15 @@ import { cn } from "./Utility";
 import { CarouselContext, DefaultCarouselContextProps } from "./CarouselContext";
 
 export interface IProps extends P {
-
+    trackProps?: React.HTMLAttributes<HTMLDivElement>;
+    thumbProps?: React.HTMLAttributes<HTMLDivElement>;
 }
 
 export interface IState {
+    left: string;
 }
 
-export class SlideBar extends Component<IProps, IState> {
+export class SliderBar extends Component<IProps, IState> {
 
     public context!: React.ContextType<typeof CarouselContext>;
 
@@ -18,35 +20,80 @@ export class SlideBar extends Component<IProps, IState> {
         super(prop);
 
         this.state = {
-
+            left: "",
         };
 
         // console.log("slide context:", this.context); // undefined when construct
     }
 
-    render() {
-        let {
-            slideHeight,
-            slideWidth,
-            visibleSlides
+    onScroll = (trayWidth: number, slideWidth: number, scrollLeft: number) => {
+        const {
+            totalSlides
+        } = this.context;
+        let totalWidth = totalSlides * slideWidth;
+        let per = scrollLeft / totalWidth * 100;
+        this.setState({ left: per + "%" });
+
+    };
+
+    componentDidMount(): void {
+
+        const {
+            currentSlide,
+            visibleSlides,
+            totalSlides,
+            subscribers,
         } = this.context;
 
-        let width = 0;
-        let style: React.CSSProperties = {
+        // subscribe to onScroll change
+        subscribers.push(this.onScroll);
+
+        if (currentSlide !== 0) {
+            let left = currentSlide / totalSlides * 100;
+            this.setState({ left: left + "%" });
+        }
+    }
+
+    render() {
+        const {
+            visibleSlides,
+            totalSlides,
+
+        } = this.context;
+        const {
+            className,
+            style,
+            thumbProps,
+            ...otherProps
+        } = this.props;
+        let width = visibleSlides / totalSlides * 100;
+
+        let thumbStyle: React.CSSProperties = {
             width: width + "%",
+            left: this.state.left,
         };
+
+        const newClassName = cn("slider-bar", className);
+
+        if (thumbProps) {
+            thumbStyle = { ...thumbProps.style, ...thumbStyle };
+            delete thumbProps.style;
+        }
 
         return (
             <div
-                className="slider-bar"
-                style={style}
+                className={newClassName}
             >
                 <div className="slider-bar-track">
-                    <div className="slider-bar-thumb"></div>
+                    <div
+                        className="slider-bar-thumb"
+                        style={thumbStyle}
+                        {...thumbProps}
+                    />
                 </div>
             </div>
         );
     }
 }
 
-SlideBar.contextType = CarouselContext;
+SliderBar.contextType = CarouselContext;

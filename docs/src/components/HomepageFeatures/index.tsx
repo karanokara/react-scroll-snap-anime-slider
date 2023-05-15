@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { clsx } from 'clsx';
 import styles from './styles.module.css';
 import { random, colord } from "colord";
-import { ButtonBack, ButtonNext, Carousel, Slide, Slider } from "../../../../src";
+import { ButtonBack, ButtonNext, Carousel, Slide, Slider, SliderBar } from "../../../../src";
 
 type SlideItem = {
     title: string;
@@ -84,7 +84,7 @@ export default function HomepageFeatures(): JSX.Element {
                         Slide Width: <input className="site-input" type="number" value={width} onChange={(e) => setWidth(Number(e.target.value))} step="0.1" />
                     </div>
 
-                    <div className="padding-top--xs" style={{ "color": " var(--ifm-color-secondary-darkest)", fontSize: "12px" }}>Set to 0, height will become auto.</div>
+                    <div className="padding-top--xs" style={{ "color": " var(--ifm-color-secondary-darkest)", fontSize: "12px" }}>Height will become auto if set to 0</div>
                 </div>
 
                 <div className="padding--md">
@@ -119,6 +119,8 @@ export default function HomepageFeatures(): JSX.Element {
                                 </Slide>
                             ))}
                         </Slider>
+
+                        <SliderBar />
 
                         <ButtonBack>&lt;</ButtonBack>
 

@@ -42,7 +42,8 @@ export class Carousel extends React.Component<IProps, IState> {
         this.state = {
             context: {
                 ...contextProps,
-                updateContext: this.updateContext
+                updateContext: this.updateContext,
+                subscribers: [],
             }
         };
     }
@@ -89,7 +90,8 @@ export class Carousel extends React.Component<IProps, IState> {
             this.setState({
                 context: {
                     ...contextProps,
-                    updateContext: this.updateContext
+                    updateContext: this.updateContext,
+                    subscribers: [],
                 }
             });
         }

@@ -51,10 +51,19 @@ export class Slider extends Component<IProps, IState> {
 
         if (this.sliderTrayRef.current) {
             let trayElement = this.sliderTrayRef.current;
+            let trayWidth = trayElement.offsetWidth;
+            let slideWidth = trayWidth / this.context.visibleSlides;
+            let scrollLeft = trayElement.scrollLeft;
+
+            // update subscriber
+            for (let i = 0; i < this.context.subscribers.length; ++i) {
+                this.context.subscribers[i](trayWidth, slideWidth, scrollLeft);
+            }
+
+            // console.log("scroll", trayElement.scrollLeft);
 
             // is using native scroll bar to scroll
             if (this.pointerAction == null && this.inertiaAction == null && this.snapAction == null) {
-                // console.log("scroll", trayElement.scrollLeft);
                 this.updateSlideIndex();
             }
         }
