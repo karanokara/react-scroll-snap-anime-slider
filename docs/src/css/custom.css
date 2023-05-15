@@ -17,11 +17,11 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-  --ifm-hr-background-color:#e0e5eb;
+  --ifm-hr-background-color: #e0e5eb;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
+[data-theme="dark"] {
   --ifm-color-primary: #25c2a0;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
@@ -30,11 +30,11 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-  --ifm-hr-background-color:#565c62;
+  --ifm-hr-background-color: #565c62;
 }
 
 hr {
-  margin: 0 ;
+  margin: 0;
 }
 
 .header-github-link:before {
@@ -42,9 +42,8 @@ hr {
   content: "";
   display: flex;
   height: 24px;
-  width: 24px
+  width: 24px;
 }
-
 
 .site-input {
   appearance: none; /* Algolia will add type="search" to the input in Safari and Safari's styling will override the styling here. */
@@ -57,9 +56,15 @@ hr {
   font-size: 0.9rem;
   height: 2rem;
   padding: 0 1rem;
-  min-width: 10rem;
+  width: 5rem;
+  /* min-width: 5rem; */
+  /* max-width: 10rem; */
 }
 
 .site-input::placeholder {
-    color: var(--ifm-navbar-search-input-placeholder-color);
-  }
+  color: var(--ifm-navbar-search-input-placeholder-color);
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}

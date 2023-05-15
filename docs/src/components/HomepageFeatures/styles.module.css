@@ -10,13 +10,19 @@
   width: 200px;
 }
 
-.featureSettingContainer{
+.featureSettingContainer {
   display: flex;
   width: 100%;
-  align-items: start;
   overflow-x: auto;
 }
 
-.featureSettingContainer::-webkit-scrollbar{
+.featureSettingContainer::-webkit-scrollbar {
   display: none;
+}
+
+.featureSettingContainer > div {
+  flex-shrink: 0;
+}
+.featureSettingContainer > div:not(:first-child) {
+  border-left: 1px solid var(--ifm-hr-background-color);
 }

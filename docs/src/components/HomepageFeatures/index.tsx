@@ -36,6 +36,8 @@ export default function HomepageFeatures(): JSX.Element {
     const [slideCount, setSlideCount] = useState(20);
     const [visibleSlides, setVisibleSlides] = useState(3);
     const [step, setStep] = useState(1);
+    const [height, setHeight] = useState(1);
+    const [width, setWidth] = useState(0.9);
     const [freeScroll, setFreeScroll] = useState(false);
 
     let slides: SlideItem[] = [];
@@ -52,72 +54,77 @@ export default function HomepageFeatures(): JSX.Element {
     }
 
     return (
-        <section className={styles.features}>
-            <div className="container">
+        <section >
+            <div className={styles.featureSettingContainer} >
 
-                <div className={"padding-vert--md " + styles.featureSettingContainer} >
-
-                    <div>
-                        <div className="">
-                            Slide count: <input className="site-input" type="number" value={slideCount} onChange={(e) => setSlideCount(Number(e.target.value))} />
-                        </div>
-                        <div className="padding-top--xs">
-                            Visible Slides: <input className="site-input" type="number" value={visibleSlides} onChange={(e) => setVisibleSlides(Number(e.target.value))} />
-                        </div>
+                <div className="padding--md">
+                    <div className="">
+                        Slide count: <input className="site-input" type="number" value={slideCount} onChange={(e) => setSlideCount(Number(e.target.value))} />
                     </div>
-
-                    <div className="margin-left--md">
-                        <div className="">
-                            Steps: <input className="site-input" type="number" value={step} onChange={(e) => setStep(Number(e.target.value))} />
-                        </div>
-                        <div className="padding-top--xs">
-                            slideWeight: <input className="site-input" placeholder="" />
-                        </div>
-                    </div>
-
-                    <div className="margin-left--md">
-                        <div className="">
-                            slideHeight: <input className="site-input" placeholder="" />
-                        </div>
-                        <div className="padding-top--xs">
-                            slideWeight: <input className="site-input" placeholder="" />
-                        </div>
-                    </div>
-
-                    <div className="margin-left--md">
-                        <div className="">
-                            Free Scroll?: <input className="" type="checkbox" checked={freeScroll} onChange={() => setFreeScroll(!freeScroll)} />
-                        </div>
-                        <div className="padding-top--xs">
-                            slideWeight: <input className="site-input" placeholder="" />
-                        </div>
+                    <div className="padding-top--xs">
+                        Visible Slides: <input className="site-input" type="number" value={visibleSlides} onChange={(e) => setVisibleSlides(Number(e.target.value))} />
                     </div>
                 </div>
 
-                <Carousel
-                    totalSlides={slides.length}
-                    visibleSlides={visibleSlides}
-                    step={step}
-                    slideHeight={1}
-                    slideWidth={0.9}
-                    freeScroll={freeScroll}
-                >
-                    <Slider
+                <div className="padding--md">
+                    <div className="">
+                        Steps: <input className="site-input" type="number" value={step} onChange={(e) => setStep(Number(e.target.value))} />
+                    </div>
+                    {/* <div className="padding-top--xs">
+                            slideWeight: <input className="site-input" placeholder="" />
+                        </div> */}
+                </div>
+
+                <div className="padding--md">
+
+                    <div className="">
+                        Slide Height: <input className="site-input" type="number" value={height} onChange={(e) => setHeight(Number(e.target.value))} step="0.1" />
+                    </div>
+                    <div className="padding-top--xs">
+                        Slide Width: <input className="site-input" type="number" value={width} onChange={(e) => setWidth(Number(e.target.value))} step="0.1" />
+                    </div>
+
+                    <div className="padding-top--xs" style={{ "color": " var(--ifm-color-secondary-darkest)", fontSize: "12px" }}>Set to 0, height will become auto.</div>
+                </div>
+
+                <div className="padding--md">
+                    <div className="">
+                        Free Scroll?: <input className="" type="checkbox" checked={freeScroll} onChange={() => setFreeScroll(!freeScroll)} />
+                    </div>
+                    {/* <div className="padding-top--xs">
+                            slideWeight: <input className="site-input" placeholder="" />
+                        </div> */}
+                </div>
+            </div>
+
+            <hr />
+
+            <div className="container">
+                <div className="padding-vert--md">
+                    <Carousel
+                        totalSlides={slides.length}
+                        visibleSlides={visibleSlides}
+                        step={step}
+                        slideHeight={height}
+                        slideWidth={width}
+                        freeScroll={freeScroll}
                     >
-                        {slides.map((props, idx) => (
-                            <Slide
-                                key={idx}
-                            >
-                                <Feature  {...props} />
-                            </Slide>
-                        ))}
-                    </Slider>
+                        <Slider
+                        >
+                            {slides.map((props, idx) => (
+                                <Slide
+                                    key={idx}
+                                >
+                                    <Feature  {...props} />
+                                </Slide>
+                            ))}
+                        </Slider>
 
-                    <ButtonBack>&lt;</ButtonBack>
+                        <ButtonBack>&lt;</ButtonBack>
 
-                    <ButtonNext>&gt;</ButtonNext>
-                </Carousel>
-
+                        <ButtonNext>&gt;</ButtonNext>
+                    </Carousel>
+                </div>
             </div>
         </section>
     );

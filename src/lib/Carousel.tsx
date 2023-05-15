@@ -84,6 +84,8 @@ export class Carousel extends React.Component<IProps, IState> {
         } = this.props;
 
         if (!deepCompare(contextPrevProps, contextProps)) {
+            // validate the step
+            contextProps.step = this.validateStep();
             this.setState({
                 context: {
                     ...contextProps,
