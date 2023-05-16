@@ -15,6 +15,7 @@ export interface IState {
 export class SliderBar extends Component<IProps, IState> {
 
     public context!: React.ContextType<typeof CarouselContext>;
+    public prevContext!: React.ContextType<typeof CarouselContext>;
 
     constructor(prop: IProps) {
         super(prop);
@@ -36,17 +37,26 @@ export class SliderBar extends Component<IProps, IState> {
 
     };
 
-    componentDidMount(): void {
+    componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>, snapshot?: any): void {
+        if (this.prevContext !== this.context) {
+            // subscribe to onScroll change
+            this.context.subscribers.push(this.onScroll);
+            this.prevContext = this.context;
+        }
+    }
 
+
+    componentDidMount(): void {
         const {
             currentSlide,
             visibleSlides,
             totalSlides,
-            subscribers,
         } = this.context;
 
+
         // subscribe to onScroll change
-        subscribers.push(this.onScroll);
+        this.context.subscribers.push(this.onScroll);
+        this.prevContext = this.context;
 
         if (currentSlide !== 0) {
             let left = currentSlide / totalSlides * 100;
