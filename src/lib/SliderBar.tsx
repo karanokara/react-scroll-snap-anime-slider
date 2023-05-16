@@ -3,7 +3,7 @@ import { IProps as P } from "./Types";
 import { cn } from "./Utility";
 import { CarouselContext, DefaultCarouselContextProps } from "./CarouselContext";
 
-export interface IProps extends P {
+export interface IProps extends P, React.HTMLAttributes<HTMLDivElement> {
     trackProps?: React.HTMLAttributes<HTMLDivElement>;
     thumbProps?: React.HTMLAttributes<HTMLDivElement>;
 }
@@ -64,6 +64,7 @@ export class SliderBar extends Component<IProps, IState> {
             className,
             style,
             thumbProps,
+            trackProps,
             ...otherProps
         } = this.props;
         let width = visibleSlides / totalSlides * 100;
@@ -82,13 +83,18 @@ export class SliderBar extends Component<IProps, IState> {
 
         return (
             <div
+                {...otherProps}
                 className={newClassName}
+                style={style}
             >
-                <div className="slider-bar-track">
+                <div
+                    {...trackProps}
+                    className={cn("slider-bar-track", trackProps?.className)}
+                >
                     <div
-                        className="slider-bar-thumb"
-                        style={thumbStyle}
                         {...thumbProps}
+                        className={cn("slider-bar-thumb", thumbProps?.className)}
+                        style={thumbStyle}
                     />
                 </div>
             </div>

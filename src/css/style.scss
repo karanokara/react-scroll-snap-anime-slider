@@ -4,6 +4,9 @@
 
         .slider-tray {
         }
+        .slider-tray::-webkit-scrollbar {
+            display: none;
+        }
 
         .slider-tray.css-only {
             display: flex;

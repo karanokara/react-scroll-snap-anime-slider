@@ -120,11 +120,25 @@ export default function HomepageFeatures(): JSX.Element {
                             ))}
                         </Slider>
 
-                        <SliderBar />
+                        <SliderBar
+                            id="my-slider-bar"
+                            className="margin-top--md"
+                            aria-label="slider bar"
+                            trackProps={{
+                                id: "my-slider-bar-track",
+                                "aria-label": "slider track"
+                            }}
+                            thumbProps={{
+                                id: "my-slider-bar-thumb",
+                                "aria-label": "slider thumb"
+                            }}
+                        />
 
-                        <ButtonBack>&lt;</ButtonBack>
+                        <div className="margin-top--md">
+                            <ButtonBack className="button button--primary">&lt;</ButtonBack>
 
-                        <ButtonNext>&gt;</ButtonNext>
+                            <ButtonNext className="button button--primary margin-left--md">&gt;</ButtonNext>
+                        </div>
                     </Carousel>
                 </div>
             </div>
