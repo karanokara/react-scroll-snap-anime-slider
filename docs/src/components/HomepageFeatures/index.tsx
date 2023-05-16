@@ -39,6 +39,8 @@ export default function HomepageFeatures(): JSX.Element {
     const [height, setHeight] = useState(1);
     const [width, setWidth] = useState(0.9);
     const [freeScroll, setFreeScroll] = useState(false);
+    const [scrollbar, setScrollbar] = useState(true);
+    const [dotGroup, setDotGroup] = useState(false);
 
     let slides: SlideItem[] = [];
 
@@ -91,9 +93,14 @@ export default function HomepageFeatures(): JSX.Element {
                     <div className="">
                         Free Scroll?: <input className="" type="checkbox" checked={freeScroll} onChange={() => setFreeScroll(!freeScroll)} />
                     </div>
-                    {/* <div className="padding-top--xs">
-                            slideWeight: <input className="site-input" placeholder="" />
-                        </div> */}
+
+                    <div className="padding-top--xs">
+                        Show Scrollbar?: <input className="" type="checkbox" checked={scrollbar} onChange={() => setScrollbar(!scrollbar)} />
+                    </div>
+
+                    <div className="padding-top--xs">
+                        Show Dot Group?: <input className="" type="checkbox" checked={dotGroup} onChange={() => setDotGroup(!dotGroup)} />
+                    </div>
                 </div>
             </div>
 
@@ -120,21 +127,23 @@ export default function HomepageFeatures(): JSX.Element {
                             ))}
                         </Slider>
 
-                        <SliderBar
-                            id="my-slider-bar"
-                            className="margin-top--md"
-                            aria-label="slider bar"
-                            trackProps={{
-                                id: "my-slider-bar-track",
-                                "aria-label": "slider track"
-                            }}
-                            thumbProps={{
-                                id: "my-slider-bar-thumb",
-                                "aria-label": "slider thumb"
-                            }}
-                        />
+                        {scrollbar &&
+                            <SliderBar
+                                id="my-slider-bar"
+                                className="margin-top--md"
+                                aria-label="slider bar"
+                                trackProps={{
+                                    id: "my-slider-bar-track",
+                                    "aria-label": "slider track"
+                                }}
+                                thumbProps={{
+                                    id: "my-slider-bar-thumb",
+                                    "aria-label": "slider thumb"
+                                }}
+                            />
+                        }
 
-                        <div className="margin-top--md">
+                        <div className="margin-top--md" style={{ textAlign: "center" }}>
                             <ButtonBack className="button button--primary">&lt;</ButtonBack>
 
                             <ButtonNext className="button button--primary margin-left--md">&gt;</ButtonNext>
