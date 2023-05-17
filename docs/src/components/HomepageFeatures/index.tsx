@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { clsx } from 'clsx';
 import styles from './styles.module.css';
 import { random, colord } from "colord";
-import { ButtonBack, ButtonNext, Carousel, Slide, Slider, SliderBar } from "../../../../src";
+import { ButtonBack, ButtonNext, Carousel, Slide, Slider, SliderBar, SliderDotGroup } from "../../../../src";
 
 type SlideItem = {
     title: string;
@@ -139,6 +139,18 @@ export default function HomepageFeatures(): JSX.Element {
                                 thumbProps={{
                                     id: "my-slider-bar-thumb",
                                     "aria-label": "slider thumb"
+                                }}
+                            />
+                        }
+
+                        {dotGroup &&
+                            <SliderDotGroup
+                                id="my-slider-dot-group"
+                                className="margin-top--md"
+                                aria-label="slider bar"
+                                trackProps={{
+                                    id: "my-slider-bar-dot-track",
+                                    "aria-label": "slider track"
                                 }}
                             />
                         }

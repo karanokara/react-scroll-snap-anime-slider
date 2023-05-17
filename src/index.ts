@@ -6,6 +6,7 @@ export { ButtonBack } from "./lib/ButtonBack";
 export { ButtonNext } from "./lib/ButtonNext";
 export { Carousel } from "./lib/Carousel";
 export { SliderBar } from "./lib/SliderBar";
+export { SliderDotGroup } from "./lib/SliderDotGroup";
 // export { default as SliderButton } from "./lib/SliderButton";    // no need to
 
 // utility
