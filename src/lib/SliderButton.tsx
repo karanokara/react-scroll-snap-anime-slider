@@ -16,6 +16,7 @@ export default class SliderButton<PP extends IProps, SS extends IState> extends 
 
     public className = "slider-button";
     public ariaLabel = "";
+    public isBack = true;   // is back btn
 
     onClick = () => { };
 
@@ -45,13 +46,23 @@ export default class SliderButton<PP extends IProps, SS extends IState> extends 
             totalSlides: slideCount,
 
         } = this.context;
-        const {
+        let {
             className,
             disabled,
             ...otherProps
         } = this.props;
 
         const newClassName = cn(this.className, className);
+        const currentSlide = this.context.currentSlide;
+        const maxSlide = this.context.totalSlides - this.context.visibleSlides;
+
+        if (disabled == null) {
+            if ((this.isBack && currentSlide === 0)
+                || (!this.isBack && currentSlide === maxSlide)
+            ) {
+                disabled = true;
+            }
+        }
 
         return (
             <button
