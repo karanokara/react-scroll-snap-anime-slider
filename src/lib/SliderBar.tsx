@@ -9,7 +9,7 @@ export interface IProps extends P, React.HTMLAttributes<HTMLDivElement> {
 }
 
 export interface IState {
-    left: string;
+    left: number;
 }
 
 export class SliderBar extends Component<IProps, IState> {
@@ -21,7 +21,7 @@ export class SliderBar extends Component<IProps, IState> {
         super(prop);
 
         this.state = {
-            left: "",
+            left: 0,
         };
 
         // console.log("slide context:", this.context); // undefined when construct
@@ -31,10 +31,10 @@ export class SliderBar extends Component<IProps, IState> {
         const {
             totalSlides
         } = this.context;
-        let totalWidth = totalSlides * slideWidth;
-        let per = scrollLeft / totalWidth * 100;
-        this.setState({ left: per + "%" });
+        const totalWidth = totalSlides * slideWidth;
+        const per = scrollLeft / totalWidth * 100;
 
+        this.setState({ left: per });
     };
 
     componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>, snapshot?: any): void {
@@ -60,7 +60,7 @@ export class SliderBar extends Component<IProps, IState> {
 
         if (currentSlide !== 0) {
             let left = currentSlide / totalSlides * 100;
-            this.setState({ left: left + "%" });
+            this.setState({ left: left });
         }
     }
 
@@ -78,10 +78,20 @@ export class SliderBar extends Component<IProps, IState> {
             ...otherProps
         } = this.props;
         let width = visibleSlides / totalSlides * 100;
+        let left = this.state.left;
+
+        if (left < 0) {
+            width += left;
+            left = 0;
+        }
+
+        if ((left + width) > 100) {
+            width = 100 - left;
+        }
 
         let thumbStyle: React.CSSProperties = {
             width: width + "%",
-            left: this.state.left,
+            left: left + "%",
         };
 
         const newClassName = cn("slider-bar", className);
