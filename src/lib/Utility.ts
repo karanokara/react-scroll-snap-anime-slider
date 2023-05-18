@@ -124,3 +124,7 @@ export function deepCompare(...arg: any) {
 
     return true;
 }
+
+export function round3(n: number) {
+    return Math.round(n * 1000) / 1000;
+}

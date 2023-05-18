@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { clsx } from 'clsx';
 import styles from './styles.module.css';
 import { random, colord } from "colord";
-import { ButtonBack, ButtonNext, Carousel, Slide, Slider, SliderBar, SliderDotGroup } from "../../../../src";
+import { ButtonBack, ButtonNext, Carousel, Slide, Slider, SliderBarLine, SliderDotGroup } from "../../../../src";
 
 type SlideItem = {
     title: string;
@@ -40,7 +40,7 @@ export default function HomepageFeatures(): JSX.Element {
     const [width, setWidth] = useState(0.9);
     const [freeScroll, setFreeScroll] = useState(false);
     const [scrollbar, setScrollbar] = useState(true);
-    const [dotGroup, setDotGroup] = useState(false);
+    const [dotGroup, setDotGroup] = useState(true);
 
     let slides: SlideItem[] = [];
 
@@ -128,7 +128,7 @@ export default function HomepageFeatures(): JSX.Element {
                         </Slider>
 
                         {scrollbar &&
-                            <SliderBar
+                            <SliderBarLine
                                 id="my-slider-bar"
                                 className="margin-top--md"
                                 aria-label="slider bar"
@@ -148,7 +148,7 @@ export default function HomepageFeatures(): JSX.Element {
                                 id="my-slider-dot-group"
                                 className="margin-top--md"
                                 aria-label="slider bar"
-                                trackProps={{
+                                dotGroupProps={{
                                     id: "my-slider-bar-dot-track",
                                     "aria-label": "slider track"
                                 }}
