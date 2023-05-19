@@ -74,7 +74,7 @@
                 left: 0;
                 top: 0;
                 height: 100%;
-                background-color: #000;
+                background-color: #555;
             }
         }
 
@@ -84,15 +84,19 @@
             position: relative;
 
             .slider-dot {
-                height: 5px;
-                width: 5px;
+                height: 6px;
+                width: 6px;
                 border-radius: 50%;
-                background-color: #ccc;
-                margin: 0 3px;
+                background-color: #555;
+                margin: 0 4px;
             }
 
-            .slider-dot.active {
-                // background-color: #aaa;
+            .slider-dot:not(.dynamic) {
+                background-color: #ddd;
+            }
+
+            .slider-dot.active:not(.dynamic) {
+                background-color: #aaa;
             }
         }
     }

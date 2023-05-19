@@ -8,6 +8,7 @@ export { Carousel } from "./lib/Carousel";
 export { SliderBarLine } from "./lib/SliderBarLine";
 export { SliderDotGroup } from "./lib/SliderBarDotGroup";
 export type { IRenderDotsProps } from "./lib/SliderBarDotGroup";
+export { renderDotsDynamicCircle, renderDotsDynamicPill } from "./lib/DotGroupRenderDotsUtil";
 // export { default as SliderButton } from "./lib/SliderButton";    // no need to
 
 // utility

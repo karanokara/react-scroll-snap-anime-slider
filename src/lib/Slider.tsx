@@ -154,8 +154,7 @@ export class Slider extends Component<IProps, IState> {
                 !this.context.freeScroll && trayElement.classList.add("scroll-snap");
 
                 // update slide index
-                this.tempCurrentSlide = this.getCurrentSlideIndex();
-                this.context.updateContext({ currentSlide: this.tempCurrentSlide });
+                this.updateSlideIndex();
             };
             let snap = (from: number, to: number) => tween({
                 from: from,
@@ -175,9 +174,15 @@ export class Slider extends Component<IProps, IState> {
 
             if (velocity === 0) {
                 // not scrolling fast enough
-                // snap to target
-                let targetScrollValue = this.getSnapScrollValue(fromValue as number, velocity);
-                this.snapAction = snap(fromValue as number, targetScrollValue);
+                // snap to target if not free scroll
+                if (!this.context.freeScroll) {
+                    let targetScrollValue = this.getSnapScrollValue(fromValue as number, velocity);
+                    this.snapAction = snap(fromValue as number, targetScrollValue);
+                }
+                else {
+                    this.updateSlideIndex();
+                }
+
                 return;
             }
 

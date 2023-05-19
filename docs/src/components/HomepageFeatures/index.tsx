@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { clsx } from 'clsx';
 import styles from './styles.module.css';
 import { random, colord } from "colord";
-import { ButtonBack, ButtonNext, Carousel, Slide, Slider, SliderBarLine, SliderDotGroup } from "../../../../src";
+import { ButtonBack, ButtonNext, Carousel, Slide, Slider, SliderBarLine, SliderDotGroup, renderDotsDynamicCircle, renderDotsDynamicPill } from "../../../../src";
 
 type SlideItem = {
     title: string;
@@ -39,8 +39,10 @@ export default function HomepageFeatures(): JSX.Element {
     const [height, setHeight] = useState(1);
     const [width, setWidth] = useState(0.9);
     const [freeScroll, setFreeScroll] = useState(false);
+    const [buttons, setButtons] = useState(true);
     const [scrollbar, setScrollbar] = useState(true);
     const [dotGroup, setDotGroup] = useState(true);
+    const [dotGroupType, setDotGroupType] = useState(1);
 
     let slides: SlideItem[] = [];
 
@@ -99,7 +101,26 @@ export default function HomepageFeatures(): JSX.Element {
                     </div>
 
                     <div className="padding-top--xs">
+                        Show Buttons?: <input className="" type="checkbox" checked={buttons} onChange={() => setButtons(!buttons)} />
+                    </div>
+                </div>
+
+                <div className="padding--md">
+
+                    <div className="">
                         Show Dot Group?: <input className="" type="checkbox" checked={dotGroup} onChange={() => setDotGroup(!dotGroup)} />
+                    </div>
+
+                    <div className="padding-top--xs">
+                        Normal: <input className="" type="radio" name="dot-type" checked={dotGroupType === 0} onChange={() => setDotGroupType(0)} disabled={!dotGroup} />
+                    </div>
+
+                    <div className="">
+                        Circle: <input className="" type="radio" name="dot-type" checked={dotGroupType === 1} onChange={() => setDotGroupType(1)} disabled={!dotGroup} />
+                    </div>
+
+                    <div className="">
+                        Pill: <input className="" type="radio" name="dot-type" checked={dotGroupType === 2} onChange={() => setDotGroupType(2)} disabled={!dotGroup} />
                     </div>
                 </div>
             </div>
@@ -152,14 +173,23 @@ export default function HomepageFeatures(): JSX.Element {
                                     id: "my-slider-bar-dot-track",
                                     "aria-label": "slider track"
                                 }}
+                                renderDots={dotGroupType === 1
+                                    ? renderDotsDynamicCircle
+                                    : ((dotGroupType === 2)
+                                        ? renderDotsDynamicPill
+                                        : undefined)
+                                }
                             />
                         }
 
-                        <div className="margin-top--md" style={{ textAlign: "center" }}>
-                            <ButtonBack className="button button--primary">&lt;</ButtonBack>
+                        {buttons &&
+                            <div className="margin-top--md" style={{ textAlign: "center" }}>
+                                <ButtonBack className="button button--primary">&lt;</ButtonBack>
 
-                            <ButtonNext className="button button--primary margin-left--md">&gt;</ButtonNext>
-                        </div>
+                                <ButtonNext className="button button--primary margin-left--md">&gt;</ButtonNext>
+                            </div>
+                        }
+
                     </Carousel>
                 </div>
             </div>
