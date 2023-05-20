@@ -80,6 +80,11 @@ export class Slider extends Component<IProps, IState> {
         // stop current actions when using wheel to scroll
         this.stopAnimeActions();
 
+        if (this.sliderTrayRef.current) {
+            let trayElement = this.sliderTrayRef.current;
+            // add back class
+            !this.context.freeScroll && trayElement.classList.add("scroll-snap");
+        }
     };
 
     /**
@@ -335,22 +340,16 @@ export class Slider extends Component<IProps, IState> {
      * @returns current slide index if there is anime action which is not finished
      */
     stopAnimeActions() {
-        if (this.sliderTrayRef.current) {
-            let trayElement = this.sliderTrayRef.current;
-
-            if (this.inertiaAction) {
-                this.inertiaAction.stop();
-                this.inertiaAction = undefined;
-            }
-
-            if (this.snapAction) {
-                this.snapAction.stop();
-                this.snapAction = undefined;
-            }
-
-            // add back class
-            !this.context.freeScroll && trayElement.classList.add("scroll-snap");
+        if (this.inertiaAction) {
+            this.inertiaAction.stop();
+            this.inertiaAction = undefined;
         }
+
+        if (this.snapAction) {
+            this.snapAction.stop();
+            this.snapAction = undefined;
+        }
+
     }
 
     /**

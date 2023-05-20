@@ -43,8 +43,8 @@ export default class SliderButton<PP extends IProps, SS extends IState> extends 
     render() {
         const {
             visibleSlides,
-            totalSlides: slideCount,
-
+            totalSlides,
+            currentSlide,
         } = this.context;
         let {
             className,
@@ -53,12 +53,11 @@ export default class SliderButton<PP extends IProps, SS extends IState> extends 
         } = this.props;
 
         const newClassName = cn(this.className, className);
-        const currentSlide = this.context.currentSlide;
-        const maxSlide = this.context.totalSlides - this.context.visibleSlides;
+        const maxSlide = totalSlides - visibleSlides;
 
         if (disabled == null) {
-            if ((this.isBack && currentSlide === 0)
-                || (!this.isBack && currentSlide === maxSlide)
+            if ((this.isBack && currentSlide <= 0)
+                || (!this.isBack && currentSlide >= maxSlide)
             ) {
                 disabled = true;
             }
