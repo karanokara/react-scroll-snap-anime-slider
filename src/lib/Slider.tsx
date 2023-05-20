@@ -74,9 +74,12 @@ export class Slider extends Component<IProps, IState> {
      * @param evt 
      */
     onWheel = (evt: Event) => {
-        let ev = evt as WheelEvent;
+        // let ev = evt as WheelEvent;
+        // console.log("onWheel", evt);
 
-        console.log("onWheel", evt);
+        // stop current actions when using wheel to scroll
+        this.stopAnimeActions();
+
     };
 
     /**
@@ -306,19 +309,6 @@ export class Slider extends Component<IProps, IState> {
                 !this.context.freeScroll && trayElement.classList.add("scroll-snap");
             };
 
-            // if (slideIndex > maxSlide) {
-            //     tempCurrentSlide = maxSlide;
-            // }
-            // else if (slideIndex < 0) {
-            //     tempCurrentSlide = 0;
-            // }
-            // else {
-            //     tempCurrentSlide = slideIndex;
-            // }
-
-            // if (currentSlide === this.tempCurrentSlide)
-            //     return;
-            // let targetScrollValue = this.tempCurrentSlide * slideWidth;
             let targetScrollValue = slideIndex * slideWidth;
 
             this.tempCurrentSlide = slideIndex;
@@ -345,14 +335,21 @@ export class Slider extends Component<IProps, IState> {
      * @returns current slide index if there is anime action which is not finished
      */
     stopAnimeActions() {
-        if (this.inertiaAction) {
-            this.inertiaAction.stop();
-            this.inertiaAction = undefined;
-        }
+        if (this.sliderTrayRef.current) {
+            let trayElement = this.sliderTrayRef.current;
 
-        if (this.snapAction) {
-            this.snapAction.stop();
-            this.snapAction = undefined;
+            if (this.inertiaAction) {
+                this.inertiaAction.stop();
+                this.inertiaAction = undefined;
+            }
+
+            if (this.snapAction) {
+                this.snapAction.stop();
+                this.snapAction = undefined;
+            }
+
+            // add back class
+            !this.context.freeScroll && trayElement.classList.add("scroll-snap");
         }
     }
 
@@ -450,8 +447,8 @@ export class Slider extends Component<IProps, IState> {
             // listen touchpad or mouse wheel
             // there will be only one event listener being used 
             // 1st one is using
-            // trayElement.addEventListener("mousewheel", this.onWheel, false);
-            // trayElement.addEventListener("DOMMouseScroll", this.onWheel, false);
+            trayElement.addEventListener("mousewheel", this.onWheel, false);
+            trayElement.addEventListener("DOMMouseScroll", this.onWheel, false);
         }
 
         // check current slide
