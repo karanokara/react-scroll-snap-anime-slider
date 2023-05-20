@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { IRenderDotsProps } from "./SliderBarDotGroup";
 import { cn, round3 } from "./Utility";
 
-export function CircleDot(props: { key: number, scale?: number; }) {
+export function CircleDot(props: { scale?: number; }) {
     return (
-        <div key={props.key} className={cn("slider-dot", "dynamic")} style={{ transform: `scale(${props.scale})` }} ></div>
+        <div className={cn("slider-dot", "dynamic")} style={{ transform: `scale(${props.scale})` }} ></div>
     );
 }
 
