@@ -35,7 +35,7 @@ export default class SliderBar<P extends IProps, S extends IState> extends Compo
     };
 
     componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>, snapshot?: any): void {
-        if (this.prevContext !== this.context) {
+        if (this.prevContext.subscribers !== this.context.subscribers) {
             // subscribe to onScroll change
             this.context.subscribers.push(this.onScroll);
             this.prevContext = this.context;

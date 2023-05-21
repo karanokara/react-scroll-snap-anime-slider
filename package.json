@@ -2,7 +2,7 @@
   "name": "react-scroll-snap-anime-slider",
   "version": "1.0.0",
   "private": false,
-  "description": "A simple slider using css style scroll-snap.",
+  "description": "A simple slider/carousel using css style scroll-snap and Popmotion.",
   "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/index.module.js",

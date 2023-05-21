@@ -33,7 +33,7 @@ export default class SliderButton<PP extends IProps, SS extends IState> extends 
             nextSlide = 0;
         }
 
-        console.log("current", currentSlide, "next", nextSlide);
+        // console.log("current", currentSlide, "next", nextSlide);
         if (currentSlide === nextSlide)
             return;
 

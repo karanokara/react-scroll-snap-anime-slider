@@ -62,10 +62,9 @@ export class Slider extends Component<IProps, IState> {
 
             // console.log("scroll", trayElement.scrollLeft);
 
-            // is using native scroll bar to scroll
-            if (this.pointerAction == null && this.inertiaAction == null && this.snapAction == null) {
-                this.updateSlideIndex();
-            }
+
+            // update slide index
+            this.updateSlideIndex();
         }
     };
 
@@ -160,9 +159,6 @@ export class Slider extends Component<IProps, IState> {
                 console.log("complete tracking!!");
                 this.snapAction = undefined;
                 !this.context.freeScroll && trayElement.classList.add("scroll-snap");
-
-                // update slide index
-                this.updateSlideIndex();
             };
             let snap = (from: number, to: number) => tween({
                 from: from,
@@ -186,9 +182,6 @@ export class Slider extends Component<IProps, IState> {
                 if (!this.context.freeScroll) {
                     let targetScrollValue = this.getSnapScrollValue(fromValue as number, velocity);
                     this.snapAction = snap(fromValue as number, targetScrollValue);
-                }
-                else {
-                    this.updateSlideIndex();
                 }
 
                 return;
@@ -251,9 +244,6 @@ export class Slider extends Component<IProps, IState> {
                                 console.log("stop inertia, vel:", vel, "scroll to", targetScrollValue);
                                 this.snapAction = snap(v, targetScrollValue);
                             }
-                            else {
-                                this.updateSlideIndex();
-                            }
                         }
                     },
 
@@ -284,9 +274,10 @@ export class Slider extends Component<IProps, IState> {
     updateSlideIndex() {
         // update slide index
         let newSlideIndex = this.getCurrentSlideIndex();
+        // console.log("temp", this.tempCurrentSlide, "new index", newSlideIndex);
         if (this.tempCurrentSlide !== newSlideIndex) {
             this.tempCurrentSlide = newSlideIndex;
-            // console.log("update context slide index:", this.tempCurrentSlide);
+            console.log("update context slide index:", this.tempCurrentSlide);
             this.context.updateContext({ currentSlide: this.tempCurrentSlide });
         }
     }
@@ -315,8 +306,6 @@ export class Slider extends Component<IProps, IState> {
             };
 
             let targetScrollValue = slideIndex * slideWidth;
-
-            this.tempCurrentSlide = slideIndex;
 
             !this.context.freeScroll && trayElement.classList.remove("scroll-snap");
 

@@ -48,7 +48,7 @@ export interface IState extends S {
 
 export class SliderDotGroup extends SliderBar<IProps, IState> {
 
-    theDot(key: number, active: boolean, scalePercent?: number) {
+    theDot(key: number, active: boolean) {
         return (
             <div key={key} className={cn("slider-dot", active ? "active" : "")}></div>
         );
