@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { IRenderDotsProps } from "./SliderBarDotGroup";
 import { cn, round3 } from "./Utility";
 
-export function CircleDot(props: { scale?: number; }) {
+export function CircleDot(props: { scale?: number; onClick: () => void; }) {
     return (
-        <div className={cn("slider-dot", "dynamic")} style={{ transform: `scale(${props.scale})` }} ></div>
+        <div className={cn("slider-dot", "dynamic")} style={{ transform: `scale(${props.scale})` }} onClick={props.onClick} ></div>
     );
 }
 
@@ -21,6 +21,7 @@ export function renderDotsDynamicCircle(props: IRenderDotsProps) {
         step,
         left,
         currentSlide,
+        slideTo,
     } = props;
 
     let dots: JSX.Element[] = [];
@@ -49,7 +50,15 @@ export function renderDotsDynamicCircle(props: IRenderDotsProps) {
             }
         }
 
-        dots.push(<CircleDot key={i} scale={scale} />);
+        dots.push(
+            <CircleDot
+                key={i}
+                scale={scale}
+                onClick={() => {
+                    slideTo(i);
+                }}
+            />
+        );
     }
     return dots;
 }
@@ -73,6 +82,7 @@ export function renderDotsDynamicPill(props: IRenderDotsProps) {
         step,
         left,
         currentSlide,
+        slideTo,
     } = props;
 
     let dots: JSX.Element[] = [];
@@ -101,7 +111,15 @@ export function renderDotsDynamicPill(props: IRenderDotsProps) {
             }
         }
 
-        dots.push(<CircleDot key={i} scale={scale} />);
+        dots.push(
+            <CircleDot
+                key={i}
+                scale={scale}
+                onClick={() => {
+                    slideTo(i);
+                }}
+            />
+        );
     }
     return dots;
 }

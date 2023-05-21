@@ -24,6 +24,10 @@ export default class SliderBar<P extends IProps, S extends IState> extends Compo
         // console.log("slide context:", this.context); // undefined when construct
     }
 
+    slideTo = (nextSlide: number) => {
+        this.context.updateContext({ currentSlide: nextSlide });
+    };
+
     onScroll = (trayWidth: number, slideWidth: number, scrollLeft: number) => {
         const {
             totalSlides

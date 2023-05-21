@@ -29,6 +29,13 @@ export interface IRenderDotsProps {
      * How far has scrolled in %, range in [0 ~ (100 - % of visible slides)]
      */
     left: number;
+
+    /**
+     * A function to call to slide to a target slide [from 0 ~ (length - visible slide - 1)]
+     * @param slideIndex 
+     * @returns 
+     */
+    slideTo: (slideIndex: number) => void;
 }
 
 export interface IProps extends P {
@@ -96,6 +103,7 @@ export class SliderDotGroup extends SliderBar<IProps, IState> {
             step,
             currentSlide,
             left: this.state.left,
+            slideTo: this.slideTo,
         };
 
         const newClassName = cn("slider-bar", className);
