@@ -7,13 +7,26 @@ import styler, { Styler } from "stylefire";
 import "../css/style.scss";
 import { cn } from "./Utility";
 
-export interface IProps extends P {
-    /**
-     * className to the slider tray
-     */
-    classNameTray?: string;
+export type OnScrollProps = {
+    scrollLeft: number;
+    currentSlide: number;
+    slideWidth: number;
+    trayWidth: number;
+};
 
-    onScroll?: (scrollLeft: number, barLength: number, trackLength: number) => void;
+export interface IProps extends P, React.HTMLAttributes<HTMLDivElement> {
+    /**
+     * Props to the slider tray
+     */
+    trayProps?: React.HTMLAttributes<HTMLDivElement>;
+
+    /**
+     * A callback function when slider is sliding
+     * 
+     * @param props 
+     * @returns 
+     */
+    onSlide?: (props: OnScrollProps) => void;
 }
 
 export interface IState {
@@ -64,6 +77,15 @@ export class Slider extends Component<IProps, IState> {
 
             // update slide index
             this.updateSlideIndex();
+
+            if (this.props.onSlide) {
+                this.props.onSlide({
+                    scrollLeft,
+                    currentSlide: this.context.currentSlide,
+                    slideWidth: slideWidth,
+                    trayWidth: trayWidth,
+                });
+            }
         }
     };
 
@@ -276,7 +298,7 @@ export class Slider extends Component<IProps, IState> {
         // console.log("temp", this.tempCurrentSlide, "new index", newSlideIndex);
         if (this.tempCurrentSlide !== newSlideIndex) {
             this.tempCurrentSlide = newSlideIndex;
-            console.log("update context slide index:", this.tempCurrentSlide);
+            // console.log("update context slide index:", this.tempCurrentSlide);
             this.context.updateContext({ currentSlide: this.tempCurrentSlide });
         }
     }
@@ -307,8 +329,6 @@ export class Slider extends Component<IProps, IState> {
             let targetScrollValue = slideIndex * slideWidth;
 
             !this.context.freeScroll && trayElement.classList.remove("scroll-snap");
-
-            console.log("slide to", targetScrollValue);
 
             this.snapAction = tween({
                 from: startPoint,
@@ -463,9 +483,10 @@ export class Slider extends Component<IProps, IState> {
 
     render() {
         const {
+            children,
             className,
-            classNameTray,
-
+            trayProps,
+            ...otherProps
         } = this.props;
 
         // let slideCount = 0;
@@ -478,9 +499,13 @@ export class Slider extends Component<IProps, IState> {
 
         return (
 
-            <div className={cn("slider", className)}>
+            <div
+                {...otherProps}
+                className={cn("slider", className)}
+            >
                 <div
-                    className={cn("slider-tray", "css-only", (this.context.freeScroll ? "" : "scroll-snap"), classNameTray)}
+                    {...trayProps}
+                    className={cn("slider-tray", "css-only", (this.context.freeScroll ? "" : "scroll-snap"), trayProps?.className)}
                     ref={this.sliderTrayRef}
                 >
                     {/* Context uses reference identity to determine when to re-render, this will cause consumer to re-render every time */}
@@ -493,7 +518,7 @@ export class Slider extends Component<IProps, IState> {
                     >
                     </SliderContext.Provider> */}
 
-                    {this.props.children}
+                    {children}
                 </div>
             </div>
         );

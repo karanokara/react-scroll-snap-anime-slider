@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { clsx } from 'clsx';
 import styles from './styles.module.css';
 import { random, colord } from "colord";
-import { ButtonBack, ButtonNext, Carousel, Slide, Slider, SliderBarLine, SliderDotGroup, renderDotsDynamicCircle, renderDotsDynamicPill } from "../../../../src";
+import { ButtonBack, ButtonNext, Carousel, Slide, Slider, SliderBarLine, SliderBarDotGroup, renderDotsDynamicCircle, renderDotsDynamicPill } from "../../../../src";
 
 type SlideItem = {
     title: string;
@@ -133,10 +133,13 @@ export default function HomepageFeatures(): JSX.Element {
                         currentSlide={0}
                     >
                         <Slider
+                            aria-label="my slider"
+
                         >
                             {slides.map((props, i) => (
                                 <Slide
                                     key={i}
+                                    aria-label="my slide"
                                 >
                                     <Feature  {...props} />
                                 </Slide>
@@ -160,7 +163,7 @@ export default function HomepageFeatures(): JSX.Element {
                         }
 
                         {dotGroup &&
-                            <SliderDotGroup
+                            <SliderBarDotGroup
                                 id="my-slider-dot-group"
                                 className="margin-top--md"
                                 aria-label="slider bar"

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { IRenderDotsProps } from "./SliderBarDotGroup";
 import { cn, round3 } from "./Utility";
 

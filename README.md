@@ -17,10 +17,10 @@ Works natively on touchable devices
 | **Scroll and snap**                  |                Snap to slide's edge                 | :heavy_check_mark:  |
 | **Free scrolling**                   |                                                     | :heavy_check_mark:  |
 | **Scroll with touch pad**            |                      Built-in                       | :heavy_check_mark:  |
-| **Scroll with keyboard < and >**     |                       Pending                       |      :clock3:       |
+| **Scroll with keyboard < and >**     |                      Built-in                       |      :clock3:       |
 | **Scroll with mouse drag**           |           Scroll end with inheria effect            | :heavy_check_mark:  |
 | **Scroll with mouse wheel**          |                                                     |         :x:         |
-| **Previou/Next Buttons**             |               Support multiple clicks               | :heavy_check_mark:  |
+| **Navigation Buttons**               |               Support multiple clicks               | :heavy_check_mark:  |
 | **Dynamic scrollbar**                |                                                     | :heavy_check_mark:  |
 | **Dynamic & Customizable dot group** | Can customize using [`renderDots()`](fdf) callback  | :heavy_check_mark:  |
 | **Bounce on boundary**               |      Works **ONLY** on touchable devices<br/>       | :large_blue_circle: |

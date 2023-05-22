@@ -53,7 +53,7 @@ export interface IProps extends P {
 export interface IState extends S {
 }
 
-export class SliderDotGroup extends SliderBar<IProps, IState> {
+export class SliderBarDotGroup extends SliderBar<IProps, IState> {
 
     theDot(key: number, active: boolean, onClick: () => void) {
         return (
@@ -93,6 +93,7 @@ export class SliderDotGroup extends SliderBar<IProps, IState> {
             currentSlide,
         } = this.context;
         const {
+            children,
             className,
             dotGroupProps,
             renderDots,

@@ -3,7 +3,7 @@ import { ICarouselDefaultProps as DP, IProps as P } from "./Types";
 import { cn } from "./Utility";
 import { CarouselContext, DefaultCarouselContextProps } from "./CarouselContext";
 
-export interface IProps extends DP, P {
+export interface IProps extends P, React.HTMLAttributes<HTMLDivElement> {
 
 }
 
@@ -13,10 +13,10 @@ export interface IState {
 export class Slide extends Component<IProps, IState> {
 
     // passing props from slider to each slide
-    public static defaultProps: DP // Pick<IProps,keyof (P)>
-        = {
-            ...DefaultCarouselContextProps,
-        };
+    // public static defaultProps: DP // Pick<IProps,keyof (P)>
+    //     = {
+    //         ...DefaultCarouselContextProps,
+    //     };
 
     public context!: React.ContextType<typeof CarouselContext>;
 
@@ -32,6 +32,12 @@ export class Slide extends Component<IProps, IState> {
 
     render() {
         let {
+            children,
+            style,
+            className,
+            ...otherProps
+        } = this.props;
+        let {
             slideHeight,
             slideWidth,
             visibleSlides
@@ -44,7 +50,7 @@ export class Slide extends Component<IProps, IState> {
             : 0;
         let slideStyle: React.CSSProperties = {
             width: widthPercent + "%",
-            ...this.props.style,
+            ...style,
         };
         let innerSlideStyle: React.CSSProperties = {
             paddingBottom: paddingBottomPercent > 0 ? paddingBottomPercent + "%" : "",
@@ -53,7 +59,8 @@ export class Slide extends Component<IProps, IState> {
 
         return (
             <div
-                className="slide"
+                {...otherProps}
+                className={cn("slide", className)}
                 style={slideStyle}
             >
                 <div
@@ -61,7 +68,7 @@ export class Slide extends Component<IProps, IState> {
                     style={innerSlideStyle}
                 >
                     <div className={cn("slide-inner-inner", innerInnerClass)}>
-                        {this.props.children}
+                        {children}
                     </div>
                 </div>
             </div>
