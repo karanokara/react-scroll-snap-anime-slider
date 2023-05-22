@@ -414,9 +414,8 @@ export class Slider extends Component<IProps, IState> {
     }
 
     componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>, snapshot?: any): void {
-        if (this.tempCurrentSlide !== this.context.currentSlide) {
-            this.slideTo(this.context.currentSlide);
-        }
+        // update context
+        this.context.slideTo = (i: number) => this.slideTo(i, true);
     }
 
     componentDidMount(): void {
@@ -445,6 +444,8 @@ export class Slider extends Component<IProps, IState> {
             this.slideTo(this.context.currentSlide, false);
         }
 
+        // update context
+        this.context.slideTo = (i: number) => this.slideTo(i, true);
     }
 
     componentWillUnmount(): void {
@@ -455,6 +456,8 @@ export class Slider extends Component<IProps, IState> {
             this.mouseDownAction?.stop();
             this.pointerAction?.stop();
             trayElement.removeEventListener("scroll", this.onScroll, false);
+            trayElement.removeEventListener("mousewheel", this.onWheel, false);
+            trayElement.removeEventListener("DOMMouseScroll", this.onWheel, false);
         }
     }
 

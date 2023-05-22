@@ -44,7 +44,8 @@ export default class SliderBar<P extends IProps, S extends IState> extends Compo
         if (currentSlide === nextSlide)
             return;
 
-        this.context.updateContext({ currentSlide: nextSlide });
+        // this.context.updateContext({ currentSlide: nextSlide });
+        this.context.slideTo(nextSlide);
     };
 
     onScroll = (trayWidth: number, slideWidth: number, scrollLeft: number) => {

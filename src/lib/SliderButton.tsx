@@ -37,7 +37,8 @@ export default class SliderButton<PP extends IProps, SS extends IState> extends 
         if (currentSlide === nextSlide)
             return;
 
-        this.context.updateContext({ currentSlide: nextSlide });
+        // this.context.updateContext({ currentSlide: nextSlide });
+        this.context.slideTo(nextSlide);
     };
 
     render() {

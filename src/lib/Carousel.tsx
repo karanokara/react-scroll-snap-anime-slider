@@ -44,6 +44,7 @@ export class Carousel extends React.Component<IProps, IState> {
                 ...contextProps,
                 updateContext: this.updateContext,
                 subscribers: [],
+                slideTo: () => { },
             }
         };
     }
@@ -92,6 +93,7 @@ export class Carousel extends React.Component<IProps, IState> {
                     ...contextProps,
                     updateContext: this.updateContext,
                     subscribers: [],
+                    slideTo: () => { },
                 }
             });
         }

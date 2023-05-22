@@ -5,6 +5,7 @@ export interface ICarouselContextProps extends ICarouselDefaultProps {
     totalSlides: number;
     updateContext<K extends keyof ICarouselContextProps>(state: Pick<ICarouselContextProps, K> | ICarouselContextProps | null): void;
     subscribers: ((trayWidth: number, slideWidth: number, scrollLeft: number) => void)[];
+    slideTo: (slideIndex: number) => void;
 }
 
 export const DefaultCarouselProps: ICarouselDefaultProps = {
@@ -21,6 +22,7 @@ export const DefaultCarouselContextProps: ICarouselContextProps = {
     totalSlides: 0,
     updateContext: () => { },
     subscribers: [],
+    slideTo: () => { },
 };
 
 export const CarouselContext = React.createContext<ICarouselContextProps>(DefaultCarouselContextProps);
