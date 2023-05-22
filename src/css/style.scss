@@ -84,15 +84,17 @@
             position: relative;
 
             .slider-dot {
+                cursor: pointer;
                 height: 8px;
                 width: 8px;
-                border-radius: 50%;
+                border-radius: 10rem;
                 background-color: #555;
-                margin: 0 4px;
+                margin: 0 5px;
             }
 
             .slider-dot:not(.dynamic) {
                 background-color: #ddd;
+                margin: 0 4px;
             }
 
             .slider-dot.active:not(.dynamic) {

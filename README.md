@@ -13,17 +13,18 @@ Works natively on touchable devices
 | Features                             |                       Comment                       |       Status        |
 | ------------------------------------ | :-------------------------------------------------: | :-----------------: |
 | **Multiple slides per view**         |           Can also adjust slides per step           | :heavy_check_mark:  |
+| **Touch scrolling**                  |                      Built-in                       | :heavy_check_mark:  |
 | **Scroll and snap**                  |                Snap to slide's edge                 | :heavy_check_mark:  |
 | **Free scrolling**                   |                                                     | :heavy_check_mark:  |
-| **Scroll with touch pad**            |                It's built-in feature                | :heavy_check_mark:  |
+| **Scroll with touch pad**            |                      Built-in                       | :heavy_check_mark:  |
 | **Scroll with keyboard < and >**     |                       Pending                       |      :clock3:       |
-| **Scroll with mouse drag**           |               Scroll end with inheria               | :heavy_check_mark:  |
+| **Scroll with mouse drag**           |           Scroll end with inheria effect            | :heavy_check_mark:  |
 | **Scroll with mouse wheel**          |                                                     |         :x:         |
-| **Previou/Next Buttons**             |                                                     | :heavy_check_mark:  |
+| **Previou/Next Buttons**             |               Support multiple clicks               | :heavy_check_mark:  |
 | **Dynamic scrollbar**                |                                                     | :heavy_check_mark:  |
 | **Dynamic & Customizable dot group** | Can customize using [`renderDots()`](fdf) callback  | :heavy_check_mark:  |
 | **Bounce on boundary**               |      Works **ONLY** on touchable devices<br/>       | :large_blue_circle: |
-| **Responsive style**                 |                   It is built-in                    | :heavy_check_mark:  |
+| **Responsive style**                 |                      Built-in                       | :heavy_check_mark:  |
 | **Inifinite scrolling**              |                                                     |         :x:         |
 | **Auto play**                        | You can implement it easily by using [Slider ref]() |         :x:         |
 | **Vertical scrolling**               |                       Pending                       |      :clock3:       |

@@ -62,7 +62,6 @@ export class Slider extends Component<IProps, IState> {
 
             // console.log("scroll", trayElement.scrollLeft);
 
-
             // update slide index
             this.updateSlideIndex();
         }
@@ -91,7 +90,7 @@ export class Slider extends Component<IProps, IState> {
      * @param evt 
      */
     startTracking = (evt: MouseEvent) => {
-        console.log("start tracking", evt);
+        // console.log("start tracking", evt);
         let scrollMax = this.getScrollMax();
 
         this.stopAnimeActions();
@@ -156,7 +155,7 @@ export class Slider extends Component<IProps, IState> {
             let velocity = this.scrollValue.getVelocity();
             let toStop = false;
             let onComplete = () => {
-                console.log("complete tracking!!");
+                // console.log("complete tracking!!");
                 this.snapAction = undefined;
                 !this.context.freeScroll && trayElement.classList.add("scroll-snap");
             };
@@ -174,7 +173,7 @@ export class Slider extends Component<IProps, IState> {
             this.pointerAction.stop();
             this.pointerAction = undefined;
 
-            console.log("stop tracking, scroll from:", fromValue, "vel:", velocity);
+            // console.log("stop tracking, scroll from:", fromValue, "vel:", velocity);
 
             if (velocity === 0) {
                 // not scrolling fast enough
@@ -241,7 +240,7 @@ export class Slider extends Component<IProps, IState> {
                                 this.inertiaAction = undefined;
 
                                 let targetScrollValue = this.getSnapScrollValue(v, vel);
-                                console.log("stop inertia, vel:", vel, "scroll to", targetScrollValue);
+                                // console.log("stop inertia, vel:", vel, "scroll to", targetScrollValue);
                                 this.snapAction = snap(v, targetScrollValue);
                             }
                         }
@@ -299,7 +298,7 @@ export class Slider extends Component<IProps, IState> {
             // let maxSlide = this.context.totalSlides - this.context.visibleSlides;
             // let tempCurrentSlide = 0;
             let onComplete = () => {
-                console.log("complete slide to!!");
+                // console.log("complete slide to!!");
                 this.snapAction = undefined;
 
                 !this.context.freeScroll && trayElement.classList.add("scroll-snap");
@@ -308,6 +307,8 @@ export class Slider extends Component<IProps, IState> {
             let targetScrollValue = slideIndex * slideWidth;
 
             !this.context.freeScroll && trayElement.classList.remove("scroll-snap");
+
+            console.log("slide to", targetScrollValue);
 
             this.snapAction = tween({
                 from: startPoint,

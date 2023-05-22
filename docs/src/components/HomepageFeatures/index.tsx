@@ -68,15 +68,9 @@ export default function HomepageFeatures(): JSX.Element {
                     <div className="padding-top--xs">
                         Visible Slides: <input className="site-input" type="number" value={visibleSlides} onChange={(e) => setVisibleSlides(Number(e.target.value))} />
                     </div>
-                </div>
-
-                <div className="padding--md">
-                    <div className="">
-                        Steps: <input className="site-input" type="number" value={step} onChange={(e) => setStep(Number(e.target.value))} />
+                    <div className="padding-top--xs">
+                        Slides per step: <input className="site-input" type="number" value={step} onChange={(e) => setStep(Number(e.target.value))} />
                     </div>
-                    {/* <div className="padding-top--xs">
-                            slideWeight: <input className="site-input" placeholder="" />
-                        </div> */}
                 </div>
 
                 <div className="padding--md">
@@ -116,11 +110,11 @@ export default function HomepageFeatures(): JSX.Element {
                     </div>
 
                     <div className="">
-                        Circle: <input className="" type="radio" name="dot-type" checked={dotGroupType === 1} onChange={() => setDotGroupType(1)} disabled={!dotGroup} />
+                        Dynamic circle: <input className="" type="radio" name="dot-type" checked={dotGroupType === 1} onChange={() => setDotGroupType(1)} disabled={!dotGroup} />
                     </div>
 
                     <div className="">
-                        Pill: <input className="" type="radio" name="dot-type" checked={dotGroupType === 2} onChange={() => setDotGroupType(2)} disabled={!dotGroup} />
+                        Dynamic pill: <input className="" type="radio" name="dot-type" checked={dotGroupType === 2} onChange={() => setDotGroupType(2)} disabled={!dotGroup} />
                     </div>
                 </div>
             </div>
@@ -136,12 +130,13 @@ export default function HomepageFeatures(): JSX.Element {
                         slideHeight={height}
                         slideWidth={width}
                         freeScroll={freeScroll}
+                        currentSlide={0}
                     >
                         <Slider
                         >
-                            {slides.map((props, idx) => (
+                            {slides.map((props, i) => (
                                 <Slide
-                                    key={idx}
+                                    key={i}
                                 >
                                     <Feature  {...props} />
                                 </Slide>

@@ -13,7 +13,7 @@ function HomepageHeader() {
             <div className="container">
                 <h1 className="hero__title">{siteConfig.title}</h1>
                 <h5 className="hero__subtitle">
-                    A simple slider with some animate effects using <a className="" style={{ color: "#FA196C", fontStyle: "italic" }} href="https://popmotion.io/" target="_blank">Popmotion</a>
+                    A simple slider using css style scroll-snap and <a className="" style={{ color: "#FA196C", fontStyle: "italic" }} href="https://popmotion.io/" target="_blank">Popmotion</a>
                 </h5>
                 <div className={styles.buttons}>
                     {/* <Link

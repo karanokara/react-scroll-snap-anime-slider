@@ -24,7 +24,26 @@ export default class SliderBar<P extends IProps, S extends IState> extends Compo
         // console.log("slide context:", this.context); // undefined when construct
     }
 
+    /**
+     * Slide to a specific slide by index
+     * 
+     * @param nextSlide 
+     */
     slideTo = (nextSlide: number) => {
+        let currentSlide = this.context.currentSlide;
+        let maxSlide = this.context.totalSlides - this.context.visibleSlides;
+
+        if (nextSlide > maxSlide) {
+            nextSlide = maxSlide;
+        }
+        else if (nextSlide < 0) {
+            nextSlide = 0;
+        }
+
+        // console.log("current", currentSlide, "next", nextSlide);
+        if (currentSlide === nextSlide)
+            return;
+
         this.context.updateContext({ currentSlide: nextSlide });
     };
 
@@ -53,7 +72,6 @@ export default class SliderBar<P extends IProps, S extends IState> extends Compo
             totalSlides,
         } = this.context;
 
-
         // subscribe to onScroll change
         this.context.subscribers.push(this.onScroll);
         this.prevContext = this.context;
@@ -63,6 +81,13 @@ export default class SliderBar<P extends IProps, S extends IState> extends Compo
             this.setState({ left: left });
         }
     }
+
+    componentWillUnmount(): void {
+        // unsubscribe
+        let i = this.context.subscribers.indexOf(this.onScroll);
+        if (i >= 0) this.context.subscribers.splice(i, 1);
+    }
+
 
 }
 

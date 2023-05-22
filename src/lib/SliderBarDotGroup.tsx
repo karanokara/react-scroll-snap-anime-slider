@@ -55,9 +55,9 @@ export interface IState extends S {
 
 export class SliderDotGroup extends SliderBar<IProps, IState> {
 
-    theDot(key: number, active: boolean) {
+    theDot(key: number, active: boolean, onClick: () => void) {
         return (
-            <div key={key} className={cn("slider-dot", active ? "active" : "")}></div>
+            <div key={key} className={cn("slider-dot", active ? "active" : "")} onClick={onClick}></div>
         );
     }
 
@@ -72,6 +72,7 @@ export class SliderDotGroup extends SliderBar<IProps, IState> {
             visibleSlides,
             totalSlides,
             currentSlide,
+            slideTo,
         } = props;
 
         let dots: JSX.Element[] = [];
@@ -79,7 +80,7 @@ export class SliderDotGroup extends SliderBar<IProps, IState> {
         let endIndex = currentSlide + visibleSlides;
 
         for (let i = 0; i < totalSlides; ++i) {
-            dots.push(this.theDot(i, (startIndex <= i && i < endIndex)));
+            dots.push(this.theDot(i, (startIndex <= i && i < endIndex), () => slideTo(i)));
         }
         return dots;
     }
