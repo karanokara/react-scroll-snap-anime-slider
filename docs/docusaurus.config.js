@@ -76,7 +76,7 @@ const config = {
         title: "React Scroll Snap Anime Slider",
         logo: {
           alt: "My Site Logo",
-          src: "img/logo.svg",
+          src: "img/slider-logo.png",
         },
         items: [
           {
