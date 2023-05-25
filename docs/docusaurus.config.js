@@ -4,8 +4,11 @@
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
+const author = "karanokara";
+const authorTitle = "KaraNoKara";
+const authorSite = "https://karanokara.cc";
 const project = "react-scroll-snap-anime-slider";
-const githubRepo = "https://github.com/" + project;
+const githubRepo = "https://github.com/" + author + "/" + project;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -20,7 +23,7 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "karanokara", // Usually your GitHub org/user name.
+  organizationName: author, // Usually your GitHub org/user name.
   projectName: project, // Usually your repo name.
 
   onBrokenLinks: "throw",
@@ -76,7 +79,7 @@ const config = {
         title: "React Scroll Snap Anime Slider",
         logo: {
           alt: "My Site Logo",
-          src: "img/slider-logo.png",
+          src: "/img/logo-slider.png",
         },
         items: [
           {
@@ -113,23 +116,30 @@ const config = {
         ],
       },
       footer: {
-        style: "dark",
+        style: "light",
         links: [
           {
-            title: "About",
+            // title: "About",
             items: [
-              {
-                label: "Blog",
-                href: "https://blog.karanokara.cc",
-              },
+              // {
+              //   label: "Blog",
+              //   href: "https://blog.karanokara.cc",
+              // },
               // {
               //   label: "GitHub",
               //   href: "https://github.com/karanokara",
               // },
+              {
+                html: `
+                  <a href="${authorSite}" target="_blank" rel="noreferrer noopener" aria-label="${authorTitle} Blog" title="Click to ${authorTitle}">
+                    <img width="50" height="50" src="/img/logo-karanokara.png" alt="${authorTitle}" />
+                  </a>
+                `,
+              },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} KaraNoKara, Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} By ${authorTitle}`,
       },
       prism: {
         theme: lightCodeTheme,

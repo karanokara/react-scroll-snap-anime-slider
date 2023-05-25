@@ -10,7 +10,8 @@ function HomepageHeader() {
     const { siteConfig } = useDocusaurusContext();
     return (
         <header className={clsx('hero', styles.heroBanner)}>
-            <div className="container">
+            <div className={styles.heroBannerBg}></div>
+            <div className="container" style={{ position: "relative" }}>
                 <h1 className="hero__title">{siteConfig.title}</h1>
                 <h5 className="hero__subtitle">
                     A simple slider using css style scroll-snap and <a className="" style={{ color: "#FA196C", fontStyle: "italic" }} href="https://popmotion.io/" target="_blank">Popmotion</a>
@@ -42,6 +43,8 @@ export default function Home(): JSX.Element {
             <main>
                 <HomepageFeatures />
             </main>
+
+            <div className="padding-vert--md"></div>
         </Layout>
     );
 }
