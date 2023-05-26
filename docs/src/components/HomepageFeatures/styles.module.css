@@ -26,3 +26,10 @@
 .featureSettingContainer > div:not(:first-child) {
   border-left: 1px solid var(--ifm-hr-background-color);
 }
+
+.demoBox {
+  /* box-shadow: 0px 0px 12px 0px var(--ifm-hr-background-color); */
+  border-radius: 1rem;
+  border: 1px solid var(--ifm-hr-background-color);
+  padding: 1rem 0;
+}

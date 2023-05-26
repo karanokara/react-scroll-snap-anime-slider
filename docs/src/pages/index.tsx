@@ -9,7 +9,7 @@ import styles from './index.module.css';
 function HomepageHeader() {
     const { siteConfig } = useDocusaurusContext();
     return (
-        <header className={clsx('hero', styles.heroBanner)}>
+        <header className={clsx('', styles.heroBanner)}>
             <div className={styles.heroBannerBg}></div>
             <div className="container" style={{ position: "relative" }}>
                 <h1 className="hero__title">{siteConfig.title}</h1>
@@ -38,13 +38,10 @@ export default function Home(): JSX.Element {
             description="A Simple React Anime Slider">
             <HomepageHeader />
 
-            <hr />
-
-            <main>
+            <main style={{ position: "relative" }}>
                 <HomepageFeatures />
             </main>
 
-            <div className="padding-vert--md"></div>
         </Layout>
     );
 }

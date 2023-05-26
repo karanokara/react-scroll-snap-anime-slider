@@ -91,20 +91,20 @@ const config = {
             label: "Docs",
           },
           // { to: "/blog", label: "Blog", position: "left" },
-          {
-            type: 'localeDropdown',
-            position: 'right',
-            // dropdownItemsAfter: [
-            //   {
-            //     type: 'html',
-            //     value: '<hr style="margin: 0.3rem 0;">',
-            //   },
-            //   {
-            //     href: 'https://github.com/facebook/docusaurus/issues/3526',
-            //     label: 'Help Us Translate',
-            //   },
-            // ],
-          },
+          // {
+          //   type: 'localeDropdown',
+          //   position: 'right',
+          //   // dropdownItemsAfter: [
+          //   //   {
+          //   //     type: 'html',
+          //   //     value: '<hr style="margin: 0.3rem 0;">',
+          //   //   },
+          //   //   {
+          //   //     href: 'https://github.com/facebook/docusaurus/issues/3526',
+          //   //     label: 'Help Us Translate',
+          //   //   },
+          //   // ],
+          // },
           {
             href: githubRepo,
             // label: "GitHub",
