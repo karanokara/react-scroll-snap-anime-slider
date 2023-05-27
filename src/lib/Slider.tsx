@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, CSSProperties } from 'react';
 import { IProps as P, PointerValue, } from "./Types";
 import { tween, inertia, ColdSubscription, listen, pointer, value, calc, ValueReaction, easing } from "popmotion";
 import { CarouselContext, DefaultCarouselContextProps } from "./CarouselContext";
@@ -33,8 +33,6 @@ export interface IState {
 }
 
 export class Slider extends Component<IProps, IState> {
-
-
 
     // context props from Carousel
     public context!: React.ContextType<typeof CarouselContext>;
@@ -304,12 +302,13 @@ export class Slider extends Component<IProps, IState> {
     }
 
     /**
-     * Slide from current point to next or previous point
+     * Slide to a target slide
      * 
-     * TODO: be able to keep speed and then accelerate to next, next target 
-     * @param slideIndex from 0 ~ (len-1), this slide will be the slide on the left side
-     */
+     * @param slideIndex From 0 ~ (len-1), this target slide will be the slide on the left side (if visible slide > 1)
+     * @param animated Using animation?
+    */
     slideTo(slideIndex: number, animated: boolean = true) {
+        // TODO: be able to keep speed and then accelerate to next, next target 
         if (this.sliderTrayRef.current) {
             this.stopAnimeActions();
 
@@ -496,6 +495,12 @@ export class Slider extends Component<IProps, IState> {
         //     else
         //         slideCount = 1;
         // }
+        let trayStyle: CSSProperties = {};
+
+        if (this.context.margin) {
+            trayStyle.marginLeft = "-" + this.context.margin;
+            trayStyle.marginRight = "-" + this.context.margin;
+        }
 
         return (
 
@@ -506,6 +511,10 @@ export class Slider extends Component<IProps, IState> {
                 <div
                     {...trayProps}
                     className={cn("slider-tray", "css-only", (this.context.freeScroll ? "" : "scroll-snap"), trayProps?.className)}
+                    style={{
+                        ...trayProps?.style,
+                        ...trayStyle,
+                    }}
                     ref={this.sliderTrayRef}
                 >
                     {/* Context uses reference identity to determine when to re-render, this will cause consumer to re-render every time */}

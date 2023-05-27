@@ -57,6 +57,11 @@ export class Slide extends Component<IProps, IState> {
         };
         let innerInnerClass = paddingBottomPercent > 0 ? "fixed-size" : "";
 
+        if (this.context.margin) {
+            innerSlideStyle.marginLeft = this.context.margin;
+            innerSlideStyle.marginRight = this.context.margin;
+        }
+
         return (
             <div
                 {...otherProps}

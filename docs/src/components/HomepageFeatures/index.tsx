@@ -38,6 +38,7 @@ export default function HomepageFeatures(): JSX.Element {
     const [step, setStep] = useState(1);
     const [height, setHeight] = useState(1);
     const [width, setWidth] = useState(1.2);
+    const [margin, setMargin] = useState(0);
     const [freeScroll, setFreeScroll] = useState(false);
     const [buttons, setButtons] = useState(true);
     const [scrollbar, setScrollbar] = useState(true);
@@ -69,6 +70,7 @@ export default function HomepageFeatures(): JSX.Element {
                         slideWidth={width}
                         freeScroll={freeScroll}
                         currentSlide={0}
+                        margin={margin / 2 + "px"}
                     >
                         <Slider
                             aria-label="my slider"
@@ -151,6 +153,10 @@ export default function HomepageFeatures(): JSX.Element {
                 <div className="padding--md">
 
                     <div className="">
+                        Slide gap: <input className="site-input" type="number" value={margin} onChange={(e) => setMargin(Number(e.target.value))} step="1" /> px
+                    </div>
+
+                    <div className="padding-top--xs">
                         Slide height: <input className="site-input" type="number" value={height} onChange={(e) => setHeight(Number(e.target.value))} step="0.1" />
                     </div>
                     <div className="padding-top--xs">
@@ -158,6 +164,7 @@ export default function HomepageFeatures(): JSX.Element {
                     </div>
 
                     <div className="padding-top--xs" style={{ "color": " var(--ifm-color-secondary-darkest)", fontSize: "12px" }}>Height will become auto if set to 0</div>
+
                 </div>
 
                 <div className="padding--md">

@@ -10,6 +10,13 @@ export interface IProps extends P, DP {
     totalSlides: number;
 
 
+    /**
+     * Margin between each slide 
+     * 
+     * The result will be double, such as "5px" => then the gap between 2 slides will be "10px"
+     */
+    margin?: string;
+
 }
 
 export interface IState {
