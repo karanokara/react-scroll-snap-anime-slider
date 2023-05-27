@@ -16,7 +16,6 @@ export class SliderBarLine extends SliderBar<IProps, IState> {
         const {
             visibleSlides,
             totalSlides,
-
         } = this.context;
         const {
             className,
@@ -46,7 +45,6 @@ export class SliderBarLine extends SliderBar<IProps, IState> {
 
         if (thumbProps) {
             thumbStyle = { ...thumbProps.style, ...thumbStyle };
-            delete thumbProps.style;
         }
 
         return (

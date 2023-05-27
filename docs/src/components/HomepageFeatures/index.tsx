@@ -37,7 +37,7 @@ export default function HomepageFeatures(): JSX.Element {
     const [visibleSlides, setVisibleSlides] = useState(3);
     const [step, setStep] = useState(1);
     const [height, setHeight] = useState(1);
-    const [width, setWidth] = useState(0.9);
+    const [width, setWidth] = useState(1.2);
     const [freeScroll, setFreeScroll] = useState(false);
     const [buttons, setButtons] = useState(true);
     const [scrollbar, setScrollbar] = useState(true);
@@ -59,8 +59,6 @@ export default function HomepageFeatures(): JSX.Element {
 
     return (
         <section >
-
-
             <div className="container">
                 <div className="padding-bottom--md">
                     <Carousel
@@ -94,11 +92,12 @@ export default function HomepageFeatures(): JSX.Element {
                                 trackProps={{
                                     id: "my-slider-bar-track",
                                     "aria-label": "slider track",
-                                    style: { borderRadius: "1rem", overflow: "hidden" }
+                                    style: { borderRadius: "1rem" }
                                 }}
                                 thumbProps={{
                                     id: "my-slider-bar-thumb",
-                                    "aria-label": "slider thumb"
+                                    "aria-label": "slider thumb",
+                                    style: { borderRadius: "1rem" }
                                 }}
                             />
                         }
