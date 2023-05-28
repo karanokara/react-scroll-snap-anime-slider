@@ -8,6 +8,8 @@ A simple slider/carousel using css style [scroll-snap](https://developer.mozilla
 
 Works natively on touchable devices
 
+:grinning:[Demo](https://karanokara.github.io/react-scroll-snap-anime-slider/)
+
 </div>
 
 ## :star: Features 
@@ -32,16 +34,19 @@ Works natively on touchable devices
 | **Vertical scrolling**               |                       Pending                       |      :clock3:       |
 
 ## :neutral_face: Motivation 
-The reason to start creating my own JS slider is because I couldn't find a slider that works smoothly on desktop browser and mobile device. There are a ton of wonderfull sliders out there such as [Swiper](https://swiperjs.com/), [Pure React Carousel](https://express-labs.github.io/pure-react-carousel/) and a lot, but they are all not dynamic and reponsive enough, especially when use on iOS (the animation not works sometime). 
+The reason to start creating my own JS slider is because I couldn't find a slider that works smoothly on both desktop browser and mobile device. There are a ton of wonderfull sliders out there such as [Swiper](https://swiperjs.com/), [Pure React Carousel](https://express-labs.github.io/pure-react-carousel/) and a lot, but they are not utilizing the native scrolling feature, and so not work natively on iOS browser (the animation not works smoothly). 
+
+## 🤔 Do I need this slider?
+If you are looking for an animation effect of slider that works like those sliders you saw in some native Apps, you can try this one. However this slider has limitions such as it only provides sliding effect (no fade, swiping effects, for example). So, if you are looking for a powerful slider, you should other powerful library such as [Swiper](https://swiperjs.com/).
 
 ## :pushpin: Geting started
 
-Install:
+### Install:
 ```bash
 npm install react-scroll-snap-anime-slider
 ```
 
-Create a simple slider:
+### Create a simple slider:
 ```js
 import { Slider, } from "react-scroll-snap-anime-slider";
 
@@ -51,5 +56,4 @@ import { Slider, } from "react-scroll-snap-anime-slider";
 
 
 ## :book: Documentation
-
-You can learn more from [here](https://facebook.github.io/create-react-app/docs/getting-started).
+You can learn more from [here](https://karanokara.github.io/react-scroll-snap-anime-slider/).
