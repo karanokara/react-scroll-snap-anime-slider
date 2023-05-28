@@ -1,3 +1,5 @@
+<div align="center"><img src="docs/static/img/logo-slider.png" width="250"/></div>
+
 <h1 align="center">React Scroll Snap Anime Slider</h1>
 
 <div align="center">

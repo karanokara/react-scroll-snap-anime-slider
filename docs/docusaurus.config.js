@@ -10,6 +10,8 @@ const authorSite = "https://karanokara.cc";
 const project = "react-scroll-snap-anime-slider";
 const githubSite = "https://github.com/" + author;
 const githubRepo = githubSite + "/" + project;
+const githubPage = `https://${author}.github.io/`;
+const baseUrl = "/" + project + "/";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -17,11 +19,11 @@ const config = {
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url: githubSite,
+  url: githubPage,
 
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/" + project + "/",
+  baseUrl: baseUrl,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -134,7 +136,7 @@ const config = {
               {
                 html: `
                   <a href="${authorSite}" target="_blank" rel="noreferrer noopener" aria-label="${authorTitle} Blog" title="Click to ${authorTitle}">
-                    <img width="50" height="50" src="/img/logo-karanokara.png" alt="${authorTitle}" />
+                    <img width="50" height="50" src="${baseUrl}img/logo-karanokara.png" alt="${authorTitle}" />
                   </a>
                 `,
               },
