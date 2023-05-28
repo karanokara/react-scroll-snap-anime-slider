@@ -8,7 +8,8 @@ const author = "karanokara";
 const authorTitle = "KaraNoKara";
 const authorSite = "https://karanokara.cc";
 const project = "react-scroll-snap-anime-slider";
-const githubRepo = "https://github.com/" + author + "/" + project;
+const githubSite = "https://github.com/" + author;
+const githubRepo = githubSite + "/" + project;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -16,10 +17,11 @@ const config = {
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url: "https://your-docusaurus-test-site.com",
+  url: githubSite,
+
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/",
+  baseUrl: "/" + project + "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
