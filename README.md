@@ -54,6 +54,10 @@ import { Slider, } from "react-scroll-snap-anime-slider";
 ```
 
 
-
 ## :book: Documentation
 You can learn more from [here](https://karanokara.github.io/react-scroll-snap-anime-slider/).
+
+
+
+## :bug: Bugs or :bow: Requests 
+You can file an issue under the [Issues](../../issues) page.
