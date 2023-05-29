@@ -11,7 +11,7 @@ const project = "react-scroll-snap-anime-slider";
 const githubSite = "https://github.com/" + author;
 const githubRepo = githubSite + "/" + project;
 const githubPage = `https://${author}.github.io/`;
-const baseUrl = "/" + project + "/";
+const baseUrl = process.env.NODE_ENV === 'production' ? "/" + project + "/" : "/";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {

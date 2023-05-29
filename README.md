@@ -17,6 +17,7 @@ Works natively on touchable devices
 | Features                             |                       Comment                       |       Status        |
 | ------------------------------------ | :-------------------------------------------------: | :-----------------: |
 | **Multiple slides per view**         |           Can also adjust slides per step           | :heavy_check_mark:  |
+| **Customized DOM structure**         |     Construct the slider components by yourself     | :heavy_check_mark:  |
 | **Touch scrolling**                  |                      Built-in                       | :heavy_check_mark:  |
 | **Scroll and snap**                  |                Snap to slide's edge                 | :heavy_check_mark:  |
 | **Free scrolling**                   |                                                     | :heavy_check_mark:  |

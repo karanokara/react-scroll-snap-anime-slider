@@ -1,5 +1,6 @@
 {
     "extends": "./tsconfig.json",
+    // only need type from src folder for build purpose
     "include": [
         "./src/**/*"
     ]

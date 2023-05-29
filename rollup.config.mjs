@@ -3,6 +3,7 @@ import typescript from "@rollup/plugin-typescript";
 import terser from '@rollup/plugin-terser';
 import external from "rollup-plugin-peer-deps-external";
 import css from "rollup-plugin-import-css";
+import scss from 'rollup-plugin-scss';
 // import resolve from "@rollup/plugin-node-resolve";
 // import json from '@rollup/plugin-json';
 // import dts from "rollup-plugin-dts";
@@ -10,10 +11,15 @@ import packageJson from "./package.json" assert { type: 'json' };
 
 /**
  * Using rollup: ES module bundler
- * - add "type": "module" to package.json for this file to work in ES style
- *      - or change extension to .mjs
+ * https://rollupjs.org/configuration-options/
+ * 
+ * - To make this file works in ES style:
+ *      - add "type": "module" to package.json
+ *          - not work for docs project since it is using common js
+ *      - so change extension to .mjs
  * - run with -config: rollup -c
  */
+/** @type {import('rollup').RollupOptions} */
 export default [
     {
         input: packageJson.source,
@@ -64,12 +70,17 @@ export default [
 
             terser(),       // minify output
 
-            css(),
+            scss({
+                fileName: 'bundle.css'
+            }), // will output compiled styles to output.css
+
+            // css(),
+
             // automatically add a library's peerDependencies to its bundle's external config
             external(),
 
-            // json(),      // source code have json files import
-
+            // source code have json files import
+            // json(),
         ],
     },
 

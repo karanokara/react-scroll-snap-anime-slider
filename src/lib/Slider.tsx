@@ -2,9 +2,8 @@ import React, { Component, CSSProperties } from 'react';
 import { IProps as P, PointerValue, } from "./Types";
 import { tween, inertia, ColdSubscription, listen, pointer, value, calc, ValueReaction, easing } from "popmotion";
 import { CarouselContext, DefaultCarouselContextProps } from "./CarouselContext";
-import styler, { Styler } from "stylefire";
+// import styler, { Styler } from "stylefire";
 // import sync, { cancelSync } from "framesync";
-import "../css/style.scss";
 import { cn } from "./Utility";
 
 export type OnScrollProps = {
@@ -38,7 +37,7 @@ export class Slider extends Component<IProps, IState> {
     public context!: React.ContextType<typeof CarouselContext>;
 
     public sliderTrayRef = React.createRef<HTMLDivElement>();
-    public sliderTraystyler!: Styler;
+    // public sliderTraystyler!: Styler;
     public scrollValue!: ValueReaction;
     public mouseDownAction: ColdSubscription | undefined;
     public mouseUpAction: ColdSubscription | undefined;
@@ -443,7 +442,7 @@ export class Slider extends Component<IProps, IState> {
         if (this.sliderTrayRef.current) {
             let trayElement = this.sliderTrayRef.current;
 
-            this.sliderTraystyler = styler(trayElement);
+            // this.sliderTraystyler = styler(trayElement);
 
             // listen mouse down
             this.mouseDownAction = listen(trayElement, "mousedown").start(this.startTracking);
