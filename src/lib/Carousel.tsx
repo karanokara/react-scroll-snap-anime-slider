@@ -2,6 +2,7 @@ import React from "react";
 import { CarouselContext, DefaultCarouselProps, ICarouselContextProps } from "./CarouselContext";
 import { ICarouselDefaultProps as DP, IProps as P } from "./Types";
 import { cn, deepCompare } from "./Utility";
+import { ss } from "./Styles";
 
 export interface IProps extends P, DP {
     /**
@@ -116,7 +117,7 @@ export class Carousel extends React.Component<IProps, IState> {
 
         return (
             <div
-                className={cn("react-scroll-snap-anime-slider", className)}
+                className={cn(ss("wrapper"), className)}
                 style={style}
             >
                 <CarouselContext.Provider

@@ -1,4 +1,4 @@
-import "./scss/style.scss";
+// import "./scss/style.module.scss";
 
 export { Carousel } from "./lib/Carousel";
 export { Slider, } from "./lib/Slider";

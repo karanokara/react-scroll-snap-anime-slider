@@ -4,6 +4,7 @@ import terser from '@rollup/plugin-terser';
 import external from "rollup-plugin-peer-deps-external";
 import css from "rollup-plugin-import-css";
 import scss from 'rollup-plugin-scss';
+import postcss from 'rollup-plugin-postcss';
 // import resolve from "@rollup/plugin-node-resolve";
 // import json from '@rollup/plugin-json';
 // import dts from "rollup-plugin-dts";
@@ -60,6 +61,28 @@ export default [
         external: ['popmotion'],
 
         plugins: [
+
+            // scss({
+            //     fileName: 'bundle.css'
+            // }), // will output compiled styles to output.css
+
+            // css(),
+
+            postcss({
+                extensions: ['.css', '.scss'],
+
+                // extract to a file? default is false => styles are injected by using JS
+                // extract: 'style.css',
+
+                modules: {
+                    // customize the name of the css classes that are created
+                    generateScopedName: '[local]__[hash:base64:5]',
+                },
+
+                minimize: true,
+                sourceMap: true,
+            }),
+
             // bring external modules source code to the output, not necessary for this library 
             // resolve(),
 
@@ -68,13 +91,7 @@ export default [
 
             typescript({ tsconfig: "./tsconfig.build.json" }),
 
-            terser(),       // minify output
-
-            scss({
-                fileName: 'bundle.css'
-            }), // will output compiled styles to output.css
-
-            // css(),
+            // terser(),       // minify output
 
             // automatically add a library's peerDependencies to its bundle's external config
             external(),

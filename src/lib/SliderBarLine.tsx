@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SliderBar, { IProps as P, IState as S } from "./SliderBar";
 import { cn } from "./Utility";
+import { ss } from "./Styles";
 
 export interface IProps extends P {
     trackProps?: React.HTMLAttributes<HTMLDivElement>;
@@ -41,7 +42,7 @@ export class SliderBarLine extends SliderBar<IProps, IState> {
             left: left + "%",
         };
 
-        const newClassName = cn("slider-bar", className);
+        const newClassName = cn(ss("slider-bar"), className);
 
         if (thumbProps) {
             thumbStyle = { ...thumbProps.style, ...thumbStyle };
@@ -55,11 +56,11 @@ export class SliderBarLine extends SliderBar<IProps, IState> {
             >
                 <div
                     {...trackProps}
-                    className={cn("slider-bar-track", trackProps?.className)}
+                    className={cn(ss("slider-bar-track"), trackProps?.className)}
                 >
                     <div
                         {...thumbProps}
-                        className={cn("slider-bar-thumb", thumbProps?.className)}
+                        className={cn(ss("slider-bar-thumb"), thumbProps?.className)}
                         style={thumbStyle}
                     />
                 </div>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ICarouselDefaultProps as DP, IProps as P } from "./Types";
 import { cn } from "./Utility";
 import { CarouselContext, DefaultCarouselContextProps } from "./CarouselContext";
+import { ss } from "./Styles";
 
 export interface IProps extends P, React.HTMLAttributes<HTMLDivElement> {
 
@@ -55,7 +56,7 @@ export class Slide extends Component<IProps, IState> {
         let innerSlideStyle: React.CSSProperties = {
             paddingBottom: paddingBottomPercent > 0 ? paddingBottomPercent + "%" : "",
         };
-        let innerInnerClass = paddingBottomPercent > 0 ? "fixed-size" : "";
+        let innerInnerClass = paddingBottomPercent > 0 ? ss("fixed-size") : "";
 
         if (this.context.margin) {
             innerSlideStyle.marginLeft = this.context.margin;
@@ -65,14 +66,14 @@ export class Slide extends Component<IProps, IState> {
         return (
             <div
                 {...otherProps}
-                className={cn("slide", className)}
+                className={cn(ss("slide"), className)}
                 style={slideStyle}
             >
                 <div
-                    className="slide-inner"
+                    className={cn(ss("slide-inner"))}
                     style={innerSlideStyle}
                 >
-                    <div className={cn("slide-inner-inner", innerInnerClass)}>
+                    <div className={cn(ss("slide-inner-inner"), innerInnerClass)}>
                         {children}
                     </div>
                 </div>

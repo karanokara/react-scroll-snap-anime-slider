@@ -3,11 +3,20 @@ export function add(a: number, b: number) {
     return a + b;
 }
 
-export function cn(...a: (string | boolean | undefined)[]) {
-    return a.map((b) => {
-        if (b === false) return null;
-        return b;
-    }).join(' ').replace(/\s+/g, ' ').trim();
+export function cn(...a: (string | null | undefined | string[])[]) {
+    let re: string[] = [];
+    for (let i = 0; i < a.length; ++i) {
+        let b = a[i];
+        if (b == null)
+            continue;
+
+        if (Array.isArray(b)) {
+            re.push(cn(...b));
+        }
+        else
+            re.push(b);
+    }
+    return re.join(' ').replace(/\s+/g, ' ').trim();
 }
 
 export function deepCompare(...arg: any) {

@@ -5,6 +5,7 @@ import { CarouselContext, DefaultCarouselContextProps } from "./CarouselContext"
 // import styler, { Styler } from "stylefire";
 // import sync, { cancelSync } from "framesync";
 import { cn } from "./Utility";
+import { ss } from "./Styles";
 
 export type OnScrollProps = {
     scrollLeft: number;
@@ -100,7 +101,7 @@ export class Slider extends Component<IProps, IState> {
         if (this.sliderTrayRef.current) {
             let trayElement = this.sliderTrayRef.current;
             // add back class
-            !this.context.freeScroll && trayElement.classList.add("scroll-snap");
+            !this.context.freeScroll && trayElement.classList.add(...ss("scroll-snap"));
         }
     };
 
@@ -129,7 +130,7 @@ export class Slider extends Component<IProps, IState> {
             });
 
             // need to remove scroll-snap so can use mouse to move slide
-            !this.context.freeScroll && trayElement.classList.remove("scroll-snap");
+            !this.context.freeScroll && trayElement.classList.remove(...ss("scroll-snap"));
 
             // pointer already tracking mouse movement
             this.pointerAction = pointer({
@@ -176,7 +177,7 @@ export class Slider extends Component<IProps, IState> {
             let onComplete = () => {
                 // console.log("complete tracking!!");
                 this.snapAction = undefined;
-                !this.context.freeScroll && trayElement.classList.add("scroll-snap");
+                !this.context.freeScroll && trayElement.classList.add(...ss("scroll-snap"));
             };
             let snap = (from: number, to: number) => tween({
                 from: from,
@@ -321,12 +322,12 @@ export class Slider extends Component<IProps, IState> {
                 // console.log("complete slide to!!");
                 this.snapAction = undefined;
 
-                !this.context.freeScroll && trayElement.classList.add("scroll-snap");
+                !this.context.freeScroll && trayElement.classList.add(...ss("scroll-snap"));
             };
 
             let targetScrollValue = slideIndex * slideWidth;
 
-            !this.context.freeScroll && trayElement.classList.remove("scroll-snap");
+            !this.context.freeScroll && trayElement.classList.remove(...ss("scroll-snap"));
 
             this.snapAction = tween({
                 from: startPoint,
@@ -505,11 +506,11 @@ export class Slider extends Component<IProps, IState> {
 
             <div
                 {...otherProps}
-                className={cn("slider", className)}
+                className={cn(ss("slider"), className)}
             >
                 <div
                     {...trayProps}
-                    className={cn("slider-tray", "css-only", (this.context.freeScroll ? "" : "scroll-snap"), trayProps?.className)}
+                    className={cn(ss("slider-tray"), ss("css-only"), (this.context.freeScroll ? "" : ss("scroll-snap")), trayProps?.className)}
                     style={{
                         ...trayProps?.style,
                         ...trayStyle,

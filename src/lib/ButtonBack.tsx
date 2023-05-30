@@ -1,5 +1,6 @@
 import SliderButton, { IProps as P, IState as S } from "./SliderButton";
 import { cn } from "./Utility";
+import { ss } from "./Styles";
 
 export interface IProps extends P {
 }
@@ -12,7 +13,7 @@ export class ButtonBack extends SliderButton<IProps, IState> {
     constructor(props: IProps) {
         super(props);
 
-        this.className = cn(this.className, "slider-back-button");
+        this.className = cn(ss("slider-back-button"), this.className);
         this.ariaLabel = "previous";
         this.onClick = () => this.handleOnClick(false);
     }

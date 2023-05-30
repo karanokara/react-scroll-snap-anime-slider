@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { cn, round3 } from "./Utility";
 import SliderBar, { IProps as P, IState as S } from "./SliderBar";
+import { ss } from "./Styles";
 
 
 export interface IRenderDotsProps {
@@ -108,7 +109,7 @@ export class SliderBarDotGroup extends SliderBar<IProps, IState> {
             slideTo: this.slideTo,
         };
 
-        const newClassName = cn("slider-bar", className);
+        const newClassName = cn(ss("slider-bar"), className);
 
         return (
             <div
@@ -117,7 +118,7 @@ export class SliderBarDotGroup extends SliderBar<IProps, IState> {
             >
                 <div
                     {...dotGroupProps}
-                    className={cn("slider-bar-dot-group", dotGroupProps?.className)}
+                    className={cn(ss("slider-bar-dot-group"), dotGroupProps?.className)}
                 >
                     {renderDots
                         ? renderDots(renderDotsProps)
