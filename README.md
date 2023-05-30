@@ -22,7 +22,7 @@ Works natively on touchable devices
 | **Scroll and snap**                  |                Snap to slide's edge                 | :heavy_check_mark:  |
 | **Free scrolling**                   |                                                     | :heavy_check_mark:  |
 | **Scroll with touch pad**            |                      Built-in                       | :heavy_check_mark:  |
-| **Scroll with keyboard < and >**     |                      Built-in                       |      :clock3:       |
+| **Scroll with keyboard < and >**     |                      Built-in                       | :heavy_check_mark:  |
 | **Scroll with mouse drag**           |           Scroll end with inheria effect            | :heavy_check_mark:  |
 | **Scroll with mouse wheel**          |                                                     |         :x:         |
 | **Navigation Buttons**               |               Support multiple clicks               | :heavy_check_mark:  |
@@ -30,6 +30,7 @@ Works natively on touchable devices
 | **Dynamic & Customizable dot group** | Can customize using [`renderDots()`](fdf) callback  | :heavy_check_mark:  |
 | **Bounce on boundary**               |      Works **ONLY** on touchable devices<br/>       | :large_blue_circle: |
 | **Responsive style**                 |                      Built-in                       | :heavy_check_mark:  |
+| **Customized Style**                 |     Can use class-name to override basic style      | :heavy_check_mark:  |
 | **Inifinite scrolling**              |                                                     |         :x:         |
 | **Auto play**                        | You can implement it easily by using [Slider ref]() |         :x:         |
 | **Vertical scrolling**               |                       Pending                       |      :clock3:       |
@@ -49,9 +50,37 @@ npm install react-scroll-snap-anime-slider
 
 ### Create a simple slider:
 ```js
-import { Slider, } from "react-scroll-snap-anime-slider";
+import { ButtonBack, ButtonNext, Carousel, Slide, Slider, SliderBarLine } from "react-scroll-snap-anime-slider";
 
+export function MySlider() {
+    let total = 20;
+    let visible = 3;
+    let step = 3;
 
+    return (
+        <Carousel
+            totalSlides={total}
+            visibleSlides={visible}
+            step={step}
+        >
+            <Slider>
+                {new Array(total).fill(0).map((_, i) => {
+                    return <Slide key={i}>
+                        <div style={{ height: "300px", border: "1px solid #ccc", textAlign: "center" }}>slider# {i}</div>
+                    </Slide>;
+                })}
+            </Slider>
+
+            <SliderBarLine />
+
+            <div style={{ textAlign: "center" }}>
+                <ButtonBack>&lt;</ButtonBack>
+                <ButtonNext>&gt;</ButtonNext>
+            </div>
+
+        </Carousel>
+    );
+}
 ```
 
 
