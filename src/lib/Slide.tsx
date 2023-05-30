@@ -53,15 +53,17 @@ export class Slide extends Component<IProps, IState> {
             width: widthPercent + "%",
             ...style,
         };
-        let innerSlideStyle: React.CSSProperties = {
+        let innerPaddingStyle: React.CSSProperties = {
             paddingBottom: paddingBottomPercent > 0 ? paddingBottomPercent + "%" : "",
         };
-        let innerInnerClass = paddingBottomPercent > 0 ? ss("fixed-size") : "";
 
+        let innerMarginStyle: React.CSSProperties = {};
         if (this.context.margin) {
-            innerSlideStyle.marginLeft = this.context.margin;
-            innerSlideStyle.marginRight = this.context.margin;
+            innerMarginStyle.marginLeft = this.context.margin;
+            innerMarginStyle.marginRight = this.context.margin;
         }
+
+        let innerWrapperClass = paddingBottomPercent > 0 ? ss("fixed-size") : "";
 
         return (
             <div
@@ -70,11 +72,15 @@ export class Slide extends Component<IProps, IState> {
                 style={slideStyle}
             >
                 <div
-                    className={cn(ss("slide-inner"))}
-                    style={innerSlideStyle}
+                    className={cn(ss("slide-inner-margin"))}
+                    style={innerMarginStyle}
                 >
-                    <div className={cn(ss("slide-inner-inner"), innerInnerClass)}>
-                        {children}
+                    <div className={cn(ss("slide-inner-padding"))}
+                        style={innerPaddingStyle}
+                    >
+                        <div className={cn(ss("slide-inner-wrapper"), innerWrapperClass)}>
+                            {children}
+                        </div>
                     </div>
                 </div>
             </div>
