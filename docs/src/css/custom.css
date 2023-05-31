@@ -47,6 +47,16 @@ hr {
   width: 24px;
 }
 
+.header-npm-link:before {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAYAAAA5ZDbSAAAAAklEQVR4AewaftIAAAFwSURBVO3BsU0bAAAF0ePLXcQAySCUiBUYh8piI0aw3DIATWrqSG7SkRmQXETne+/uHb6I1ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojagSu7f3zk/umJfN/ldOJyPnNNB67s/umJX6+v5Ps+j0cu5zPXNKI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiduDG/H5+5lp+PDzw8+WF/9mBG/Pn7Y1bMqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiduDKLqcTn8cjt+DvxwefxyPXcjmduLa7d/giWiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNqI2ojaiNq/wAyOCE14wqH5wAAAABJRU5ErkJggg==");
+  content: "";
+  display: flex;
+  height: 24px;
+  width: 24px;
+  background-size: 24px 24px;
+  background-position-x: 0;
+}
+
 .site-input {
   appearance: none; /* Algolia will add type="search" to the input in Safari and Safari's styling will override the styling here. */
   background: var(--ifm-navbar-search-input-background-color);

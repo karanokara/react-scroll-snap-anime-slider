@@ -10,6 +10,7 @@ const authorSite = "https://karanokara.cc";
 const project = "react-scroll-snap-anime-slider";
 const githubSite = "https://github.com/" + author;
 const githubRepo = githubSite + "/" + project;
+const npmSite = "https://www.npmjs.com/package/" + project;
 const githubPage = `https://${author}.github.io/`;
 const baseUrl = process.env.NODE_ENV === 'production' ? "/" + project + "/" : "/";
 
@@ -114,8 +115,13 @@ const config = {
             // label: "GitHub",
             position: "right",
             className: 'header-github-link',
-            'aria-label': 'GitHub repository',
-
+            'aria-label': 'GitHub Repository',
+          },
+          {
+            href: npmSite,
+            position: "right",
+            className: 'header-npm-link',
+            'aria-label': 'NPM Package',
           },
         ],
       },
