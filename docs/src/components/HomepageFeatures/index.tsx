@@ -38,7 +38,7 @@ export default function HomepageFeatures(): JSX.Element {
     const [step, setStep] = useState(1);
     const [height, setHeight] = useState(1);
     const [width, setWidth] = useState(1.2);
-    const [margin, setMargin] = useState(0);
+    const [margin, setMargin] = useState(20);
     const [freeScroll, setFreeScroll] = useState(false);
     const [buttons, setButtons] = useState(true);
     const [scrollbar, setScrollbar] = useState(true);
@@ -74,12 +74,15 @@ export default function HomepageFeatures(): JSX.Element {
                     >
                         <Slider
                             aria-label="my slider"
-                            style={{ borderRadius: "1rem", overflow: "hidden" }}
+                        // style={{ borderRadius: "1rem", overflow: "hidden" }}
                         >
                             {slides.map((props, i) => (
                                 <Slide
                                     key={i}
                                     aria-label="my slide"
+                                    innerWrapperDivProps={{
+                                        style: { borderRadius: "1rem", overflow: "hidden" }
+                                    }}
                                 >
                                     <Feature  {...props} />
                                 </Slide>

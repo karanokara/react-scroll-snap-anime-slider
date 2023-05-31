@@ -5,6 +5,9 @@ import { CarouselContext, DefaultCarouselContextProps } from "./CarouselContext"
 import { ss } from "./Styles";
 
 export interface IProps extends P, React.HTMLAttributes<HTMLDivElement> {
+    innerMarginDivProps?: React.HTMLAttributes<HTMLDivElement>;
+    innerPaddingDivProps?: React.HTMLAttributes<HTMLDivElement>;
+    innerWrapperDivProps?: React.HTMLAttributes<HTMLDivElement>;
 
 }
 
@@ -36,6 +39,9 @@ export class Slide extends Component<IProps, IState> {
             children,
             style,
             className,
+            innerMarginDivProps,
+            innerPaddingDivProps,
+            innerWrapperDivProps,
             ...otherProps
         } = this.props;
         let {
@@ -55,9 +61,10 @@ export class Slide extends Component<IProps, IState> {
         };
         let innerPaddingStyle: React.CSSProperties = {
             paddingBottom: paddingBottomPercent > 0 ? paddingBottomPercent + "%" : "",
+            ...innerPaddingDivProps?.style
         };
 
-        let innerMarginStyle: React.CSSProperties = {};
+        let innerMarginStyle: React.CSSProperties = { ...innerMarginDivProps?.style };
         if (this.context.margin) {
             innerMarginStyle.marginLeft = this.context.margin;
             innerMarginStyle.marginRight = this.context.margin;
@@ -72,13 +79,19 @@ export class Slide extends Component<IProps, IState> {
                 style={slideStyle}
             >
                 <div
+                    {...innerMarginDivProps}
                     className={cn(ss("slide-inner-margin"))}
                     style={innerMarginStyle}
                 >
-                    <div className={cn(ss("slide-inner-padding"))}
+                    <div
+                        {...innerPaddingDivProps}
+                        className={cn(ss("slide-inner-padding"))}
                         style={innerPaddingStyle}
                     >
-                        <div className={cn(ss("slide-inner-wrapper"), innerWrapperClass)}>
+                        <div
+                            {...innerWrapperDivProps}
+                            className={cn(ss("slide-inner-wrapper"), innerWrapperClass, innerWrapperDivProps?.className)}
+                        >
                             {children}
                         </div>
                     </div>
