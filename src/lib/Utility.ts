@@ -3,11 +3,11 @@ export function add(a: number, b: number) {
     return a + b;
 }
 
-export function cn(...a: (string | null | undefined | string[])[]) {
+export function cn(...a: (null | undefined | string | string[] | boolean)[]) {
     let re: string[] = [];
     for (let i = 0; i < a.length; ++i) {
         let b = a[i];
-        if (b == null)
+        if (b == null || typeof b === "boolean")
             continue;
 
         if (Array.isArray(b)) {

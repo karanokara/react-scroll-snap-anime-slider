@@ -1,9 +1,11 @@
 .wrapper {
     .slider {
         position: relative;
+        overflow: hidden; // hide overflow content when using margin gap between slides
 
         .slider-tray {
         }
+
         .slider-tray::-webkit-scrollbar {
             display: none;
         }
@@ -39,6 +41,10 @@
                         top: 0;
                     }
                 }
+            }
+
+            .slide.with-offset {
+                scroll-snap-align: center;
             }
 
             .slide.snap-stop {

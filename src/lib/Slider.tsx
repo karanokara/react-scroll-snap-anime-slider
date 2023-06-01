@@ -502,6 +502,10 @@ export class Slider extends Component<IProps, IState> {
             trayStyle.marginRight = "-" + this.context.margin;
         }
 
+        if (this.context.offset) {
+            trayStyle.padding = `0 ${this.context.offset}`;
+        }
+
         return (
 
             <div

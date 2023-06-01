@@ -75,7 +75,11 @@ export class Slide extends Component<IProps, IState> {
         return (
             <div
                 {...otherProps}
-                className={cn(ss("slide"), className)}
+                className={cn(
+                    ss("slide"),
+                    (this.context.offset != null && ss("with-offset")),
+                    className)
+                }
                 style={slideStyle}
             >
                 <div

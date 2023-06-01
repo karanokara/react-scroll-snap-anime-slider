@@ -38,7 +38,7 @@ export default function HomepageFeatures(): JSX.Element {
     const [step, setStep] = useState(1);
     const [height, setHeight] = useState(1);
     const [width, setWidth] = useState(1.2);
-    const [margin, setMargin] = useState(20);
+    const [margin, setMargin] = useState(10);
     const [freeScroll, setFreeScroll] = useState(false);
     const [buttons, setButtons] = useState(true);
     const [scrollbar, setScrollbar] = useState(true);
@@ -71,6 +71,7 @@ export default function HomepageFeatures(): JSX.Element {
                         freeScroll={freeScroll}
                         currentSlide={0}
                         margin={margin / 2 + "px"}
+                        offset="2rem"
                     >
                         <Slider
                             aria-label="my slider"
