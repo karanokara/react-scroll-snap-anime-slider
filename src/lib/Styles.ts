@@ -4,8 +4,8 @@ const prefix = "rssas";
 /**
  * Get style classname
  * 
- * This will return 2 classnames, 1 with hash that have styles and another 
- * just the classname for later customization usage
+ * This will return 2 classnames, 1 has hash which have styles and 
+ * another just the classname for customization purpose
  */
 export function ss(className: string) {
     // console.log("styles", styles);

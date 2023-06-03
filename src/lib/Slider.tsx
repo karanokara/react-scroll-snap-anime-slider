@@ -315,7 +315,11 @@ export class Slider extends Component<IProps, IState> {
             let trayElement = this.sliderTrayRef.current;
             let startPoint = trayElement.scrollLeft;
             let trayWidth = trayElement.offsetWidth;
-            let slideWidth = trayWidth / this.context.visibleSlides;
+            let trayPaddingX = Number(window.getComputedStyle(trayElement).paddingLeft.replace("px", ""));   // in px
+            let innerTrayWidth = this.context.offset == null
+                ? trayWidth
+                : trayWidth - 2 * trayPaddingX;
+            let slideWidth = innerTrayWidth / this.context.visibleSlides;
             // let maxSlide = this.context.totalSlides - this.context.visibleSlides;
             // let tempCurrentSlide = 0;
             let onComplete = () => {
@@ -326,6 +330,7 @@ export class Slider extends Component<IProps, IState> {
             };
 
             let targetScrollValue = slideIndex * slideWidth;
+            console.log("tray w", trayWidth, "padding", trayPaddingX, "slide w", slideWidth, "target scroll value", targetScrollValue);
 
             !this.context.freeScroll && trayElement.classList.remove(...ss("scroll-snap"));
 

@@ -14,26 +14,28 @@ Works natively on touchable devices
 
 ## :star: Features 
 
-| Features                             |                       Comment                       |       Status        |
-| ------------------------------------ | :-------------------------------------------------: | :-----------------: |
-| **Multiple slides per view**         |           Can also adjust slides per step           | :heavy_check_mark:  |
-| **Customized DOM structure**         |     Construct the slider components by yourself     | :heavy_check_mark:  |
-| **Touch scrolling**                  |                      Built-in                       | :heavy_check_mark:  |
-| **Scroll and snap**                  |                Snap to slide's edge                 | :heavy_check_mark:  |
-| **Free scrolling**                   |                                                     | :heavy_check_mark:  |
-| **Scroll with touch pad**            |                      Built-in                       | :heavy_check_mark:  |
-| **Scroll with keyboard < and >**     |                      Built-in                       | :heavy_check_mark:  |
-| **Scroll with mouse drag**           |           Scroll end with inheria effect            | :heavy_check_mark:  |
-| **Scroll with mouse wheel**          |                                                     |         :x:         |
-| **Navigation Buttons**               |               Support multiple clicks               | :heavy_check_mark:  |
-| **Dynamic scrollbar**                |                                                     | :heavy_check_mark:  |
-| **Dynamic & Customizable dot group** | Can customize using [`renderDots()`](fdf) callback  | :heavy_check_mark:  |
-| **Bounce on boundary**               |      Works **ONLY** on touchable devices<br/>       | :large_blue_circle: |
-| **Responsive style**                 |                      Built-in                       | :heavy_check_mark:  |
-| **Customized Style**                 |     Can use class-name to override basic style      | :heavy_check_mark:  |
-| **Inifinite scrolling**              |                                                     |         :x:         |
-| **Auto play**                        | You can implement it easily by using [Slider ref]() |         :x:         |
-| **Vertical scrolling**               |                       Pending                       |      :clock3:       |
+| Features                             |                     Comment                     |       Status        |
+| ------------------------------------ | :---------------------------------------------: | :-----------------: |
+| **Multiple slides per view**         |       Can adjust multiple slides per step       | :heavy_check_mark:  |
+| **Customized DOM structure**         |   Construct the slider components by yourself   | :heavy_check_mark:  |
+| **Customized slides gap**            |               Using margin props                | :heavy_check_mark:  |
+| **Customized slide tray offset**     |               Using offset props                | :heavy_check_mark:  |
+| **Touch scrolling**                  |                    Built-in                     | :heavy_check_mark:  |
+| **Scroll and snap**                  |              Snap to slide's edge               | :heavy_check_mark:  |
+| **Free scrolling**                   |                                                 | :heavy_check_mark:  |
+| **Scroll with touch pad**            |                    Built-in                     | :heavy_check_mark:  |
+| **Scroll with keyboard < and >**     |                    Built-in                     | :heavy_check_mark:  |
+| **Scroll with mouse drag**           |         Scroll end with inheria effect          | :heavy_check_mark:  |
+| **Scroll with mouse wheel**          |                                                 |         :x:         |
+| **Navigation Buttons**               |             Support multiple clicks             | :heavy_check_mark:  |
+| **Dynamic scrollbar**                |                                                 | :heavy_check_mark:  |
+| **Dynamic & Customizable dot group** | Customize using [`renderDots()`](fdf) callback  | :heavy_check_mark:  |
+| **Bounce on boundary**               |          Built-in on touchable devices          | :large_blue_circle: |
+| **Responsive style**                 |                    Built-in                     | :heavy_check_mark:  |
+| **Customized Style**                 | Use class-name or style to override basic style | :heavy_check_mark:  |
+| **Inifinite scrolling**              |                                                 |         :x:         |
+| **Auto play**                        |    Can implement it by using [Slider ref]()     |         :x:         |
+| **Vertical scrolling**               |                     Pending                     |      :clock3:       |
 
 ## :neutral_face: Motivation 
 The reason to start creating my own JS slider is because I couldn't find a slider that works smoothly on both desktop browser and mobile device. There are a ton of wonderfull sliders out there such as [Swiper](https://swiperjs.com/), [Pure React Carousel](https://express-labs.github.io/pure-react-carousel/) and a lot, but they are not utilizing the native scrolling feature, and so not work natively on iOS browser (the animation not works smoothly). 
