@@ -6,6 +6,7 @@ import { CarouselContext, DefaultCarouselContextProps } from "./CarouselContext"
 // import sync, { cancelSync } from "framesync";
 import { cn } from "./Utility";
 import { ss } from "./Styles";
+import { stat } from "fs";
 
 export type OnScrollProps = {
     scrollLeft: number;
@@ -309,17 +310,12 @@ export class Slider extends Component<IProps, IState> {
     */
     slideTo(slideIndex: number, animated: boolean = true) {
         // TODO: be able to keep speed and then accelerate to next, next target 
-        if (this.sliderTrayRef.current) {
+        let state = this.getTrayState();
+        if (state) {
             this.stopAnimeActions();
-
-            let trayElement = this.sliderTrayRef.current;
-            let startPoint = trayElement.scrollLeft;
-            let trayWidth = trayElement.offsetWidth;
-            let trayPaddingX = Number(window.getComputedStyle(trayElement).paddingLeft.replace("px", ""));   // in px
-            let innerTrayWidth = this.context.offset == null
-                ? trayWidth
-                : trayWidth - 2 * trayPaddingX;
-            let slideWidth = innerTrayWidth / this.context.visibleSlides;
+            let trayElement = state.trayElement;
+            let startPoint = state.scrollLeft;
+            let slideWidth = state.slideWidth;
             // let maxSlide = this.context.totalSlides - this.context.visibleSlides;
             // let tempCurrentSlide = 0;
             let onComplete = () => {
@@ -330,7 +326,6 @@ export class Slider extends Component<IProps, IState> {
             };
 
             let targetScrollValue = slideIndex * slideWidth;
-            console.log("tray w", trayWidth, "padding", trayPaddingX, "slide w", slideWidth, "target scroll value", targetScrollValue);
 
             !this.context.freeScroll && trayElement.classList.remove(...ss("scroll-snap"));
 
@@ -386,17 +381,36 @@ export class Slider extends Component<IProps, IState> {
     }
 
     /**
+     * Get some current state data of tray element
+     * @returns 
+     */
+    getTrayState() {
+        if (this.sliderTrayRef.current) {
+            let trayElement = this.sliderTrayRef.current;
+            let scrollLeft = trayElement.scrollLeft;
+            let trayWidth = trayElement.offsetWidth;
+            let trayPaddingX = Number(window.getComputedStyle(trayElement).paddingLeft.replace("px", ""));   // in px
+            let innerTrayWidth = this.context.offset == null
+                ? trayWidth
+                : trayWidth - 2 * trayPaddingX;
+            let slideWidth = innerTrayWidth / this.context.visibleSlides;
+            let slideCount = trayElement.childElementCount;
+
+            // console.log("tray w", trayWidth, "padding", trayPaddingX, "slide w", slideWidth);
+
+            return { trayElement, scrollLeft, trayWidth, innerTrayWidth, trayPaddingX, slideWidth, slideCount };
+        }
+    }
+
+    /**
      * Get max scroll x, y
      * 
      * @returns if >0 has a max scroll, if <0 not able to scroll
      */
     getScrollMax() {
-        if (this.sliderTrayRef.current) {
-            let trayElement = this.sliderTrayRef.current;
-            let trayWidth = trayElement.offsetWidth;
-            let slideWidth = trayWidth / this.context.visibleSlides;
-            let slideCount = trayElement.childElementCount;
-            let max = slideWidth * (slideCount - this.context.visibleSlides);
+        let state = this.getTrayState();
+        if (state) {
+            let max = state.slideWidth * (state.slideCount - this.context.visibleSlides);
 
             return max;
         }
@@ -411,12 +425,11 @@ export class Slider extends Component<IProps, IState> {
      */
     getSnapScrollValue(currentScrollValue: number, isDown: number) {
         let targetScrollValue = currentScrollValue;
+        let state = this.getTrayState();
 
-        if (this.sliderTrayRef.current) {
-            let trayElement = this.sliderTrayRef.current;
-            let trayWidth = trayElement.offsetWidth;
-            let slideWidth = trayWidth / this.context.visibleSlides;
-            let slideCount = trayElement.childElementCount;
+        if (state) {
+            let slideWidth = state.slideWidth;
+            let slideCount = state.slideCount;
             let targetSlideNo = 0;
 
             if (isDown > 0) {
