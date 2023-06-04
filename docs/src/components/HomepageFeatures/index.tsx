@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { clsx } from 'clsx';
 import styles from './styles.module.css';
 import { random, colord } from "colord";
@@ -33,6 +33,9 @@ function Feature(props: SlideItem) {
 }
 
 export default function HomepageFeatures(): JSX.Element {
+    const localCurrentSlide = useMemo(() => {
+        return { index: 0 };
+    }, []);
     const [slideCount, setSlideCount] = useState(20);
     const [visibleSlides, setVisibleSlides] = useState(3);
     const [step, setStep] = useState(1);
@@ -70,9 +73,10 @@ export default function HomepageFeatures(): JSX.Element {
                         slideHeight={height}
                         slideWidth={width}
                         freeScroll={freeScroll}
-                        currentSlide={0}
+                        currentSlide={localCurrentSlide.index}
                         margin={margin / 2 + "px"}
                         offset={offset + "px"}
+                        onSlide={({ currentSlide }) => { localCurrentSlide.index = currentSlide; }}
                     >
                         <Slider
                             aria-label="my slider"

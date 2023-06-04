@@ -1,19 +1,12 @@
 import React, { Component, CSSProperties } from 'react';
 import { IProps as P, PointerValue, } from "./Types";
 import { tween, inertia, ColdSubscription, listen, pointer, value, calc, ValueReaction, easing } from "popmotion";
-import { CarouselContext, DefaultCarouselContextProps } from "./CarouselContext";
+import { CarouselContext } from "./CarouselContext";
 // import styler, { Styler } from "stylefire";
 // import sync, { cancelSync } from "framesync";
 import { cn } from "./Utility";
 import { ss } from "./Styles";
-import { stat } from "fs";
 
-export type OnScrollProps = {
-    scrollLeft: number;
-    currentSlide: number;
-    slideWidth: number;
-    trayWidth: number;
-};
 
 export interface IProps extends P, React.HTMLAttributes<HTMLDivElement> {
     /**
@@ -21,13 +14,6 @@ export interface IProps extends P, React.HTMLAttributes<HTMLDivElement> {
      */
     trayProps?: React.HTMLAttributes<HTMLDivElement>;
 
-    /**
-     * A callback function when slider is sliding
-     * 
-     * @param props 
-     * @returns 
-     */
-    onSlide?: (props: OnScrollProps) => void;
 }
 
 export interface IState {
@@ -79,8 +65,8 @@ export class Slider extends Component<IProps, IState> {
             // update slide index
             this.updateSlideIndex(state);
 
-            if (this.props.onSlide) {
-                this.props.onSlide({
+            if (this.context.onSlide) {
+                this.context.onSlide({
                     scrollLeft,
                     currentSlide,
                     slideWidth,
