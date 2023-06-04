@@ -60,29 +60,31 @@ export class Slider extends Component<IProps, IState> {
      */
     onScroll = (evt: Event) => {
         // console.log("onScroll", evt);
+        let state = this.getTrayState();
 
-        if (this.sliderTrayRef.current) {
-            let trayElement = this.sliderTrayRef.current;
-            let trayWidth = trayElement.offsetWidth;
-            let slideWidth = trayWidth / this.context.visibleSlides;
-            let scrollLeft = trayElement.scrollLeft;
+        if (state) {
+            let trayWidth = state.trayWidth;
+            let innerTrayWidth = state.innerTrayWidth;
+            let slideWidth = state.slideWidth;
+            let scrollLeft = state.scrollLeft;
+            let currentSlide = this.context.currentSlide;
 
             // update subscriber
             for (let i = 0; i < this.context.subscribers.length; ++i) {
-                this.context.subscribers[i](trayWidth, slideWidth, scrollLeft);
+                this.context.subscribers[i](innerTrayWidth, slideWidth, scrollLeft);
             }
 
             // console.log("scroll", trayElement.scrollLeft);
 
             // update slide index
-            this.updateSlideIndex();
+            this.updateSlideIndex(state);
 
             if (this.props.onSlide) {
                 this.props.onSlide({
                     scrollLeft,
-                    currentSlide: this.context.currentSlide,
-                    slideWidth: slideWidth,
-                    trayWidth: trayWidth,
+                    currentSlide,
+                    slideWidth,
+                    trayWidth,
                 });
             }
         }
@@ -276,29 +278,45 @@ export class Slider extends Component<IProps, IState> {
     };
 
     /**
-     * Get current slide index (the slide on the left side)
+     * Get some current state data of tray element
      * @returns 
      */
-    getCurrentSlideIndex() {
+    getTrayState() {
         if (this.sliderTrayRef.current) {
             let trayElement = this.sliderTrayRef.current;
-            let currentScrollValue = trayElement.scrollLeft;
+            let scrollLeft = trayElement.scrollLeft;
             let trayWidth = trayElement.offsetWidth;
-            let slideWidth = trayWidth / this.context.visibleSlides;
-            let currentSlide = Math.round(currentScrollValue / slideWidth);
-            return currentSlide;
+            let trayPaddingX = Number(window.getComputedStyle(trayElement).paddingLeft.replace("px", ""));   // in px
+            let innerTrayWidth = this.context.offset == null
+                ? trayWidth
+                : trayWidth - 2 * trayPaddingX;
+            let slideWidth = innerTrayWidth / this.context.visibleSlides;
+            let slideCount = trayElement.childElementCount;
+
+            //  current slide index (the slide on the left side)
+            let currentSlide = Math.round(scrollLeft / slideWidth);
+
+            // console.log("tray w", trayWidth, "padding", trayPaddingX, "slide w", slideWidth);
+
+            return { trayElement, scrollLeft, trayWidth, innerTrayWidth, trayPaddingX, slideWidth, slideCount, currentSlide };
         }
-        return 0;
     }
 
-    updateSlideIndex() {
-        // update slide index
-        let newSlideIndex = this.getCurrentSlideIndex();
-        // console.log("temp", this.tempCurrentSlide, "new index", newSlideIndex);
-        if (this.tempCurrentSlide !== newSlideIndex) {
-            this.tempCurrentSlide = newSlideIndex;
-            // console.log("update context slide index:", this.tempCurrentSlide);
-            this.context.updateContext({ currentSlide: this.tempCurrentSlide });
+    /**
+     * Update slide index if necessary
+     * 
+     * @param state 
+     */
+    updateSlideIndex(state = this.getTrayState()) {
+        if (state) {
+            let newSlideIndex = state.currentSlide;
+
+            // console.log("temp", this.tempCurrentSlide, "new index", newSlideIndex);
+            if (this.tempCurrentSlide !== newSlideIndex) {
+                this.tempCurrentSlide = newSlideIndex;
+                // console.log("update context slide index:", this.tempCurrentSlide);
+                this.context.updateContext({ currentSlide: this.tempCurrentSlide });
+            }
         }
     }
 
@@ -378,28 +396,6 @@ export class Slider extends Component<IProps, IState> {
         // console.log("original", v, "result", r);
 
         return rx;
-    }
-
-    /**
-     * Get some current state data of tray element
-     * @returns 
-     */
-    getTrayState() {
-        if (this.sliderTrayRef.current) {
-            let trayElement = this.sliderTrayRef.current;
-            let scrollLeft = trayElement.scrollLeft;
-            let trayWidth = trayElement.offsetWidth;
-            let trayPaddingX = Number(window.getComputedStyle(trayElement).paddingLeft.replace("px", ""));   // in px
-            let innerTrayWidth = this.context.offset == null
-                ? trayWidth
-                : trayWidth - 2 * trayPaddingX;
-            let slideWidth = innerTrayWidth / this.context.visibleSlides;
-            let slideCount = trayElement.childElementCount;
-
-            // console.log("tray w", trayWidth, "padding", trayPaddingX, "slide w", slideWidth);
-
-            return { trayElement, scrollLeft, trayWidth, innerTrayWidth, trayPaddingX, slideWidth, slideCount };
-        }
     }
 
     /**
