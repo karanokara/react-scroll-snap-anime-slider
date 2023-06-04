@@ -18,8 +18,8 @@ Works natively on touchable devices
 | ------------------------------------ | :---------------------------------------------: | :-----------------: |
 | **Multiple slides per view**         |       Can adjust multiple slides per step       | :heavy_check_mark:  |
 | **Customized DOM structure**         |   Construct the slider components by yourself   | :heavy_check_mark:  |
-| **Customized slides margin**         |               Using margin props                | :heavy_check_mark:  |
-| **Customized slide tray offset**     |               Using offset props                | :heavy_check_mark:  |
+| **Customized slides margin**         |            Margin between each slide            | :heavy_check_mark:  |
+| **Customized slide tray padding**    |    Offset slide tray to see prev/next slide     | :heavy_check_mark:  |
 | **Touch scrolling**                  |                    Built-in                     | :heavy_check_mark:  |
 | **Scroll and snap**                  |              Snap to slide's edge               | :heavy_check_mark:  |
 | **Free scrolling**                   |                                                 | :heavy_check_mark:  |

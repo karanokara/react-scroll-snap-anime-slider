@@ -74,8 +74,8 @@ export default function HomepageFeatures(): JSX.Element {
                         slideWidth={width}
                         freeScroll={freeScroll}
                         currentSlide={localCurrentSlide.index}
-                        margin={margin / 2 + "px"}
-                        offset={offset + "px"}
+                        slideMargin={margin / 2 + "px"}
+                        trayPadding={offset + "px"}
                         onSlide={({ currentSlide }) => { localCurrentSlide.index = currentSlide; }}
                     >
                         <Slider
@@ -180,9 +180,9 @@ export default function HomepageFeatures(): JSX.Element {
                     <div className="" style={{ "color": " var(--ifm-color-secondary-darkest)", fontSize: "12px" }}>Margin between each slide</div>
 
                     <div className="padding-top--xs">
-                        Slide tray offset: <input className="site-input" type="number" value={offset} onChange={(e) => setOffset(Number(e.target.value))} step="1" /> px
+                        Tray padding: <input className="site-input" type="number" value={offset} onChange={(e) => setOffset(Number(e.target.value))} step="1" /> px
                     </div>
-                    <div className="" style={{ "color": " var(--ifm-color-secondary-darkest)", fontSize: "12px" }}>Offset the tray to see a little bit of next hidden slide</div>
+                    <div className="" style={{ "color": " var(--ifm-color-secondary-darkest)", fontSize: "12px" }}>Offset the tray to see prev/next slide partially</div>
 
                 </div>
 

@@ -273,7 +273,7 @@ export class Slider extends Component<IProps, IState> {
             let scrollLeft = trayElement.scrollLeft;
             let trayWidth = trayElement.offsetWidth;
             let trayPaddingX = Number(window.getComputedStyle(trayElement).paddingLeft.replace("px", ""));   // in px
-            let innerTrayWidth = this.context.offset == null
+            let innerTrayWidth = this.context.trayPadding == null
                 ? trayWidth
                 : trayWidth - 2 * trayPaddingX;
             let slideWidth = innerTrayWidth / this.context.visibleSlides;
@@ -497,13 +497,13 @@ export class Slider extends Component<IProps, IState> {
         // }
         let trayStyle: CSSProperties = {};
 
-        if (this.context.margin) {
-            trayStyle.marginLeft = "-" + this.context.margin;
-            trayStyle.marginRight = "-" + this.context.margin;
+        if (this.context.slideMargin) {
+            trayStyle.marginLeft = "-" + this.context.slideMargin;
+            trayStyle.marginRight = "-" + this.context.slideMargin;
         }
 
-        if (this.context.offset) {
-            trayStyle.padding = `0 ${this.context.offset}`;
+        if (this.context.trayPadding != null) {
+            trayStyle.padding = `0 ${this.context.trayPadding}`;
         }
 
         return (

@@ -60,8 +60,8 @@ export class Slide extends Component<IProps, IState> {
 
             // if having offset and visible slides count is even, 
             // then need to add scroll margin to adjust alignment
-            scrollMargin: (this.context.offset != null && (this.context.visibleSlides % 2 === 0))
-                ? `0 ${this.context.offset}`
+            scrollMargin: (this.context.trayPadding != null && (this.context.visibleSlides % 2 === 0))
+                ? `0 ${this.context.trayPadding}`
                 : "",
 
             ...style,
@@ -72,9 +72,9 @@ export class Slide extends Component<IProps, IState> {
         };
 
         let innerMarginStyle: React.CSSProperties = { ...innerMarginDivProps?.style };
-        if (this.context.margin) {
-            innerMarginStyle.marginLeft = this.context.margin;
-            innerMarginStyle.marginRight = this.context.margin;
+        if (this.context.slideMargin != null) {
+            innerMarginStyle.marginLeft = this.context.slideMargin;
+            innerMarginStyle.marginRight = this.context.slideMargin;
         }
 
         let innerWrapperClass = paddingBottomPercent > 0 ? ss("fixed-size") : "";
@@ -86,7 +86,7 @@ export class Slide extends Component<IProps, IState> {
                     ss("slide"),
 
                     // if having offset and visible slides count is odd, then need to align center
-                    (this.context.offset != null &&
+                    (this.context.trayPadding != null &&
                         (this.context.visibleSlides % 2 === 1) &&
                         ss("align-center")),
 

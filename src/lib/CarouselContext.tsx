@@ -22,15 +22,15 @@ export interface ICarouselProps extends ICarouselDefaultProps {
      * 
      * The result will be double, such as "5px" => then the gap between 2 slides will be "10px"
      */
-    margin?: string;
+    slideMargin?: string;
 
     /**
-     * Offset the slider track so you can see a little bit of next hidden slide
+     * Padding the slider track to offset left/right side to see a little bit of prev/next hidden slide
      * 
      * -----------------------
      * value can be any pixel value: "5px", "1rem", ...
      */
-    offset?: string;
+    trayPadding?: string;
 
     /**
      * A callback function when slider is sliding
