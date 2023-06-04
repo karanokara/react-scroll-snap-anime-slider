@@ -58,7 +58,7 @@ export class SliderBarDotGroup extends SliderBar<IProps, IState> {
 
     theDot(key: number, active: boolean, onClick: () => void) {
         return (
-            <div key={key} className={cn("slider-dot", active ? "active" : "")} onClick={onClick}></div>
+            <div key={key} className={cn(ss("slider-dot"), active ? ss("active") : "")} onClick={onClick}></div>
         );
     }
 
