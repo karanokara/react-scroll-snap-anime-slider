@@ -175,9 +175,9 @@ export default function HomepageFeatures(): JSX.Element {
                 <div className="padding--md">
 
                     <div className="">
-                        Slide gap: <input className="site-input" type="number" value={margin} onChange={(e) => setMargin(Number(e.target.value))} step="1" /> px
+                        Slide margin: <input className="site-input" type="number" value={margin} onChange={(e) => setMargin(Number(e.target.value))} step="1" /> px
                     </div>
-                    <div className="" style={{ "color": " var(--ifm-color-secondary-darkest)", fontSize: "12px" }}>Gap between each slide</div>
+                    <div className="" style={{ "color": " var(--ifm-color-secondary-darkest)", fontSize: "12px" }}>Margin between each slide</div>
 
                     <div className="padding-top--xs">
                         Slide tray offset: <input className="site-input" type="number" value={offset} onChange={(e) => setOffset(Number(e.target.value))} step="1" /> px
