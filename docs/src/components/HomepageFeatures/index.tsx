@@ -42,7 +42,7 @@ export default function HomepageFeatures(): JSX.Element {
     const [height, setHeight] = useState(1);
     const [width, setWidth] = useState(1.2);
     const [margin, setMargin] = useState(10);
-    const [offset, setOffset] = useState(28);
+    const [offset, setOffset] = useState(0);
     const [freeScroll, setFreeScroll] = useState(false);
     const [buttons, setButtons] = useState(true);
     const [scrollbar, setScrollbar] = useState(true);
