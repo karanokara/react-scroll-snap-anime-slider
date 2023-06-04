@@ -57,6 +57,13 @@ export class Slide extends Component<IProps, IState> {
             : 0;
         let slideStyle: React.CSSProperties = {
             width: widthPercent + "%",
+
+            // if having offset and visible slides count is even, 
+            // then need to add scroll margin to adjust alignment
+            scrollMargin: (this.context.offset != null && (this.context.visibleSlides % 2 === 0))
+                ? `0 ${this.context.offset}`
+                : "",
+
             ...style,
         };
         let innerPaddingStyle: React.CSSProperties = {
@@ -77,7 +84,12 @@ export class Slide extends Component<IProps, IState> {
                 {...otherProps}
                 className={cn(
                     ss("slide"),
-                    (this.context.offset != null && ss("with-offset")),
+
+                    // if having offset and visible slides count is odd, then need to align center
+                    (this.context.offset != null &&
+                        (this.context.visibleSlides % 2 === 1) &&
+                        ss("align-center")),
+
                     className)
                 }
                 style={slideStyle}

@@ -91,7 +91,7 @@ export default [
 
             typescript({ tsconfig: "./tsconfig.build.json" }),
 
-            // terser(),       // minify output
+            terser(),       // minify output
 
             // automatically add a library's peerDependencies to its bundle's external config
             external(),
