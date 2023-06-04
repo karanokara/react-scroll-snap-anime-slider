@@ -12,10 +12,10 @@ function HomepageHeader() {
         <header className={clsx('', styles.heroBanner)}>
             <div className={styles.heroBannerBg}></div>
             <div className="container" style={{ position: "relative" }}>
-                <h1 className="hero__title">{siteConfig.title}</h1>
-                <h5 className="hero__subtitle">
-                    A simple slider using css style scroll-snap and <a className="" style={{ color: "#FA196C", fontStyle: "italic" }} href="https://popmotion.io/" target="_blank">Popmotion</a>
-                </h5>
+                <h1 style={{ fontSize: "2.75rem" }}>{siteConfig.title}</h1>
+                <h3 >
+                    A simple slider using css style <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scroll_Snap" target="_blank">scroll-snap</a> and <a className="" style={{ color: "#FA196C", fontStyle: "italic" }} href="https://popmotion.io/" target="_blank">Popmotion</a>
+                </h3>
                 <div className={styles.buttons}>
                     {/* <Link
                         className="button button--secondary button--lg"

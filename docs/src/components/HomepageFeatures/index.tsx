@@ -24,7 +24,7 @@ function Feature(props: SlideItem) {
             }}
         >
             <div className="text--center" style={{ width: "100%" }}>
-                <h3>{props.title}</h3>
+                <h4>{props.title}</h4>
                 <div><button className="button button--sm button--secondary" type="button" onClick={() => setCount(count + 1)} >Add Count</button></div>
                 <div>{count}</div>
             </div>
@@ -77,6 +77,9 @@ export default function HomepageFeatures(): JSX.Element {
                         slideMargin={margin / 2 + "px"}
                         trayPadding={offset + "px"}
                         onSlide={({ currentSlide }) => { localCurrentSlide.index = currentSlide; }}
+                        style={{
+                            margin: `0 -${offset > 0 ? 1 : 0}rem`,
+                        }}
                     >
                         <Slider
                             aria-label="my slider"
@@ -129,11 +132,18 @@ export default function HomepageFeatures(): JSX.Element {
                                         ? renderDotsDynamicPill
                                         : undefined)
                                 }
+                                style={{ padding: `0 ${offset}px` }}
                             />
                         }
 
                         {buttons &&
-                            <div className="margin-top--md" style={{ textAlign: "center" }}>
+                            <div
+                                className="margin-top--md"
+                                style={{
+                                    textAlign: "center",
+                                    padding: `0 ${offset}px`
+                                }}
+                            >
                                 <ButtonBack className="button button--primary">&lt;</ButtonBack>
 
                                 <ButtonNext className="button button--primary margin-left--md">&gt;</ButtonNext>
