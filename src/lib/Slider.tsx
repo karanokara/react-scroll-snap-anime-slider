@@ -133,7 +133,7 @@ export class Slider extends Component<IProps, IState> {
                     return { x: 0, y: next.y };
                 }
                 else if (x > scrollMax) {
-                    newStartPoint = startPoint + next.x;
+                    newStartPoint = scrollMax + next.x;
                     return { x: scrollMax, y: next.y };
                 }
 

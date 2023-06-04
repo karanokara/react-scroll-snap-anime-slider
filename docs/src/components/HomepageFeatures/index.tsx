@@ -110,6 +110,7 @@ export default function HomepageFeatures(): JSX.Element {
                                     "aria-label": "slider thumb",
                                     style: { borderRadius: "1rem" }
                                 }}
+                                style={{ padding: `0 ${offset}px` }}
                             />
                         }
 
@@ -181,7 +182,7 @@ export default function HomepageFeatures(): JSX.Element {
                     <div className="padding-top--xs">
                         Slide tray offset: <input className="site-input" type="number" value={offset} onChange={(e) => setOffset(Number(e.target.value))} step="1" /> px
                     </div>
-                    <div className="" style={{ "color": " var(--ifm-color-secondary-darkest)", fontSize: "12px" }}>Offset the tray to see a little bit next hidden slide</div>
+                    <div className="" style={{ "color": " var(--ifm-color-secondary-darkest)", fontSize: "12px" }}>Offset the tray to see a little bit of next hidden slide</div>
 
                 </div>
 

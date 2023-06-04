@@ -1,8 +1,10 @@
 // import "./scss/style.module.scss";
 
 export { Carousel } from "./lib/Carousel";
-export { Slider, } from "./lib/Slider";
-export type { IProps as ISliderProps, OnScrollProps } from "./lib/Slider";
+export type { IProps as ICarouselProps } from "./lib/Carousel";
+export type { OnSlideProps, ICarouselContextProps } from "./lib/CarouselContext";
+export { Slider } from "./lib/Slider";
+export type { IProps as ISliderProps } from "./lib/Slider";
 export { Slide } from "./lib/Slide";
 export type { IProps as SlideProps } from "./lib/Slide";
 export { ButtonBack } from "./lib/ButtonBack";
