@@ -1,0 +1,57 @@
+---
+sidebar_position: 1
+title: Carousel
+---
+
+# `<Carousel/>`
+
+Carousel is a wrapper for the whole slider. You MUST use this component as a wrapper so other slider components can share some common props.
+
+## Import
+
+```jsx
+import {Carousel} from "react-scroll-snap-anime-slider";
+```
+
+## Usage
+
+```jsx
+<Carousel
+    totalSlides={10}
+    visibleSlides={3}
+    step={1}
+>
+    // any elements        
+</Carousel>
+```
+
+## Props
+
+
+| Name          |   Type    | Required |       Default       | Description                                                                                                                                                                   |
+| ------------- | :-------: | :------: | :-----------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| totalSlides   | `number`  |   Yes    |                     | Total slides in this slider                                                                                                                                                   |
+| slideWidth    | `number`  |    No    | 0 <br/> auto height | Use to calculate slide's height in dimension, such as width:height = 16:9                                                                                                     |
+| slideHeight   | `number`  |    No    | 0 <br/> auto height | Use to calculate slide's height in dimension, such as width:height = 16:9                                                                                                     |
+| visibleSlides | `number`  |    No    |          1          | How many visible slides (N), slide width = 100% / N                                                                                                                           |
+| step          | `number`  |    No    |          1          | How mange slides per step (when click previous and next button)                                                                                                               |
+| currentSlide  | `number`  |    No    |          0          | Current slide index (from 0)                                                                                                                                                  |
+| slideMargin   | `string`  |    No    |                     | Margin between each slide<br/> value can be any pixel value: "5px", "1rem", ... <br/>The result will be double, such as "5px" => then the gap between 2 slides will be "10px" |
+| trayPadding   | `string`  |    No    |                     | Padding the slider track to offset left/right side to see a little bit of prev/next hidden slide                                                                              |
+| freeScroll    | `boolean` |    No    |        false        | Is freely scrolling (not using snapping)?                                                                                                                                     |
+| onSlide       |  `func`   |    No    |                     | `(props: OnSlideProps) => void` <br/> A callback function when slider is sliding                                                                                              |
+
+### Other Props
+
+| Name         |   Type   |                    Description                    |
+| ------------ | :------: | :-----------------------------------------------: |
+| OnSlideProps | `object` | some helpful slider latest state variables inside |
+
+
+## CSS
+
+You can override the default style by using these class names.
+
+| Rule Name        |
+| ---------------- |
+| `.rssas-wrapper` |
