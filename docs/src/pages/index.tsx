@@ -21,8 +21,8 @@ function HomepageHeader() {
                 <div className={styles.buttons}>
                     <Link
                         className="button button--primary button--lg"
-                        to="/docs/intro">
-                        Get Started <b style={{ fontSize: "12px" }}>(v{packageJson.version})</b>
+                        to="/docs/getting-started">
+                        Getting Started <b style={{ fontSize: "12px" }}>(v{packageJson.version})</b>
                     </Link>
                 </div>
             </div>

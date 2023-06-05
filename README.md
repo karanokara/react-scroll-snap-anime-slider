@@ -68,7 +68,7 @@ export function MySlider() {
             <Slider>
                 {new Array(total).fill(0).map((_, i) => {
                     return <Slide key={i}>
-                        <div style={{ height: "300px", border: "1px solid #ccc", textAlign: "center" }}>slider# {i}</div>
+                        <div style={{ height: "100px", border: "1px solid #ccc", textAlign: "center" }}>slider# {i}</div>
                     </Slide>;
                 })}
             </Slider>
