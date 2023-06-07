@@ -20,7 +20,7 @@ function HomepageHeader() {
                 </h4>
                 <div className={styles.buttons}>
                     <Link
-                        className="button button--primary button--lg"
+                        className="button button--primary"
                         to="/docs/getting-started">
                         Getting Started <b style={{ fontSize: "12px" }}>(v{packageJson.version})</b>
                     </Link>
@@ -35,9 +35,10 @@ export default function Home(): JSX.Element {
     return (
         <Layout
             // page title shown on document title
-            // title={`A Simple React Anime Slider`}
             // Description will go into a meta tag in <head />
-            description="A Simple React Anime Slider">
+            description={packageJson.description}
+        // title={`A Simple React Anime Slider`}
+        >
             <HomepageHeader />
 
             <main style={{ position: "relative" }}>

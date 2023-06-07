@@ -16,7 +16,7 @@ npm install react-scroll-snap-anime-slider
 
 Here create a simple slider by just passing required props, then add a slide bar (line) and the prev/next buttons.
 
-```js
+```jsx
 import { ButtonBack, ButtonNext, Carousel, Slide, Slider, SliderBarLine } from "react-scroll-snap-anime-slider";
 
 export function MySlider() {

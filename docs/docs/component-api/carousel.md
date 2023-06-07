@@ -43,9 +43,17 @@ import {Carousel} from "react-scroll-snap-anime-slider";
 
 ### Other Props
 
-| Name         |   Type   |                    Description                    |
-| ------------ | :------: | :-----------------------------------------------: |
-| OnSlideProps | `object` | some helpful slider latest state variables inside |
+
+#### OnSlideProps 
+This is an object with some helpful slider latest state variables inside.
+
+Such as you can update your local current slide index to match the slide index of the slider
+
+```jsx
+<Carousel
+    onSlide={({ currentSlide }) => { localCurrentSlide.index = currentSlide; }}
+></Carousel>
+```
 
 
 ## CSS

@@ -79,6 +79,8 @@ const config = {
     ({
       // Replace with your project's social card
       image: "img/social-card.png",
+      metadata: [{ name: 'twitter:card', content: `${githubPage}${project}/img/social-card.png` }],
+
       navbar: {
         hideOnScroll: true,
         title: "React Scroll Snap Anime Slider",
