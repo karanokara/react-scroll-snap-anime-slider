@@ -13,7 +13,7 @@ export class ButtonBack extends SliderButton<IProps, IState> {
     constructor(props: IProps) {
         super(props);
 
-        this.className = cn(ss("slider-back-button"), this.className);
+        this.className = cn(ss("slider-button-back"), ss(this.className));
         this.ariaLabel = "previous";
         this.onClick = () => this.handleOnClick(false);
     }

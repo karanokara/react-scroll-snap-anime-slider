@@ -14,7 +14,7 @@ export class ButtonNext extends SliderButton<IProps, IState> {
         super(props);
 
         this.isBack = false;
-        this.className = cn(ss("slider-next-button"), this.className);
+        this.className = cn(ss("slider-button-next"), ss(this.className));
         this.ariaLabel = "next";
         this.onClick = () => this.handleOnClick(true);
     }

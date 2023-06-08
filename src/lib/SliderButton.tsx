@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import { IProps as P } from "./Types";
 import { cn } from "./Utility";
 import { CarouselContext, } from "./CarouselContext";
+import { ss } from "./Styles";
 
-export interface IProps extends P {
-    disabled?: boolean;
+export interface IProps extends P, ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export interface IState {
@@ -50,6 +50,7 @@ export default class SliderButton<PP extends IProps, SS extends IState> extends 
         let {
             className,
             disabled,
+            onClick,
             ...otherProps
         } = this.props;
 
@@ -66,12 +67,18 @@ export default class SliderButton<PP extends IProps, SS extends IState> extends 
 
         return (
             <button
-                type="button"
                 aria-label={this.ariaLabel}
-                className={newClassName}
-                onClick={this.onClick}
+                type="button"
                 disabled={disabled}
                 {...otherProps}
+                className={newClassName}
+                onClick={(e) => {
+                    if (onClick && typeof onClick === "function") {
+                        onClick(e);
+                    }
+
+                    this.onClick();
+                }}
             >
                 {this.props.children}
             </button>
