@@ -123,8 +123,8 @@ export default function HomepageFeatures(): JSX.Element {
                                 className="margin-top--md"
                                 aria-label="slider bar"
                                 dotGroupProps={{
-                                    id: "my-slider-bar-dot-track",
-                                    "aria-label": "slider track"
+                                    id: "my-slider-bar-dot-group",
+                                    "aria-label": "dot group"
                                 }}
                                 renderDots={dotGroupType === 1
                                     ? renderDotsDynamicCircle
