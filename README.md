@@ -16,28 +16,28 @@ Works natively on touchable devices
 
 ## :star: Features 
 
-| Features                             |                     Comment                     |       Status        |
-| ------------------------------------ | :---------------------------------------------: | :-----------------: |
-| **Multiple slides per view**         |       Can adjust multiple slides per step       | :heavy_check_mark:  |
-| **Customized DOM structure**         |   Construct the slider components by yourself   | :heavy_check_mark:  |
-| **Customized slides margin**         |            Margin between each slide            | :heavy_check_mark:  |
-| **Customized slide tray padding**    |    Offset slide tray to see prev/next slide     | :heavy_check_mark:  |
-| **Touch scrolling**                  |                    Built-in                     | :heavy_check_mark:  |
-| **Scroll and snap**                  |              Snap to slide's edge               | :heavy_check_mark:  |
-| **Free scrolling**                   |                                                 | :heavy_check_mark:  |
-| **Scroll with touch pad**            |                    Built-in                     | :heavy_check_mark:  |
-| **Scroll with keyboard < and >**     |                    Built-in                     | :heavy_check_mark:  |
-| **Scroll with mouse drag**           |         Scroll end with inheria effect          | :heavy_check_mark:  |
-| **Scroll with mouse wheel**          |                                                 |         :x:         |
-| **Navigation Buttons**               |             Support multiple clicks             | :heavy_check_mark:  |
-| **Dynamic scrollbar**                |                                                 | :heavy_check_mark:  |
-| **Dynamic & Customizable dot group** | Customize using [`renderDots()`](fdf) callback  | :heavy_check_mark:  |
-| **Bounce on boundary**               |          Built-in on touchable devices          | :large_blue_circle: |
-| **Responsive style**                 |                    Built-in                     | :heavy_check_mark:  |
-| **Customized Style**                 | Use class-name or style to override basic style | :heavy_check_mark:  |
-| **Inifinite scrolling**              |                                                 |         :x:         |
-| **Auto play**                        |    Can implement it by using [Slider ref]()     |         :x:         |
-| **Vertical scrolling**               |                     Pending                     |      :clock3:       |
+| Features                             |                                                                             Comment                                                                             |       Status        |
+| ------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------: |
+| **Multiple slides per view**         |                                                               Can adjust multiple slides per step                                                               | :heavy_check_mark:  |
+| **Customized DOM structure**         |                                                           Construct the slider components by yourself                                                           | :heavy_check_mark:  |
+| **Customized slides margin**         |                                                                    Margin between each slide                                                                    | :heavy_check_mark:  |
+| **Customized slide tray padding**    |                                                            Offset slide tray to see prev/next slide                                                             | :heavy_check_mark:  |
+| **Touch scrolling**                  |                                                                            Built-in                                                                             | :heavy_check_mark:  |
+| **Scroll and snap**                  |                                                                      Snap to slide's edge                                                                       | :heavy_check_mark:  |
+| **Free scrolling**                   |                                                                                                                                                                 | :heavy_check_mark:  |
+| **Scroll with touch pad**            |                                                                            Built-in                                                                             | :heavy_check_mark:  |
+| **Scroll with keyboard < and >**     |                                                                            Built-in                                                                             | :heavy_check_mark:  |
+| **Scroll with mouse drag**           |                                                                 Scroll end with inheria effect                                                                  | :heavy_check_mark:  |
+| **Scroll with mouse wheel**          |                                                                                                                                                                 |         :x:         |
+| **Navigation Buttons**               |                                                                     Support multiple clicks                                                                     | :heavy_check_mark:  |
+| **Dynamic scrollbar**                |                                                                                                                                                                 | :heavy_check_mark:  |
+| **Dynamic & Customizable dot group** | Customize using [`renderDots()`](https://karanokara.github.io/react-scroll-snap-anime-slider/docs/component-api/slider-bar-dot-group#irenderdotsprops) callback | :heavy_check_mark:  |
+| **Bounce on boundary**               |                                                                  Built-in on touchable devices                                                                  | :large_blue_circle: |
+| **Responsive style**                 |                                                                            Built-in                                                                             | :heavy_check_mark:  |
+| **Customized Style**                 |                                                         Use class-name or style to override basic style                                                         | :heavy_check_mark:  |
+| **Inifinite scrolling**              |                                                                                                                                                                 |         :x:         |
+| **Auto play**                        |                                                            Can implement it by using [Slider ref]()                                                             |         :x:         |
+| **Vertical scrolling**               |                                                                             Pending                                                                             |      :clock3:       |
 
 <br/>
 
