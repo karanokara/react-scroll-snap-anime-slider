@@ -1,0 +1,8 @@
+{
+    "label": "Example Usage",
+    "position": 3,
+    "link": {
+        "type": "generated-index",
+        "description": "Decscribe some example usage of the slider"
+    }
+}

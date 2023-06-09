@@ -12,6 +12,8 @@ Works natively on touchable devices
 
 </div>
 
+<br/>
+
 ## :star: Features 
 
 | Features                             |                     Comment                     |       Status        |
@@ -37,11 +39,17 @@ Works natively on touchable devices
 | **Auto play**                        |    Can implement it by using [Slider ref]()     |         :x:         |
 | **Vertical scrolling**               |                     Pending                     |      :clock3:       |
 
+<br/>
+
 ## :neutral_face: Motivation 
 The reason to start creating my own JS slider is because I couldn't find a slider that works smoothly on both desktop browser and mobile device. There are a ton of wonderfull sliders out there such as [Swiper](https://swiperjs.com/), [Pure React Carousel](https://express-labs.github.io/pure-react-carousel/) and a lot, but they are not utilizing the native scrolling feature, and so not work natively on iOS browser (the animation not works smoothly). 
 
+<br/>
+
 ## 🤔 Do I need this slider?
 If you are looking for an animation effect of slider that works like those sliders you saw in some native Apps, you can try this one. However this slider has limitions such as it only provides sliding effect (no fade, swiping effects, for example). So, if you are looking for a powerful slider, you should other powerful library such as [Swiper](https://swiperjs.com/).
+
+<br/>
 
 ## :pushpin: Geting started
 
@@ -85,11 +93,13 @@ export function MySlider() {
 }
 ```
 
+<br/>
 
 ## :book: Documentation
 You can learn more from [here](https://karanokara.github.io/react-scroll-snap-anime-slider/).
 
 
+<br/>
 
 ## :bug: Bugs or :bow: Requests 
 You can file an issue under the [Issues](../../issues) page.

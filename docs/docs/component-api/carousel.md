@@ -47,7 +47,16 @@ import {Carousel} from "react-scroll-snap-anime-slider";
 #### OnSlideProps 
 This is an object with some helpful slider latest state variables inside.
 
-Such as you can update your local current slide index to match the slide index of the slider
+
+| Name         |   Type   | Description                                                 |
+| ------------ | :------: | :---------------------------------------------------------- |
+| scrollLeft   | `number` | How far has scrolled in px                                  |
+| currentSlide | `number` | Current slide index (from 0 ~ (length - visible slide - 1)) |
+| slideWidth   | `number` | Width in px of a slide                                      |
+| trayWidth    | `number` | width in px of the tray DIV                                 |
+
+
+An example such as you can update your local current slide index to match the slide index of the slider:
 
 ```jsx
 <Carousel

@@ -2,9 +2,24 @@ import React from 'react';
 import { ICarouselDefaultProps } from "./Types";
 
 export type OnSlideProps = {
+    /**
+     * scrollLeft in px of the slider 
+     */
     scrollLeft: number;
+
+    /**
+     * Current slide index (from 0)
+     */
     currentSlide: number;
+
+    /**
+     * Width in px of a slide
+     */
     slideWidth: number;
+
+    /**
+     * Width in px of the slider tray
+     */
     trayWidth: number;
 };
 
