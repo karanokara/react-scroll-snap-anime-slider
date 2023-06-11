@@ -462,8 +462,8 @@ export class Slider extends Component<IProps, IState> {
         // if has slided, stop event propagation
         if (this.sliderDidSlided) {
             // console.log('click capture prevent!!!');
-            // ev.preventDefault();
-            ev.stopPropagation();
+            ev.preventDefault();        // need to prevent link
+            ev.stopPropagation();       // need to prevent button
         }
     }
 

@@ -27,6 +27,16 @@ function Feature(props: SlideItem) {
                 <h4>{props.title}</h4>
                 <div><button className="button button--sm button--secondary" type="button" onClick={() => setCount(count + 1)} >Add Count</button></div>
                 <div>{count}</div>
+                <div>
+                    <a
+                        style={{
+                            color: props.color,
+                            textDecorationLine: "underline",
+                        }}
+                        href="docs/getting-started"
+                        target="_blank"
+                    >This is a link to test</a>
+                </div>
             </div>
         </div>
     );
