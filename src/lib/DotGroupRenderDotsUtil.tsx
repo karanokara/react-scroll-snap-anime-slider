@@ -3,7 +3,7 @@ import { IRenderDotsProps } from "./SliderBarDotGroup";
 import { cn, round3 } from "./Utility";
 import { ss } from "./Styles";
 
-export type ScaleDotProps = { scale: number; onClick: () => void; };
+export type ScaleDotProps = { scale: number; onClick: () => void; active: boolean; };
 export type ScaleDot = (props: ScaleDotProps) => JSX.Element;
 
 
@@ -29,11 +29,14 @@ export function renderDotsDynamicByScale(props: IRenderDotsProps, SD: ScaleDot) 
     let startPercent = round3(left / 100);
     let endPercent = startPercent + rangePercent;
     let slideRangePercent = round3(1 / totalSlides);
+    let startIndex = currentSlide;
+    let endIndex = currentSlide + visibleSlides;
 
     for (let i = 0; i < totalSlides; ++i) {
         let slideStartPercent = round3(i / totalSlides);
         let slideEndPercent = round3(slideStartPercent + slideRangePercent);
         let scale = 1;
+        let active = startIndex <= i && i < endIndex;
 
         // console.log(startPercent, endPercent, slideStartPercent, slideEndPercent);
         if (slideStartPercent < endPercent && slideEndPercent > startPercent) {
@@ -54,6 +57,7 @@ export function renderDotsDynamicByScale(props: IRenderDotsProps, SD: ScaleDot) 
             <SD
                 key={i}
                 scale={scale}
+                active={active}
                 onClick={() => {
                     slideTo(i);
                 }}
@@ -65,8 +69,8 @@ export function renderDotsDynamicByScale(props: IRenderDotsProps, SD: ScaleDot) 
 
 export function CircleDot(props: ScaleDotProps) {
     return (
-        <div className={cn(ss("slider-dot-wrapper"))} onClick={props.onClick}>
-            <div className={cn(ss("slider-dot"), ss("dynamic"), ss("circle"))} style={{ transform: `scale(${props.scale})` }}  ></div>
+        <div className={cn(ss("slider-dot-wrapper"), ss("dynamic"), props.active ? ss("active") : "")} onClick={props.onClick}>
+            <div className={cn(ss("slider-dot"), ss("circle"))} style={{ transform: `scale(${props.scale})` }}  ></div>
         </div>
     );
 }
@@ -84,8 +88,8 @@ export function renderDotsDynamicCircle(props: IRenderDotsProps) {
 export function PillDot(props: ScaleDotProps) {
     let size = 8;   // 8px
     return (
-        <div className={cn(ss("slider-dot-wrapper"))} onClick={props.onClick}>
-            <div className={cn(ss("slider-dot"), ss("dynamic"), ss("circle"))} style={{ width: `${props.scale * size}px`, height: `${size}px` }}  ></div>
+        <div className={cn(ss("slider-dot-wrapper"), ss("dynamic"), props.active ? ss("active") : "")} onClick={props.onClick}>
+            <div className={cn(ss("slider-dot"), ss("circle"))} style={{ width: `${props.scale * size}px`, height: `${size}px` }}  ></div>
         </div>
     );
 }

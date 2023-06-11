@@ -58,7 +58,9 @@ export class SliderBarDotGroup extends SliderBar<IProps, IState> {
 
     theDot(key: number, active: boolean, onClick: () => void) {
         return (
-            <div key={key} className={cn(ss("slider-dot"), active ? ss("active") : "")} onClick={onClick}></div>
+            <div className={cn(ss("slider-dot-wrapper"), active ? ss("active") : "")} onClick={onClick}>
+                <div key={key} className={cn(ss("slider-dot"))} ></div>
+            </div>
         );
     }
 
@@ -81,7 +83,8 @@ export class SliderBarDotGroup extends SliderBar<IProps, IState> {
         let endIndex = currentSlide + visibleSlides;
 
         for (let i = 0; i < totalSlides; ++i) {
-            dots.push(this.theDot(i, (startIndex <= i && i < endIndex), () => slideTo(i)));
+            let active = startIndex <= i && i < endIndex;
+            dots.push(this.theDot(i, active, () => slideTo(i)));
         }
         return dots;
     }

@@ -99,13 +99,16 @@
                     border-radius: 10rem;
                     background-color: #555;
                 }
+            }
 
-                .slider-dot:not(.dynamic) {
+            .slider-dot-wrapper:not(.dynamic) {
+                .slider-dot {
                     background-color: #ddd;
-                    margin: 0 4px;
                 }
+            }
 
-                .slider-dot.active:not(.dynamic) {
+            .slider-dot-wrapper:not(.dynamic).active {
+                .slider-dot {
                     background-color: #666;
                 }
             }

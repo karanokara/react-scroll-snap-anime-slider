@@ -105,9 +105,12 @@ export function MyDotGroup(){
 
 You can override the default style by using these class names.
 
-| Rule Name                     | Description                                  |
-| ----------------------------- | -------------------------------------------- |
-| `.rssas-slider-bar`           | For bar wrapper                              |
-| `.rssas-slider-bar-dot-group` | For dot group DIV                            |
-| `.rssas-slider-dot`           | For dot DIV (default dot rendering function) |
+| Rule Name                     | Description                              |
+| ----------------------------- | ---------------------------------------- |
+| `.rssas-slider-bar`           | For bar wrapper                          |
+| `.rssas-slider-bar-dot-group` | For dot group DIV                        |
+| `.rssas-slider-dot-wrapper`   | For dot wrapper DIV                      |
+| `.rssas-active`               | For dot wrapper DIV that is active       |
+| `.rssas-dynamic`              | For dot wrapper DIV that has dynamic dot |
+| `.rssas-slider-dot`           | For dot DIV                              |
 
