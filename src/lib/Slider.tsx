@@ -212,8 +212,14 @@ export class Slider extends Component<IProps, IState> {
 
                     // console.log("stop tracking, snap:", fromValue, targetScrollValue);
 
-                    if (Math.abs(fromValue as number - targetScrollValue) > 0.2)
+                    if (Math.abs(fromValue as number - targetScrollValue) > 0.2) {
+                        // need to snap
                         this.snapAction = snap(fromValue as number, targetScrollValue);
+                    }
+                    else {
+                        // not snap, complete
+                        onComplete();
+                    }
                 }
 
                 return;
