@@ -21,6 +21,8 @@ function Feature(props: SlideItem) {
                 backgroundColor: props.background,
                 color: props.color,
                 alignItems: "center",
+                borderRadius: "1rem",
+                // boxShadow: "0 0 10px 0 #000",
             }}
         >
             <div className="text--center" style={{ width: "100%" }}>
@@ -50,7 +52,7 @@ export default function HomepageFeatures(): JSX.Element {
     const [visibleSlides, setVisibleSlides] = useState(3);
     const [step, setStep] = useState(1);
     const [height, setHeight] = useState(1);
-    const [width, setWidth] = useState(1.2);
+    const [width, setWidth] = useState(1);
     const [margin, setMargin] = useState(10);
     const [offset, setOffset] = useState(0);
     const [freeScroll, setFreeScroll] = useState(false);
@@ -100,7 +102,7 @@ export default function HomepageFeatures(): JSX.Element {
                                     key={i}
                                     aria-label="my slide"
                                     innerWrapperDivProps={{
-                                        style: { borderRadius: "1rem", overflow: "hidden" }
+
                                     }}
                                 >
                                     <Feature  {...props} />

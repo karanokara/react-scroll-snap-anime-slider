@@ -544,7 +544,8 @@ export class Slider extends Component<IProps, IState> {
         }
 
         if (this.context.trayPadding != null) {
-            trayStyle.padding = `0 ${this.context.trayPadding}`;
+            trayStyle.paddingLeft = this.context.trayPadding;
+            trayStyle.paddingRight = this.context.trayPadding;
         }
 
         return (
