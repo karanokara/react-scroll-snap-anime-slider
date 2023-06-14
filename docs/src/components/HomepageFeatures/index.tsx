@@ -22,13 +22,13 @@ function Feature(props: SlideItem) {
                 color: props.color,
                 alignItems: "center",
                 borderRadius: "1rem",
+                overflow: "hidden",
                 // boxShadow: "0 0 10px 0 #000",
             }}
         >
             <div className="text--center" style={{ width: "100%" }}>
                 <h4>{props.title}</h4>
-                <div><button className="button button--sm button--secondary" type="button" onClick={() => setCount(count + 1)} >Add Count</button></div>
-                <div>{count}</div>
+                <div><button className="button button--sm button--secondary" type="button" onClick={() => setCount(count + 1)} >Add Count {count}</button></div>
                 <div>
                     <a
                         style={{
@@ -37,7 +37,7 @@ function Feature(props: SlideItem) {
                         }}
                         href="docs/getting-started"
                         target="_blank"
-                    >This is a link to test</a>
+                    >This is a link</a>
                 </div>
             </div>
         </div>
