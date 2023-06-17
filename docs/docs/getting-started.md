@@ -50,3 +50,8 @@ export function MySlider() {
 }
 ```
 
+<div align="right">
+
+[![Edit react-scroll-snap-anime-slider-starter](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/react-scroll-snap-anime-slider-starter-9k5f43?autoresize=1&fontsize=14&hidenavigation=1&theme=dark)
+
+</div>

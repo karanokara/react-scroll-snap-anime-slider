@@ -36,7 +36,7 @@ Works natively on touchable devices
 | **Responsive style**                 |                                                                            Built-in                                                                             | :heavy_check_mark:  |
 | **Customized Style**                 |                                                         Use class-name or style to override basic style                                                         | :heavy_check_mark:  |
 | **Inifinite scrolling**              |                                                                                                                                                                 |         :x:         |
-| **Auto play**                        |                                                            Can implement it by using [Slider ref]()                                                             |         :x:         |
+| **Auto play**                        |              Can implement it by using [Slider ref](https://karanokara.github.io/react-scroll-snap-anime-slider/docs/example-usage/auto-scrolling)              |         :x:         |
 | **Vertical scrolling**               |                                                                             Pending                                                                             |      :clock3:       |
 
 <br/>

@@ -32,3 +32,12 @@ For example:
     </Slider>
 </Carousel>
 ```
+
+Code Sandbox example:
+
+<iframe src="https://codesandbox.io/embed/react-scroll-snap-anime-slider-with-shadow-rnvyxm?fontsize=14&hidenavigation=1&theme=light"
+     style={{"width":"100%", "height":"500px", border:"1px solid #ccc", "borderRadius": "4px", overflow:"hidden"}}
+     title="react-scroll-snap-anime-slider-starter"
+     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+   ></iframe>
