@@ -36,10 +36,11 @@ import {SliderBarLine} from "react-scroll-snap-anime-slider";
 ## Props
 
 
-| Name       |                  Type                  | Required | Default | Description            |
-| ---------- | :------------------------------------: | :------: | :-----: | :--------------------- |
-| trackProps | `React.HTMLAttributes<HTMLDivElement>` |    No    |         | Props to the track DIV |
-| thumbProps | `React.HTMLAttributes<HTMLDivElement>` |    No    |         | Props to the thumb DIV |
+| Name          |                  Type                  | Required | Default | Description            |
+| ------------- | :------------------------------------: | :------: | :-----: | :--------------------- |
+| Any DIV Props | `React.HTMLAttributes<HTMLDivElement>` |    No    |         | DIV Element props      |
+| trackProps    | `React.HTMLAttributes<HTMLDivElement>` |    No    |         | Props to the track DIV |
+| thumbProps    | `React.HTMLAttributes<HTMLDivElement>` |    No    |         | Props to the thumb DIV |
 
 ## CSS
 

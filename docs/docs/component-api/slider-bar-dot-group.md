@@ -41,6 +41,7 @@ import {SliderBarDotGroup, renderDotsDynamicPill} from "react-scroll-snap-anime-
 
 | Name          |                            Type                            | Required | Default | Description                                                             |
 | ------------- | :--------------------------------------------------------: | :------: | :-----: | :---------------------------------------------------------------------- |
+| Any DIV Props |           `React.HTMLAttributes<HTMLDivElement>`           |    No    |         | DIV Element props                                                       |
 | dotGroupProps |           `React.HTMLAttributes<HTMLDivElement>`           |    No    |         | Props to the dot group DIV                                              |
 | renderDots    | `(props: IRenderDotsProps) => JSX.Element / JSX.Element[]` |    No    |         | To customize the dot group rendering by using the state props passed in |
 

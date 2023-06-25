@@ -27,9 +27,10 @@ import {Slider} from "react-scroll-snap-anime-slider";
 ## Props
 
 
-| Name      |                  Type                  | Required | Default | Description              |
-| --------- | :------------------------------------: | :------: | :-----: | :----------------------- |
-| trayProps | `React.HTMLAttributes<HTMLDivElement>` |    No    |         | Props to the slider tray |
+| Name          |                  Type                  | Required | Default | Description              |
+| ------------- | :------------------------------------: | :------: | :-----: | :----------------------- |
+| Any DIV Props | `React.HTMLAttributes<HTMLDivElement>` |    No    |         | DIV Element props        |
+| trayProps     | `React.HTMLAttributes<HTMLDivElement>` |    No    |         | Props to the slider tray |
 
 
 ## CSS
