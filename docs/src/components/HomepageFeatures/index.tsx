@@ -79,6 +79,8 @@ export default function HomepageFeatures(): JSX.Element {
             <div className="container">
                 <div className="padding-bottom--md">
                     <Carousel
+                        id="my-carousel"
+                        className="my-carousel"
                         totalSlides={slides.length}
                         visibleSlides={Number(visibleSlides)}
                         step={Number(step)}

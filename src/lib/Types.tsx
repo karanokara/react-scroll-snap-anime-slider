@@ -1,7 +1,8 @@
 import { ColdSubscription } from "popmotion";
 
 export interface IProps {
-    className?: string,
+    id?: string;
+    className?: string;
     children?: React.ReactNode;
     style?: React.CSSProperties;
 }

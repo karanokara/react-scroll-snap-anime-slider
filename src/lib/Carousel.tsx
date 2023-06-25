@@ -26,6 +26,7 @@ export class Carousel extends React.Component<IProps, IState> {
         super(props);
 
         const {
+            id,
             className,
             style,
             children,
@@ -68,6 +69,7 @@ export class Carousel extends React.Component<IProps, IState> {
 
     componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>, snapshot?: any): void {
         const {
+            id,
             className,
             style,
             children,
@@ -75,6 +77,7 @@ export class Carousel extends React.Component<IProps, IState> {
         } = prevProps;
 
         const {
+            id: i,
             className: a,
             style: b,
             children: c,
@@ -97,6 +100,7 @@ export class Carousel extends React.Component<IProps, IState> {
 
     render() {
         const {
+            id,
             className,
             style,
             children,
@@ -105,6 +109,7 @@ export class Carousel extends React.Component<IProps, IState> {
 
         return (
             <div
+                id={id}
                 className={cn(ss("wrapper"), className)}
                 style={style}
             >
