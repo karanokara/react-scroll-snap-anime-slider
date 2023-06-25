@@ -111,6 +111,12 @@ export class Slider extends Component<IProps, IState> {
             let trayElement = this.sliderTrayRef.current;
             let startPoint = trayElement.scrollLeft;
             let newStartPoint = startPoint;
+            let prepare = () => {
+                // will be called only when there is sliding
+
+                // need to remove scroll-snap so can use mouse to move slide
+                !this.context.freeScroll && trayElement.classList.remove(...ss("scroll-snap"));
+            };
             // let scrollValueStartUpdate = false;
 
             this.sliderDidSlided = false;
@@ -128,8 +134,6 @@ export class Slider extends Component<IProps, IState> {
                 trayElement.scrollTo(newValue, 0);
             });
 
-            // need to remove scroll-snap so can use mouse to move slide
-            !this.context.freeScroll && trayElement.classList.remove(...ss("scroll-snap"));
 
             // let pointerStartUpdate = false;
 
@@ -141,7 +145,10 @@ export class Slider extends Component<IProps, IState> {
                 let x = newStartPoint - next.x;
 
                 // detect whether user slide the slider
-                if (next.x != 0) this.sliderDidSlided = true;
+                if (next.x != 0 && !this.sliderDidSlided) {
+                    this.sliderDidSlided = true;
+                    prepare();
+                }
 
                 if (x < 0) {
                     newStartPoint = next.x;
@@ -202,7 +209,7 @@ export class Slider extends Component<IProps, IState> {
             this.pointerAction.stop();
             this.pointerAction = undefined;
 
-            // console.log("stop tracking, scroll from:", fromValue, "vel:", velocity);
+            // console.log("stop tracking, scroll from:", fromValue, "vel:", velocity, "evt", evt);
 
             if (velocity === 0) {
                 // not scrolling fast enough
@@ -363,6 +370,8 @@ export class Slider extends Component<IProps, IState> {
 
             !this.context.freeScroll && trayElement.classList.remove(...ss("scroll-snap"));
 
+            // console.log("slide to target:", targetScrollValue, state);
+
             this.snapAction = tween({
                 from: startPoint,
                 to: targetScrollValue,
@@ -433,9 +442,9 @@ export class Slider extends Component<IProps, IState> {
      * Get a snap point when the free scrolling is done base on current value and direction
      * 
      * @param currentScrollValue 
-     * @param isDown >0 is scrolling down, <0 is up, =0 unknown 
+     * @param velocity >0 is scrolling down, <0 is up, =0 unknown 
      */
-    getSnapScrollValue(currentScrollValue: number, isDown: number) {
+    getSnapScrollValue(currentScrollValue: number, velocity: number) {
         let targetScrollValue = currentScrollValue;
         let state = this.getTrayState();
 
@@ -444,10 +453,10 @@ export class Slider extends Component<IProps, IState> {
             let slideCount = state.slideCount;
             let targetSlideNo = 0;
 
-            if (isDown > 0) {
+            if (velocity > 0) {
                 targetSlideNo = Math.ceil(currentScrollValue / slideWidth);
             }
-            else if (isDown < 0) {
+            else if (velocity < 0) {
                 targetSlideNo = Math.floor(currentScrollValue / slideWidth);
             }
             else {
@@ -459,11 +468,15 @@ export class Slider extends Component<IProps, IState> {
             }
         }
 
+        // console.log("snap to target:", targetScrollValue, state);
+
         return targetScrollValue;
     }
 
     // can't do event stop from mouseup event
     // need to do on click capture
+    // will be called on nontouch devices scroll or click,
+    // or touch on touch devices, but not scroll
     handleOnClickCapture(ev: React.MouseEvent<HTMLDivElement>) {
         // if has slided, stop event propagation
         if (this.sliderDidSlided) {
