@@ -92,6 +92,8 @@ export default function HomepageFeatures(): JSX.Element {
                         style={{
                             margin: `0 -${Number(offset) > 0 ? 1 : 0}rem`,
                         }}
+                    // inertiaPower={0.8}
+                    // snapAnimation={[0, 0, 0.3, 1]}
                     >
                         <Slider
                             aria-label="my slider"

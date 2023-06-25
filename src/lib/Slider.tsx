@@ -200,7 +200,7 @@ export class Slider extends Component<IProps, IState> {
                 from: from,
                 to: to,
                 duration: 300,
-                ease: easing.easeOut,
+                ease: this.getEase(),
             }).start({
                 update: (a: number) => this.scrollValue.update(a),
                 complete: onComplete
@@ -380,7 +380,7 @@ export class Slider extends Component<IProps, IState> {
                 from: startPoint,
                 to: targetScrollValue,
                 duration: animated ? 300 : 0,
-                ease: easing.easeOut,
+                ease: this.getEase(),
             }).start({
                 update: (v: number) => {
                     trayElement.scrollTo(v, 0);
@@ -475,6 +475,28 @@ export class Slider extends Component<IProps, IState> {
         // console.log("snap to target:", targetScrollValue, state);
 
         return targetScrollValue;
+    }
+
+    /**
+     * Get easing function
+     * 
+     * @returns default is easeOut
+     */
+    getEase() {
+        if (this.context.snapAnimation) {
+            if (typeof this.context.snapAnimation === "string") {
+                if (this.context.snapAnimation === "easeInOut")
+                    return easing.easeInOut;
+
+                if (this.context.snapAnimation === "easeIn")
+                    return easing.easeIn;
+            }
+            else {
+                return easing.cubicBezier(...this.context.snapAnimation);
+            }
+        }
+
+        return easing.easeOut;
     }
 
     // can't do event stop from mouseup event

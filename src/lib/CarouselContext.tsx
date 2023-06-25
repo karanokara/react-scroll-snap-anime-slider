@@ -54,6 +54,16 @@ export interface ICarouselProps extends ICarouselDefaultProps {
      * @returns 
      */
     onSlide?: (props: OnSlideProps) => void;
+
+    /**
+     * Use simple ease function or Cubic Bezier parameters for snapping animation
+     * 
+     * (Used for snapping after mouse scrolling, and next/back button anime sliding)
+     * 
+     * -----------------------
+     * Default: easeOut
+     */
+    snapAnimation?: "easeIn" | "easeOut" | "easeInOut" | [number, number, number, number];
 }
 
 export interface ICarouselContextProps extends ICarouselDefaultProps, ICarouselProps {
