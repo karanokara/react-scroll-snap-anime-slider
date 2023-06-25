@@ -55,6 +55,17 @@ export interface ICarouselDefaultProps {
      * Default: false
      */
     freeScroll: boolean;
+
+    /**
+     * (Only for mouse scrolling)
+     * 
+     * How light is the slide?
+     * Higher number -> slide further
+     * 
+     * -----------------------
+     * Default: 0.4
+     */
+    inertiaPower: number;
 }
 
 export interface TweenStartedAction extends ColdSubscription {

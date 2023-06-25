@@ -69,6 +69,7 @@ export const DefaultCarouselProps: ICarouselDefaultProps = {
     step: 1,
     currentSlide: 0,
     freeScroll: false,
+    inertiaPower: 0.4,
 };
 
 export const DefaultCarouselContextProps: ICarouselContextProps = {

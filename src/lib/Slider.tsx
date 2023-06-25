@@ -131,7 +131,8 @@ export class Slider extends Component<IProps, IState> {
                 // console.log(a);
                 // console.log("update:", newValue, "start point:", startPoint);
 
-                trayElement.scrollTo(newValue, 0);
+                if (this.sliderDidSlided)
+                    trayElement.scrollTo(newValue, 0);
             });
 
 
@@ -219,7 +220,7 @@ export class Slider extends Component<IProps, IState> {
 
                     // console.log("stop tracking, snap:", fromValue, targetScrollValue);
 
-                    if (Math.abs(fromValue as number - targetScrollValue) > 0.2) {
+                    if (Math.abs(fromValue as number - targetScrollValue) > 0.5) {
                         // need to snap
                         this.snapAction = snap(fromValue as number, targetScrollValue);
                     }
@@ -237,13 +238,16 @@ export class Slider extends Component<IProps, IState> {
                 from: fromValue,
                 velocity: velocity,
 
-                bounceStiffness: 500,
+                // stiffness of the spring
+                // bounceStiffness: 500,
 
                 // spring oscillation lv
-                bounceDamping: 30,
+                // bounceDamping: 30,
 
-                // how heavy: hard 0 - 1 light
-                power: 0.4,
+                // How heavy the object: 
+                // hard, closed target 0 - 1 light, further target
+                // default 0.4
+                power: this.context.inertiaPower,
 
                 // set min and/or max boundaries:
                 // When the animated value breaches max, it’ll snap to max using a spring animation.

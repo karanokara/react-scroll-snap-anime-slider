@@ -48,13 +48,13 @@ export default function HomepageFeatures(): JSX.Element {
     const localCurrentSlide = useMemo(() => {
         return { index: 0 };
     }, []);
-    const [slideCount, setSlideCount] = useState(20);
-    const [visibleSlides, setVisibleSlides] = useState(3);
-    const [step, setStep] = useState(1);
-    const [height, setHeight] = useState(1);
-    const [width, setWidth] = useState(1);
-    const [margin, setMargin] = useState(10);
-    const [offset, setOffset] = useState(0);
+    const [slideCount, setSlideCount] = useState("20");
+    const [visibleSlides, setVisibleSlides] = useState("3");
+    const [step, setStep] = useState("1");
+    const [height, setHeight] = useState("1");
+    const [width, setWidth] = useState("1");
+    const [margin, setMargin] = useState("10");
+    const [offset, setOffset] = useState("0");
     const [freeScroll, setFreeScroll] = useState(false);
     const [buttons, setButtons] = useState(true);
     const [scrollbar, setScrollbar] = useState(true);
@@ -63,7 +63,7 @@ export default function HomepageFeatures(): JSX.Element {
 
     let slides: SlideItem[] = [];
 
-    for (let i = 0; i < slideCount; ++i) {
+    for (let i = 0; i < Number(slideCount); ++i) {
         let c = random();
         let color = c.isLight() ? "#000" : "#fff";
 
@@ -80,17 +80,17 @@ export default function HomepageFeatures(): JSX.Element {
                 <div className="padding-bottom--md">
                     <Carousel
                         totalSlides={slides.length}
-                        visibleSlides={visibleSlides}
-                        step={step}
-                        slideHeight={height}
-                        slideWidth={width}
+                        visibleSlides={Number(visibleSlides)}
+                        step={Number(step)}
+                        slideHeight={Number(height)}
+                        slideWidth={Number(width)}
                         freeScroll={freeScroll}
                         currentSlide={localCurrentSlide.index}
-                        slideMargin={margin / 2 + "px"}
+                        slideMargin={Number(margin) / 2 + "px"}
                         trayPadding={offset + "px"}
                         onSlide={({ currentSlide }) => { localCurrentSlide.index = currentSlide; }}
                         style={{
-                            margin: `0 -${offset > 0 ? 1 : 0}rem`,
+                            margin: `0 -${Number(offset) > 0 ? 1 : 0}rem`,
                         }}
                     >
                         <Slider
@@ -172,22 +172,22 @@ export default function HomepageFeatures(): JSX.Element {
 
                 <div className="padding--md">
                     <div className="">
-                        Slide count: <input className="site-input" type="number" value={slideCount} onChange={(e) => setSlideCount(Number(e.target.value))} />
+                        Slide count: <input className="site-input" type="number" value={slideCount} onChange={(e) => setSlideCount(e.target.value)} />
                     </div>
                     <div className="padding-top--xs">
-                        Visible slides: <input className="site-input" type="number" value={visibleSlides} onChange={(e) => setVisibleSlides(Number(e.target.value))} />
+                        Visible slides: <input className="site-input" type="number" value={visibleSlides} onChange={(e) => setVisibleSlides(e.target.value)} />
                     </div>
                     <div className="padding-top--xs">
-                        Slides per step: <input className="site-input" type="number" value={step} onChange={(e) => setStep(Number(e.target.value))} />
+                        Slides per step: <input className="site-input" type="number" value={step} onChange={(e) => setStep(e.target.value)} />
                     </div>
                 </div>
 
                 <div className="padding--md">
                     <div className="padding-top--xs">
-                        Slide height: <input className="site-input" type="number" value={height} onChange={(e) => setHeight(Number(e.target.value))} step="0.1" />
+                        Slide height: <input className="site-input" type="number" value={height} onChange={(e) => setHeight(e.target.value)} step="0.1" />
                     </div>
                     <div className="padding-top--xs">
-                        Slide width: <input className="site-input" type="number" value={width} onChange={(e) => setWidth(Number(e.target.value))} step="0.1" />
+                        Slide width: <input className="site-input" type="number" value={width} onChange={(e) => setWidth(e.target.value)} step="0.1" />
                     </div>
 
                     <div className="" style={{ "color": " var(--ifm-color-secondary-darkest)", fontSize: "12px" }}>Height will become auto if set to 0</div>
@@ -197,12 +197,12 @@ export default function HomepageFeatures(): JSX.Element {
                 <div className="padding--md">
 
                     <div className="">
-                        Slide margin: <input className="site-input" type="number" value={margin} onChange={(e) => setMargin(Number(e.target.value))} step="1" /> px
+                        Slide margin: <input className="site-input" type="number" value={margin} onChange={(e) => setMargin(e.target.value)} step="1" /> px
                     </div>
                     <div className="" style={{ "color": " var(--ifm-color-secondary-darkest)", fontSize: "12px" }}>Margin between each slide</div>
 
                     <div className="padding-top--xs">
-                        Tray padding: <input className="site-input" type="number" value={offset} onChange={(e) => setOffset(Number(e.target.value))} step="1" /> px
+                        Tray padding: <input className="site-input" type="number" value={offset} onChange={(e) => setOffset(e.target.value)} step="1" /> px
                     </div>
                     <div className="" style={{ "color": " var(--ifm-color-secondary-darkest)", fontSize: "12px" }}>Offset the tray to see prev/next slide partially</div>
 
