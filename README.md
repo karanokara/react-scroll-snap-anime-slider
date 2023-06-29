@@ -8,6 +8,10 @@ A simple slider/carousel using css style [scroll-snap](https://developer.mozilla
 
 Works natively on touchable devices
 
+<div align="center"><img src="docs/static/img/demo.gif" width="500"/></div>
+
+<br/>
+
 :grinning:[Demo](https://karanokara.github.io/react-scroll-snap-anime-slider/)
 
 </div>
