@@ -30,14 +30,14 @@ export default [
                 // CommonJS module, suitable for Node
                 file: packageJson.main,     // file name to use
                 format: "cjs",
-                sourcemap: true,
+                sourcemap: false,
             },
 
             // compile to an ES module, can be used for <script type=module>
             {
                 file: packageJson.module,
                 format: "es",
-                sourcemap: true,
+                sourcemap: false,
             },
 
             // A self-executing function, suitable for <script> tag browser format

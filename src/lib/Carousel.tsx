@@ -56,7 +56,9 @@ export class Carousel extends React.Component<IProps, IState> {
 
         // validate the step
         contextProps.step = this.validateStep(props);
+
         contextProps.updateContext = this.updateContext;
+        contextProps.subscribers = [];
 
         // optional props
         contextProps.onSlide = props.onSlide;
