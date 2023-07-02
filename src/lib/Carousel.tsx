@@ -69,22 +69,21 @@ export class Carousel extends React.Component<IProps, IState> {
 
     compareContextProps(prevProps: IProps, currentProps: IProps) {
         let keys: (keyof ICarouselContextProps)[] = [
-            "freeScroll",
-            "inertiaPower",
-            "onSlide",
-            "slideHeight",
-            "slideMargin",
-            "slideWidth",
-            "snapAnimation",
-            "step",
             "totalSlides",
+            "visibleSlides",
+            "step",
+            "slideHeight",
+            "slideWidth",
+            "slideMargin",
             "trayPadding",
-            "visibleSlides"
+            "freeScroll",
+            "onSlide",
+            "snapAnimation",
+            "inertiaPower",
         ];
 
         for (let key of keys) {
             if ((prevProps as any)[key] !== (currentProps as any)[key]) {
-                console.log("context updated key:", key);
                 return false;
             }
         }

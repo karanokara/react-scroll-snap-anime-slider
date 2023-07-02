@@ -34,7 +34,7 @@ import {Slide} from "react-scroll-snap-anime-slider";
 
 | Name                 |                  Type                  | Required | Default | Description                    |
 | -------------------- | :------------------------------------: | :------: | :-----: | :----------------------------- |
-| Any DIV Props        | `React.HTMLAttributes<HTMLDivElement>` |    No    |         | DIV Element props              |
+| DIV Props            | `React.HTMLAttributes<HTMLDivElement>` |    No    |         | DIV Element props              |
 | innerMarginDivProps  | `React.HTMLAttributes<HTMLDivElement>` |    No    |         | Props to the margin DIV        |
 | innerPaddingDivProps | `React.HTMLAttributes<HTMLDivElement>` |    No    |         | Props to the padding DIV       |
 | innerWrapperDivProps | `React.HTMLAttributes<HTMLDivElement>` |    No    |         | Props to the inner wrapper DIV |
