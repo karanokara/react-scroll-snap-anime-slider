@@ -80,6 +80,7 @@ export const DefaultCarouselProps: IDefaultCarouselProps = {
     currentSlide: 0,
     freeScroll: false,
     inertiaPower: 0.4,
+    inertiaStopSpeed: 800,
 };
 
 export const DefaultCarouselContextProps: ICarouselContextProps = {

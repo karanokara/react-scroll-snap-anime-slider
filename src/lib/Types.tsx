@@ -67,6 +67,16 @@ export interface IDefaultCarouselProps {
      * Default: 0.4
      */
     inertiaPower: number;
+
+    /**
+     * (Only for mouse scrolling)
+     * 
+     * The speed to reach (speed is decreasing), to stop inertia animation
+     * 
+     * -----------------------
+     * Default: 800
+     */
+    inertiaStopSpeed: number;
 }
 
 export interface TweenStartedAction extends ColdSubscription {

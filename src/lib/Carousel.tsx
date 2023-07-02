@@ -80,6 +80,7 @@ export class Carousel extends React.Component<IProps, IState> {
             "onSlide",
             "snapAnimation",
             "inertiaPower",
+            "inertiaStopSpeed",
         ];
 
         for (let key of keys) {
@@ -156,7 +157,6 @@ export class Carousel extends React.Component<IProps, IState> {
             // props used for context
             currentSlide,
             freeScroll,
-            inertiaPower,
             slideHeight,
             slideWidth,
             step,
@@ -165,6 +165,9 @@ export class Carousel extends React.Component<IProps, IState> {
             slideMargin,
             onSlide,
             trayPadding,
+            inertiaPower,
+            snapAnimation,
+            inertiaStopSpeed,
 
             ...divProps
         } = this.props;

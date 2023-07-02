@@ -191,6 +191,7 @@ export class Slider extends Component<IProps, IState> {
             let fromValue = this.scrollValue.get();
             let velocity = this.scrollValue.getVelocity();
             let toStop = false;
+            let velocityMin = this.context.inertiaStopSpeed;
             let onComplete = () => {
                 // console.log("complete tracking!!");
                 this.snapAction = undefined;
@@ -284,7 +285,7 @@ export class Slider extends Component<IProps, IState> {
 
                         this.scrollValue.update(v);
 
-                        if (Math.abs(vel) < 250) {
+                        if (Math.abs(vel) < velocityMin) {
                             if (!this.context.freeScroll) {
                                 inertiaAction.stop();
                                 this.inertiaAction = undefined;
