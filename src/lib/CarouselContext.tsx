@@ -1,5 +1,5 @@
 import React from 'react';
-import { ICarouselDefaultProps } from "./Types";
+import { IDefaultCarouselProps } from "./Types";
 
 export type OnSlideProps = {
     /**
@@ -23,7 +23,7 @@ export type OnSlideProps = {
     trayWidth: number;
 };
 
-export interface ICarouselProps extends ICarouselDefaultProps {
+export interface ICarouselProps extends IDefaultCarouselProps {
     /**
      * Total slides in this slider
      */
@@ -66,13 +66,13 @@ export interface ICarouselProps extends ICarouselDefaultProps {
     snapAnimation?: "easeIn" | "easeOut" | "easeInOut" | [number, number, number, number];
 }
 
-export interface ICarouselContextProps extends ICarouselDefaultProps, ICarouselProps {
+export interface ICarouselContextProps extends ICarouselProps {
     updateContext<K extends keyof ICarouselContextProps>(state: Pick<ICarouselContextProps, K> | ICarouselContextProps | null): void;
     subscribers: ((trayWidth: number, slideWidth: number, scrollLeft: number) => void)[];
     slideTo: (slideIndex: number) => void;
 }
 
-export const DefaultCarouselProps: ICarouselDefaultProps = {
+export const DefaultCarouselProps: IDefaultCarouselProps = {
     slideHeight: 0,
     slideWidth: 0,
     visibleSlides: 1,

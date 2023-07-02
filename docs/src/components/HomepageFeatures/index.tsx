@@ -80,6 +80,7 @@ export default function HomepageFeatures(): JSX.Element {
                 <div className="padding-bottom--md">
                     <Carousel
                         id="my-carousel"
+                        aria-label="my carousel"
                         className="my-carousel"
                         totalSlides={slides.length}
                         visibleSlides={Number(visibleSlides)}

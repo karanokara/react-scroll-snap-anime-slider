@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ICarouselDefaultProps as DP, IProps as P } from "./Types";
+import { IDefaultCarouselProps as DP, IProps as P } from "./Types";
 import { cn } from "./Utility";
 import { CarouselContext, DefaultCarouselContextProps } from "./CarouselContext";
 import { ss } from "./Styles";
