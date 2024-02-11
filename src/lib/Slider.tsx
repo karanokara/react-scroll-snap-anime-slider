@@ -98,6 +98,18 @@ export class Slider extends Component<IProps, IState> {
     };
 
     /**
+     * Use to detect when loosing mousedown focus on slider when hold down a link
+     * 
+     * @param evt 
+     */
+    onTouchstart = (evt: TouchEvent) => {
+        // console.log("touchstart", evt);
+        // this.stopAnimeActions();
+        // this.stopTracking(null as any);
+        this.stopTrackingActions();
+    }
+
+    /**
      * When start tracking mouse action
      * @param evt 
      */
@@ -105,6 +117,7 @@ export class Slider extends Component<IProps, IState> {
         // console.log("start tracking", evt);
         let scrollMax = this.getScrollMax();
 
+        this.stopTrackingActions();
         this.stopAnimeActions();
 
         if (this.sliderTrayRef.current && scrollMax > 0) {
@@ -113,7 +126,6 @@ export class Slider extends Component<IProps, IState> {
             let newStartPoint = startPoint;
             let prepare = () => {
                 // will be called only when there is sliding
-
                 // need to remove scroll-snap so can use mouse to move slide
                 !this.context.freeScroll && trayElement.classList.remove(...ss("scroll-snap"));
             };
@@ -175,6 +187,7 @@ export class Slider extends Component<IProps, IState> {
 
             // listen for mouse up
             this.mouseUpAction = listen(window.document, "mouseup").start(this.stopTracking);
+            window.addEventListener("touchstart", this.onTouchstart, false);
         }
     };
 
@@ -207,9 +220,7 @@ export class Slider extends Component<IProps, IState> {
                 complete: onComplete
             });
 
-            this.mouseUpAction?.stop();
-            this.pointerAction.stop();
-            this.pointerAction = undefined;
+            this.stopTrackingActions();
 
             // console.log("stop tracking, scroll from:", fromValue, "vel:", velocity, "evt", evt);
 
@@ -392,7 +403,19 @@ export class Slider extends Component<IProps, IState> {
     }
 
     /**
-     * Stop current active anime actions
+     * Stop mouse pointer tracking
+     */
+    stopTrackingActions() {
+        this.pointerAction?.stop();
+        this.pointerAction = undefined;
+        this.mouseUpAction?.stop();
+        this.mouseUpAction = undefined;
+        window.removeEventListener("touchstart", this.onTouchstart, false);
+
+    }
+
+    /**
+     * Stop current active anime actions (inertia moving and snap moving)
      * 
      * @returns current slide index if there is anime action which is not finished
      */
@@ -406,7 +429,6 @@ export class Slider extends Component<IProps, IState> {
             this.snapAction.stop();
             this.snapAction = undefined;
         }
-
     }
 
     /**
@@ -519,8 +541,6 @@ export class Slider extends Component<IProps, IState> {
     }
 
     componentDidMount(): void {
-        // window.addEventListener("scroll", startTracking, false);
-
         if (this.sliderTrayRef.current) {
             let trayElement = this.sliderTrayRef.current;
 
@@ -552,9 +572,9 @@ export class Slider extends Component<IProps, IState> {
         if (this.sliderTrayRef.current) {
             let trayElement = this.sliderTrayRef.current;
 
+            this.stopTrackingActions();
             this.stopAnimeActions();
             this.mouseDownAction?.stop();
-            this.pointerAction?.stop();
             trayElement.removeEventListener("scroll", this.onScroll, false);
             trayElement.removeEventListener("mousewheel", this.onWheel, false);
             trayElement.removeEventListener("DOMMouseScroll", this.onWheel, false);
