@@ -8,7 +8,7 @@ A simple slider/carousel using css style [scroll-snap](https://developer.mozilla
 
 Works natively on touchable devices
 
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/viclafouch/mui-tel-input/blob/master/LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/karanokara/react-scroll-snap-anime-slider/blob/master/LICENSE)
 ![ts](https://badgen.net/badge/Built%20With/TypeScript/blue)
 [![npm](https://img.shields.io/npm/v/react-scroll-snap-anime-slider)](https://www.npmjs.com/package/react-scroll-snap-anime-slider)
 
