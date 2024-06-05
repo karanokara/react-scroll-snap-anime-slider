@@ -107,7 +107,7 @@ export class Slider extends Component<IProps, IState> {
         // this.stopAnimeActions();
         // this.stopTracking(null as any);
         this.stopTrackingActions();
-    }
+    };
 
     /**
      * When start tracking mouse action
@@ -115,8 +115,12 @@ export class Slider extends Component<IProps, IState> {
      */
     startTracking = (evt: MouseEvent) => {
         // console.log("start tracking", evt);
-        let scrollMax = this.getScrollMax();
 
+        // prevent mouse down on link to stop mouse moving
+        // new browser need to handle this
+        evt.preventDefault();
+
+        let scrollMax = this.getScrollMax();
         this.stopTrackingActions();
         this.stopAnimeActions();
 
