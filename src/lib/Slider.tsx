@@ -628,16 +628,6 @@ export class Slider extends Component<IProps, IState> {
                     ref={this.sliderTrayRef}
                     onClickCapture={this.handleOnClickCapture.bind(this)}
                 >
-                    {/* Context uses reference identity to determine when to re-render, this will cause consumer to re-render every time */}
-                    {/* <SliderContext.Provider
-                        value={{
-                            ...this.context,
-                            slideCount,
-
-                        }}
-                    >
-                    </SliderContext.Provider> */}
-
                     {children}
                 </div>
             </div>

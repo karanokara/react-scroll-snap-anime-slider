@@ -7,8 +7,11 @@
 }
 
 .slider-tray {
+    -ms-overflow-style: none; /* IE 10+ */
+    scrollbar-width: none; /* Firefox */
 }
 
+/* Chrome, Edge, Safari */
 .slider-tray::-webkit-scrollbar {
     display: none;
 }
@@ -16,7 +19,6 @@
 .slider-tray.css-only {
     display: flex;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
 
     // set padding on container for elements have the same spacing requirements
     // scroll-padding: 2rem;
