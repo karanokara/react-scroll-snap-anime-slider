@@ -1,12 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES5",
-    "module": "ES2015",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "target": "es2017",
+    "module": "node16",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "outDir": "./dist",
     "allowJs": true,
     "skipLibCheck": true,
@@ -15,7 +11,7 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -30,12 +26,6 @@
     // "react", this will use React.createElement()
     // "react-jsx", this will use _jsx("div", { children: "text..." })
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "./src/**/*",
-    "./index.d.ts",
-    "./tests/**/*"
-  ]
+  "exclude": ["node_modules"],
+  "include": ["./src/**/*", "./index.d.ts", "./tests/**/*"]
 }

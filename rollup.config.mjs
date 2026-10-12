@@ -2,13 +2,13 @@ import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import terser from '@rollup/plugin-terser';
 import external from "rollup-plugin-peer-deps-external";
-import css from "rollup-plugin-import-css";
-import scss from 'rollup-plugin-scss';
+// import css from "rollup-plugin-import-css";
+// import scss from 'rollup-plugin-scss';
 import postcss from 'rollup-plugin-postcss';
 // import resolve from "@rollup/plugin-node-resolve";
 // import json from '@rollup/plugin-json';
 // import dts from "rollup-plugin-dts";
-import packageJson from "./package.json" assert { type: 'json' };
+import packageJson from "./package.json" with { type: 'json' };
 
 /**
  * Using rollup: ES module bundler

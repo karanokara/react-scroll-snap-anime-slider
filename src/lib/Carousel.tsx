@@ -1,7 +1,7 @@
 import React from "react";
 import { CarouselContext, DefaultCarouselContextProps, DefaultCarouselProps, ICarouselContextProps, ICarouselProps } from "./CarouselContext";
 import { IDefaultCarouselProps as DP, IProps as P } from "./Types";
-import { cn, deepCompare } from "./Utility";
+import { cn, } from "./Utility";
 import { ss } from "./Styles";
 
 export interface IProps extends P, ICarouselProps, React.HTMLAttributes<HTMLDivElement> {

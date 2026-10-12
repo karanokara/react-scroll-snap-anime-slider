@@ -3,16 +3,13 @@
   "extends": "@tsconfig/docusaurus/tsconfig.json",
   "compilerOptions": {
     "resolveJsonModule": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "module": "node16", // Forces CommonJS
+    "moduleResolution": "node16", // `node16` allows the `import()`
+    "allowJs": true,
+    "jsx": "react",
+    "ignoreDeprecations": "6.0"
   },
-  "module": "CommonJS", // Forces CommonJS
-  "moduleResolution": "node16", // `node16` allows the `import()`
-  "allowJs": true,
-  "jsx": "react",
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "./src/**/*",
-  ]
+  "exclude": ["node_modules"],
+  "include": ["./src/**/*"]
 }
