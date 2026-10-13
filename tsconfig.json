@@ -18,7 +18,7 @@
     "declaration": true,
     // "declarationDir": "types",
     // Where to place the .d.ts files
-    "sourceMap": true,
+    "sourceMap": false,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "removeComments": false,
